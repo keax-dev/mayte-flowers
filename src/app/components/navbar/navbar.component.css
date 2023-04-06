@@ -1,0 +1,106 @@
+.color-green {
+  color: rgb(136, 176, 106);
+}
+
+.hover-logo {
+  cursor: pointer;
+}
+
+.hover-logo img {
+  max-height: 50px;
+  transition: 0.5s;
+}
+
+.hover-logo span {
+  max-height: 50px;
+  transition: 0.5s;
+}
+
+.hover-logo:hover img {
+  max-height: 60px;
+  transition: 0.5s;
+}
+
+.hover-logo:hover span {
+  font-size: 25px !important;
+  transition: 0.5s;
+  color:  rgb(97, 161, 48);
+}
+
+.btn-0 {
+  position: relative;
+  display: block;
+  background-color: transparent;
+  overflow: hidden;
+  transition: all 5000ms ease;
+  z-index: 0;
+  transition: 1.2s;
+  color:  gray;
+}
+.btn-0::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  background-color:  rgb(97, 161, 48);
+  transition: all 500ms ease;
+  z-index: -1;
+}
+
+.btn--4::before {
+  left: -300px;
+  right: 0;
+  width: 100%;
+  height: 150%;
+  transition: all 1000ms ease;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px white, 0 0 20px white, 0 0 20px white;
+}
+
+.btn--4:hover::before {
+  left: 300px;
+}
+
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0 white;
+  }
+  100% {
+    box-shadow: 0 0 8px 16px white
+  }
+}
+
+.btn--1::before {
+  width: 0;
+  height: 100%;
+}
+
+.btn--1:hover {
+  color: white;
+  transition: .8s;
+}
+
+.btn--1:hover::before {
+  width: 100%;
+}
+
+.name-company {
+  font-size: 90px;
+  background: linear-gradient(#1497be, #1c2aec);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  animation: text 5s linear infinite;
+}
+
+@keyframes text {
+  0% {
+      filter: hue-rotate(0deg);
+  }
+  100% {
+      filter: hue-rotate(360deg);
+  }
+}
