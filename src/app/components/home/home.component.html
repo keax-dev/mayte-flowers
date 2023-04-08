@@ -1,22 +1,22 @@
 <main class="main-content row justify-content-center align-items-center m-0">
   <section class="col text-center d-flex justify-content-center align-items-center flex-column position-relative">
     <img src="/assets/logo.jpg"  class="mb-4 rounded-circle img-logo shadow-lg mb-3 animate__pulse animate__animated animate__slower animate__infinite">
-    <p class="efect-maquina text-light fw-bolder fs-4 letters-efect">Producers and marketers of different varieties of flowers</p>
-    <p class="font-monospace text-light fw-bolder fs-4 letters-efect efect-maquina2">Opening at 8:00 AM</p>
-    <ul class="p-0 animate__backInUp animate__animated">
+    <p class="efect-maquina font-monospace text-light fw-bolder fs-4 letters-efect">Producers and marketers of different varieties of flowers</p>
+    <p class="font-monospace text-light fw-bolder fs-4 letters-efect">Opening at 8:00 AM</p>
+    <ul class="p-0 animate__backInUp animate__animated d-flex justify-content-center align-items-center">
       <li>
         <a href="#">
-          <i class="fa-brands fa-instagram icon"></i></a>
+          <i class="fa-brands fa-instagram icon text-light"></i></a>
       </li>
       <li>
-        <a href="#"><i class="fa-brands fa-whatsapp icon"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=593980086342&text=" target="_blank"><i class="fa-brands fa-whatsapp icon text-light"></i></a>
       </li>
       <li>
-        <a href="#"><i class="fa-solid fa-phone icon"></i></a></li>
+        <a href="tel:+593-98-008-6342" target="_blank"><i class="fa-solid fa-phone icon text-light"></i></a></li>
       <li>
-        <a href="#"><i class="fa-sharp fa-solid fa-location-dot icon"></i></a></li>
+        <a href="https://www.google.com/maps/dir//MAYTE+FLOWERS/data=!4m8!4m7!1m0!1m5!1m1!1s0x91d5f5080a969315:0xfbb8e0c97453307d!2m2!1d-78.28539169999999!2d-0.0454457" target="_blank"><i class="fa-sharp fa-solid fa-location-dot icon text-light"></i></a></li>
     </ul>
-    <button class="btn btn-success px-5 font-monospace">CONTACT US</button>
+    <button (click)="openFormContact()" class="btn btn-success px-5 font-monospace">CONTACT US</button>
   </section>
 </main>
 

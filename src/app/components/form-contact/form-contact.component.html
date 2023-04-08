@@ -1,0 +1,21 @@
+<form [formGroup]="formContact" class="d-flex justify-content-center align-items-center p-4 flex-column">
+  <p class="display-6 text-start font-monospace p-0 m-0">CONTACT US </p>
+  <mat-divider class="w-100 mb-3 mt-2 bg-dark"></mat-divider>
+  <mat-form-field appearance="outline" class="w-100 m-1">
+    <mat-label>EMAIL</mat-label>
+    <input matInput formControlName="email" required>
+    <mat-error *ngIf="this.formContact.controls['email'].hasError('email')">Invalid email format</mat-error>
+    <mat-error *ngIf="this.formContact.controls['email'].hasError('required')">Email is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 m-1">
+    <mat-label>MESSAGE:</mat-label>
+    <textarea formControlName="message" matInput oninput="this.value = this.value.toUpperCase()"></textarea>
+    <mat-error *ngIf="this.formContact.controls['message'].hasError('required')">Message is required</mat-error>
+  </mat-form-field>
+  <mat-divider class="w-100 mb-4 bg-dark"></mat-divider>
+  <div class="w-100 d-flex justify-content-around align-items-center contenedor">
+    <button (click)="close()" type="button" class="btn_0 btn-04 btn lead">Cancel</button>
+    <button type="submit" class="btn_0 btn-3 btn lead">Send</button>
+  </div>
+</form>

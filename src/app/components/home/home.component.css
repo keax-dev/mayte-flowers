@@ -1,27 +1,32 @@
-.main-content{
+.main-content {
   height: calc(100vh - 70px);
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,0.4) 25%, rgba(0,0,0,0.4) 75%), url('/assets/carrousel-3.jpg');
-  background-position:top;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 25%,
+      rgba(0, 0, 0, 0.4) 75%
+    ),
+    url("/assets/carrousel-3.jpg");
+  background-position: top;
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
 
-.img-logo{
+.img-logo {
   width: 25%;
   max-width: 250px;
-  transition: .5s;
+  transition: 0.5s;
   cursor: pointer;
 }
 
-.img-logo:hover{
+.img-logo:hover {
   width: 35%;
   max-width: 300px;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-.letters-efect{
-  transition: .5s;
+.letters-efect {
+  transition: 0.5s;
   cursor: pointer;
 }
 
@@ -46,28 +51,29 @@ ul li a {
   border-radius: 50%;
   position: relative;
   overflow: hidden;
-  border: 1px solid gray;
+  border: 2px solid white;
   z-index: 1;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-ul li a:hover{
+ul li a:hover {
   width: 60px;
   height: 60px;
   line-height: 60px;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 ul li a .icon {
   position: relative;
   color: #262626;
-  transition: .5s;
+  transition: 0.5s;
   z-index: 3;
 }
 
 ul li a:hover .icon {
   color: #fff;
   transform: rotateY(360deg);
+  transition: transform 1s;
 }
 
 ul li a:before {
@@ -77,8 +83,7 @@ ul li a:before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #f00;
-  transition: .5s;
+  transition: 0.5s;
   z-index: 2;
 }
 
@@ -86,52 +91,54 @@ ul li a:hover:before {
   top: 0;
 }
 
-ul li:nth-child(1) a:before{
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+ul li:nth-child(1) a {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
 }
 
-ul li:nth-child(2) a:before{
+ul li:nth-child(2) a {
   background: green;
 }
 
-ul li:nth-child(3) a:before {
+ul li:nth-child(3) a {
   background: black;
 }
 
-ul li:nth-child(4) a:before {
+ul li:nth-child(4) a {
   background: gray;
 }
 
-.efect-maquina{
-  display: block;
-  font-family: monospace;
-  white-space: nowrap;
-  border-right: 4px solid;
-  width: 60ch;
-  animation: typing 4s steps(60), blink .5s infinite step-end alternate;
-  overflow: hidden;
-}
-
-.efect-maquina2{
-  display: block;
-  font-family: monospace;
-  white-space: nowrap;
-  border-right: 4px solid;
-  width: 20ch;
-  animation: typing 1s steps(20), blink .5s infinite step-end alternate;
-  overflow: hidden;
+@media (min-width: 800px) {
+  .efect-maquina {
+    display: block;
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: 4px solid;
+    width: 60ch;
+    animation: typing 4s steps(60), blink 0.5s infinite step-end alternate;
+    overflow: hidden;
+  }
+  .letters-efect:hover {
+    font-size: 30px !important;
+    transition: 0.5s;
+  }
 }
 
 @keyframes typing {
-  from {width: 0}
+  from {
+    width: 0;
+  }
 }
 
 @keyframes blink {
-  50% {border-color: transparent;}
-}
-
-.letters-efect:hover{
-  font-size: 30px !important;
-  transition: .5s;
+  50% {
+    border-color: transparent;
+  }
 }
 
