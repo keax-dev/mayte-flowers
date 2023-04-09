@@ -1,4 +1,4 @@
-.contenedor{
+.contenedor_2{
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
@@ -9,7 +9,7 @@
 .btn_0{
   position: relative;
   text-decoration: none;
-  color: black;
+  color: white;
   letter-spacing: 7px;
   text-indent: 10px;
   z-index: 2;
@@ -40,13 +40,13 @@
   left: 0;
   top: 0;
   transform: skew(20deg, 0deg);
-  border: 1px solid #03cc57;
+  border: 1px solid gray;
+  background-color: #00ff6a;
   transition: all 0.4s ease;
   z-index: -1;
 }
 
 .btn-3:hover::after{
-  background-color: black;
   transform: skew(20deg, 0deg) translateX(1100%);
   top: -2px;
 }
@@ -87,7 +87,8 @@
   left: 0;
   top: 0;
   transform: skew(20deg, 0deg);
-  border: 1px solid red;
+  border: 1px solid gray;
+  background-color: red;
   transition: all 0.4s ease;
   z-index: -1;
 }
