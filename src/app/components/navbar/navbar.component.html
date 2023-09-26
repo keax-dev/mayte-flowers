@@ -2,7 +2,7 @@
   <div class="container-fluid py-2">
     <div class="d-flex justify-content-center align-items-center mx-3 hover-logo btn-0 btn--4">
       <img src="/assets/logo.jpg"  class="mx-1 rounded-circle">
-      <span class="fw-bolder fs-5 color-green name-company">MAYTE FLOWERS</span>
+      <span class="fw-bolder fs-5 color-green name-company">ALX Gardens</span>
     </div>
     <button (click)="op=!op" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <mat-icon>{{ op ? 'menu' : 'close' }}</mat-icon>
@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item mx-2">
-          <button class="btn btn_0 w-100">
-            Update
+          <button routerLink="/home" class="btn btn_0 w-100">
+            Home
           </button>
         </li>
         <li class="nav-item mx-2">
@@ -19,7 +19,7 @@
             About us
           </button>
         </li>
-        <li class="nav-item mx-2 dropdown">
+        <li routerLink="/gallery" class="nav-item mx-2 dropdown">
           <button class="btn btn_0 w-100">
             Gallery
           </button>
