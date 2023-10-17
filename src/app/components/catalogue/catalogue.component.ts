@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogueComponent implements OnInit {
 
+  categories: any[] = [
+    { name: 'ROSES', url: '/assets/catalogue/roses.jpg' },
+    { name: 'HYMPERICUM', url: '' },
+    { name: 'CRYSANTEMUS', url: '' }
+  ];
+
   constructor() { }
 
   ngOnInit() {

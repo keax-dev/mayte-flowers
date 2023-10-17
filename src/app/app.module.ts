@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
+import { CatalogueDetailsComponent } from './components/catalogue-details/catalogue-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CatalogueComponent } from './components/catalogue/catalogue.component';
     NavbarComponent,
     HomeComponent,
     FormContactComponent,
-    CatalogueComponent
+    CatalogueComponent,
+    CatalogueDetailsComponent
   ],
   imports: [
     BrowserModule,
