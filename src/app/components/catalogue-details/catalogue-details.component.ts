@@ -15,26 +15,7 @@ export class CatalogueDetailsComponent implements OnInit {
   ngOnInit() {
     switch (this.route.snapshot.params['id']) {
       case 'roses':
-        this.data = [
-          'Brighton.png',
-          'High-Magic-B.jpg',
-          'Tibet_White_SingleSt_X.jpg',
-          'rose-cream-sahara-3.jpg',
-          'Checkmate-macro.jpg',
-          'High-Orange-Magic-B.jpg',
-          'explorer.jpg',
-          'topaz_top.png',
-          'FREEDOM.jpg',
-          'Iguana_Bicolor_Single_X-1.jpg',
-          'mandala-abierto.jpg',
-          'vendela.jpg',
-          'Gotcha-B.jpg',
-          'Pink-Mondial-B.jpg',
-          'mondial.jpg',
-          'Hermosa_Aerial_View.jpg',
-          'Tara-B.jpg',
-          'pinkfloyd-rose-skyroses.jpg',
-        ].map((imageName): any => ({
+        this.data = ['explorer.jpg', 'Checkmate-macro.jpg', 'FREEDOM.jpg', 'Iguana_Bicolor_Single_X-1.jpg', 'High-Magic-B.jpg', 'High-Orange-Magic-B.jpg', 'pinkfloyd-rose-skyroses.jpg', 'Gotcha-B.jpg', 'topaz_top.png', 'Hermosa_Aerial_View.jpg', 'mandala-abierto.jpg', 'Pink-Mondial-B.jpg', 'rose-cream-sahara-3.jpg', 'Brighton.png', 'Tara-B.jpg', 'Tibet_White_SingleSt_X.jpg', 'mondial.jpg', 'vendela.jpg'].map((imageName): any => ({
           name: imageName.replace(/[-_]/g, ' ').replace(/\.(png|jpg)/, '').toUpperCase(),
           url: `/assets/roses/${imageName}`,
         }));

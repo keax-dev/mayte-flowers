@@ -1,7 +1,7 @@
 <main class="main-content row justify-content-center align-items-center m-0">
-  <section class="col text-center d-flex justify-content-center align-items-stretch flex-wrap">
+  <section class="col text-center d-flex justify-content-center align-items-start flex-wrap">
     <div *ngFor="let product of data" class="card m-3" style="width: 18rem;">
-      <img [src]="product.url" class="card-img-top p-2" alt="...">
+      <img [src]="product.url" class="card-img-top p-2" [alt]="product.name">
       <div class="card-body pt-1">
         <h2 class="m-0 text-dark fw-bolder">{{ product.name }}</h2>
         <button class="button btn px-4 py-2 lead btn-success w-75">
