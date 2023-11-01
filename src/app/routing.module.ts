@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { CatalogueDetailsComponent } from './components/catalogue-details/catalogue-details.component';
+import { CatalogueDescriptionComponent } from './components/catalogue-description/catalogue-description.component';
 
 const routes: Routes = [
 
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'gallery', component: CatalogueComponent },
   { path: 'gallery/:id', component: CatalogueDetailsComponent },
+  { path: 'gallery/:id/:product', component: CatalogueDescriptionComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 
 ];
