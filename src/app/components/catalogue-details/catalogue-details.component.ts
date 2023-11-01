@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalogue-details',
@@ -9,21 +9,27 @@ import { ActivatedRoute } from '@angular/router';
 export class CatalogueDetailsComponent implements OnInit {
 
   data!: any[];
+  category: any = this.route.snapshot.params['id'];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router) {
+
+  }
 
   ngOnInit() {
-    switch (this.route.snapshot.params['id']) {
+    switch (this.category) {
       case 'roses':
-        this.data = ['explorer.jpg', 'Checkmate-macro.jpg', 'FREEDOM.jpg', 'Iguana_Bicolor_Single_X-1.jpg', 'High-Magic-B.jpg', 'High-Orange-Magic-B.jpg', 'pinkfloyd-rose-skyroses.jpg', 'Gotcha-B.jpg', 'topaz_top.png', 'Hermosa_Aerial_View.jpg', 'mandala-abierto.jpg', 'Pink-Mondial-B.jpg', 'rose-cream-sahara-3.jpg', 'Brighton.png', 'Tara-B.jpg', 'Tibet_White_SingleSt_X.jpg', 'mondial.jpg', 'vendela.jpg'].map((imageName): any => ({
-          name: imageName.replace(/[-_]/g, ' ').replace(/\.(png|jpg)/, '').toUpperCase(),
-          url: `/assets/roses/${imageName}`,
-        }));
+        this.data = [{"name":"EXPLORER ROSE","url":"/assets/roses/explorer.jpg"},{"name":"CHECKMATE ROSE","url":"/assets/roses/Checkmate-macro.jpg"},{"name":"FREEDOM ROSE","url":"/assets/roses/FREEDOM.jpg"},{"name":"IGUANA ROSE","url":"/assets/roses/Iguana_Bicolor_Single_X-1.jpg"},{"name":"HIGH MAGIC ROSE","url":"/assets/roses/High-Magic-B.jpg"},{"name":"HIGH ORANGE MAGIC ROSE","url":"/assets/roses/High-Orange-Magic-B.jpg"},{"name":"PINKFLOYD ROSE","url":"/assets/roses/pinkfloyd-rose-skyroses.jpg"},{"name":"GOTCHA ROSE","url":"/assets/roses/Gotcha-B.jpg"},{"name":"TOPAZ ROSE","url":"/assets/roses/topaz_top.png"},{"name":"HERMOSA ROSE","url":"/assets/roses/Hermosa_Aerial_View.jpg"},{"name":"MANDALA ROSE","url":"/assets/roses/mandala-abierto.jpg"},{"name":"PINK MONDIAL ROSE","url":"/assets/roses/Pink-Mondial-B.jpg"},{"name":"SAHARA ROSE","url":"/assets/roses/rose-cream-sahara-3.jpg"},{"name":"BRIGHTON ROSE","url":"/assets/roses/Brighton.png"},{"name":"TARA ROSE","url":"/assets/roses/Tara-B.jpg"},{"name":"TIBET ROSE","url":"/assets/roses/Tibet_White_SingleSt_X.jpg"},{"name":"MONDIAL ROSE","url":"/assets/roses/mondial.jpg"},{"name":"VENDELA ROSE","url":"/assets/roses/vendela.jpg"}];
         break;
 
       default:
         break;
     }
+  }
+
+  redirect(name: string) {
+    const url = '/gallery/' + this.category + '/' + name.replace(/ /g, '_').toLowerCase();
+    this.router.navigateByUrl(url);
   }
 
 }
