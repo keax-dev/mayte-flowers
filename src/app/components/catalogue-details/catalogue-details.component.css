@@ -126,3 +126,13 @@ h2,
   width: 275px !important;
   height: 275px !important;
 }
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.w-all{
+  width: 100% !important;
+}

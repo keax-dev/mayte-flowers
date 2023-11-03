@@ -1,9 +1,9 @@
 <main class="main-content row justify-content-center align-items-center m-0">
-  <section class="col text-center d-flex justify-content-center align-items-start flex-wrap mt-4">
+  <section class="col text-center d-flex justify-content-center align-items-start flex-wrap my-5">
     <div *ngFor="let product of data" class="card m-3" style="width: 18rem;">
-      <img [src]="product.url" class="card-img-top p-2" [alt]="product.name">
+      <img [src]="product.url" class="card-img-top w-all p-2" [alt]="product.name">
       <div class="card-body pt-1">
-        <h2 class="m-0 text-dark fw-bolder">{{ product.name }}</h2>
+        <h2 class="m-0 text-dark fw-bolder truncate-text">{{ product.name }}</h2>
         <button (click)="redirect(product.name)" class="button btn px-4 py-2 lead btn-success w-75">
           DETAILS
           <span></span>

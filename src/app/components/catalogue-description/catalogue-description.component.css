@@ -1,0 +1,29 @@
+.main-content {
+  min-height: calc(100vh - 70px);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 25%,
+      rgba(0, 0, 0, 0.4) 75%
+    ),
+    url("/assets/carrousel-1.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card {
+  box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+  -webkit-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+  -moz-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+}
+
+@media (max-width: 550px) {
+  .flex-550 {
+    flex-direction: column !important;
+  }
+
+  .column-reverse {
+    flex-direction: column-reverse !important;
+  }
+}

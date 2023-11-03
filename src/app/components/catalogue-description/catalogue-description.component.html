@@ -1,1 +1,45 @@
-<p>catalogue-description works!</p>
+<main class="main-content row justify-content-center align-items-center m-0">
+  <div class="card w-75 py-3 my-5">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="product.url" class="img-fluid p-3" [alt]="product.url">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title display-1 fs-1 mt-3 lead">{{ name }}</h5>
+          <mat-divider class="mb-3 mt-4"></mat-divider>
+          <p class="fs-6 m-0 p-0">{{ product.description }}</p>
+          <mat-divider class="mb-3 mt-4"></mat-divider>
+          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+            <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
+              <img src="/assets/catalogue/color.png" alt="Color">
+               <p class="mt-2 fs-3 fw-bolder">Color</p>
+            </div>
+            <p class="display-6">{{ product.color }}</p>
+          </div>
+          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+            <p class="display-6">{{ product.head }}</p>
+            <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
+              <img src="/assets/catalogue/head.png" alt="Color">
+               <p class="mt-2 fs-3 fw-bolder">Head Size</p>
+            </div>
+          </div>
+          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+            <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
+              <img src="/assets/catalogue/length.png" alt="Color">
+               <p class="mt-2 fs-3 fw-bolder">Stem Length</p>
+            </div>
+            <p class="display-6">{{ product.length }}</p>
+          </div>
+          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+            <p class="display-6">{{ product.life }}</p>
+            <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
+              <img src="/assets/catalogue/life.png" alt="Color">
+               <p class="mt-2 fs-3 fw-bolder">Product Vase Life</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
