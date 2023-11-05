@@ -10,18 +10,15 @@ import { FormContactComponent } from '../form-contact/form-contact.component';
 export class HomeComponent {
 
 
-  constructor(public dialog: MatDialog) {
-
-  }
+  constructor(public dialog: MatDialog) { }
 
   openFormContact() {
     const dialogRef = this.dialog.open(FormContactComponent, {
-      // height: '',
-      // minHeight: '400px',
-      width: '40%',
-      minWidth: '300px'
+      height: "auto",
+      maxHeight: '90vh',
+      minWidth: '300px',
+      width: '30%'
     });
-
     dialogRef.afterClosed().subscribe(
       result => {
         if (result) {
@@ -30,4 +27,5 @@ export class HomeComponent {
       }
     );
   }
+
 }
