@@ -21,12 +21,12 @@ export class CatalogueDetailsComponent implements OnInit {
         break;
       case 'gypsophila':
         this.data = [
-          { name: "RAINBOW", url: "/assets/gypsophila/RAINBOW.jpg/" },
+          { name: "RAINBOW", url: "/assets/gypsophila/RAINBOW.jpg" },
           { name: "XCELLENT", url: "/assets/gypsophila/XCELLENT.jpg" },
           { name: "DARK PINK ", url: "/assets/gypsophila/DARK_PINK.jpg" },
           { name: "PURPLE", url: "/assets/gypsophila/PURPLE.jpg" },
-          { name: "PURPLE", url: "/assets/gypsophila/PURPLE.jpg" },
-          { name: "YELOW", url: "/assets/gypsophila/YELOW.jpg" },
+          { name: "BLUE", url: "/assets/gypsophila/BLUE.jpg" },
+          { name: "YELLOW", url: "/assets/gypsophila/YELOW.jpg" },
           { name: "RED", url: "/assets/gypsophila/RED.jpg" },
           { name: "GREEN", url: "/assets/gypsophila/GREEN.jpg" }
         ];

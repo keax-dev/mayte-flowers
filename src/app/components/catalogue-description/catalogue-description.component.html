@@ -6,32 +6,32 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title display-1 fs-1 mt-3 lead">{{ name }}</h5>
+          <h5 class="card-title display-1 fs-1 mt-3 lead fw-bolder">{{ name }}</h5>
           <mat-divider class="mb-3 mt-4"></mat-divider>
           <p class="fs-6 m-0 p-0">{{ product.description }}</p>
-          <mat-divider class="mb-3 mt-4"></mat-divider>
-          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+          <mat-divider *ngIf="show" class="mb-3 mt-4"></mat-divider>
+          <div *ngIf="show" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/color.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Color</p>
             </div>
             <p class="display-6">{{ product.color }}</p>
           </div>
-          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+          <div *ngIf="show" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
             <p class="display-6">{{ product.head }}</p>
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/head.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Head Size</p>
             </div>
           </div>
-          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+          <div *ngIf="show" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/length.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Stem Length</p>
             </div>
             <p class="display-6">{{ product.length }}</p>
           </div>
-          <div class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+          <div *ngIf="show" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
             <p class="display-6">{{ product.life }}</p>
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/life.png" alt="Color">

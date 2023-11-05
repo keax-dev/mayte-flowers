@@ -27,14 +27,26 @@ export class CatalogueDescriptionComponent implements OnInit {
     tara_rose: { "url": "/assets/roses/Tara-B.jpg", description: "Tara roses are a cheerful yellow variety, radiating joy, happiness, and a sense of well-being. They symbolize the sunny and positive aspects of life, making them perfect for uplifting and celebratory occasions.", color: "Yellow", head: "5.7-6.2 cm", length: "50/60/70 cm", life: "14+" },
     tibet_rose: { "url": "/assets/roses/Tibet_White_SingleSt_X.jpg", description: "The Tibet rose is a delicate and pure white variety, symbolizing purity and tranquility. Its pristine, snow-like appearance evokes a sense of serenity, making it a popular choice for moments of calm reflection and remembrance.", color: "White", head: "6-6.4 cm", length: "40/50/60 cm", life: "14+" },
     mondial_rose: { "url": "/assets/roses/mondial.jpg", description: "Mondial roses are classic, elegant white roses, symbolizing purity, innocence, and everlasting love. Their pristine appearance makes them a timeless choice for weddings and romantic occasions.", color: "White", head: "6.4-7.3 cm", length: "50/60/70/80 cm", life: "14+" },
-    vendela_rose: { "url": "/assets/roses/vendela.jpg", description: "Vendela roses are classic, with pale ivory or light pink petals that symbolize charm, grace, and timeless elegance. Their gentle color and appearance are perfect for expressing appreciation and admiration.", color: "Cream", head: "5.7-6 cm", length: "40/50/60 cm", life: "14+" }
+    vendela_rose: { "url": "/assets/roses/vendela.jpg", description: "Vendela roses are classic, with pale ivory or light pink petals that symbolize charm, grace, and timeless elegance. Their gentle color and appearance are perfect for expressing appreciation and admiration.", color: "Cream", head: "5.7-6 cm", length: "40/50/60 cm", life: "14+" },
+    rainbow: { url: "/assets/gypsophila/RAINBOW.jpg", description: "Our Gypsophila Rainbow Mix offers a burst of vibrant hues. This enchanting blend showcases a medley of red, yellow, green, purple, and more, creating a colorful spectacle in every arrangement. Perfect for infusing joy and elegance into your floral designs, this mix is the ultimate choice for all occasions." },
+    xcellent: { url: "/assets/gypsophila/XCELLENT.jpg", description: "" },
+    dark_pink_: { url: "/assets/gypsophila/DARK_PINK.jpg", description: "Embrace the grace and beauty of pink Gypsophila in your floral arrangements. These gentle pink blooms add a touch of elegance to your bouquets and centerpieces, making them a delightful choice for any occasion." },
+    purple: { url: "/assets/gypsophila/PURPLE.jpg", description: "Add a touch of regal elegance to your floral arrangements with purple Gypsophila, these delicate purple blooms bring a touch of sophistication to your bouquets and centerpieces, making them a captivating choice for all occasions." },
+    blue: { url: "/assets/gypsophila/BLUE.jpg", description: "Transform your floral creations with the whimsical allure of blue Gypsophila, this delicate bloom adds a touch of enchantment to any arrangement, making it a charming choice for all your floral needs." },
+    yellow: { url: "/assets/gypsophila/YELOW.jpg", description: "Brighten up your floral arrangements with the cheerful radiance of yellow Gypsophila, these delicate blooms bring a touch of sunshine to your bouquets and centerpieces, making them a delightful choice for all occasions." },
+    red: { url: "/assets/gypsophila/RED.jpg", description: "Elevate your floral arrangements with the elegance and vibrancy of red Gypsophila, this delicate bloom adds a pop of color and sophistication to your bouquets and centerpieces, making it a captivating choice for all occasions." },
+    green: { url: "/assets/gypsophila/GREEN.jpg ", description: "Embrace the soothing beauty of green Gypsophila, these delicate green blooms infuse a natural, serene elegance into your floral arrangements, making them a refreshing choice for any occasion." },
   };
 
   product: any = {};
   name: any = this.route.snapshot.params['product'];
+  category: any = this.route.snapshot.params['id'];
+  show: boolean = false;
 
   constructor(private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+    this.show = this.category === 'roses';
+  }
 
   ngOnInit(): void {
     this.product = this.products[this.name];
