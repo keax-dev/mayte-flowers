@@ -11,34 +11,28 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 .img-logo {
   width: 25%;
   max-width: 250px;
   transition: 0.5s;
   cursor: pointer;
 }
-
 .img-logo:hover {
   width: 35%;
   max-width: 300px;
   transition: 0.5s;
 }
-
 .letters-efect {
   transition: 0.5s;
   cursor: pointer;
 }
-
 ul {
   display: flex;
   position: relative;
 }
-
 ul li {
   list-style: none;
 }
-
 ul li a {
   width: 50px;
   height: 50px;
@@ -55,27 +49,23 @@ ul li a {
   z-index: 1;
   transition: 0.5s;
 }
-
 ul li a:hover {
   width: 60px;
   height: 60px;
   line-height: 60px;
   transition: 0.5s;
 }
-
 ul li a .icon {
   position: relative;
   color: #262626;
   transition: 0.5s;
   z-index: 3;
 }
-
 ul li a:hover .icon {
   color: #fff;
   transform: rotateY(360deg);
   transition: transform 1s;
 }
-
 ul li a:before {
   content: "";
   position: absolute;
@@ -86,11 +76,9 @@ ul li a:before {
   transition: 0.5s;
   z-index: 2;
 }
-
 ul li a:hover:before {
   top: 0;
 }
-
 ul li:nth-child(1) a {
   background: radial-gradient(
     circle at 30% 107%,
@@ -101,19 +89,15 @@ ul li:nth-child(1) a {
     #285aeb 90%
   );
 }
-
 ul li:nth-child(2) a {
   background: green;
 }
-
 ul li:nth-child(3) a {
   background: black;
 }
-
 ul li:nth-child(4) a {
   background: gray;
 }
-
 @media (min-width: 800px) {
   .efect-maquina {
     display: block;
@@ -129,19 +113,16 @@ ul li:nth-child(4) a {
     transition: 0.5s;
   }
 }
-
 @keyframes typing {
   from {
     width: 0;
   }
 }
-
 @keyframes blink {
   50% {
     border-color: transparent;
   }
 }
-
 .wrapper {
   position: relative;
   width: fit-content;
@@ -172,7 +153,6 @@ ul li:nth-child(4) a {
   animation: span1 2s linear infinite;
   animation-delay: 1s;
 }
-
 @keyframes span1 {
   0% {
     left: -200px;
@@ -219,7 +199,6 @@ ul li:nth-child(4) a {
     right: 200px;
   }
 }
-
 .button span:nth-child(4) {
   height: 70px;
   width: 3px;
@@ -239,7 +218,6 @@ ul li:nth-child(4) a {
     bottom: 70px;
   }
 }
-
 .button:hover {
   transition: all 0.5s;
   transform: rotate(-3deg) scale(1.3);

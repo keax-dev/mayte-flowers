@@ -7,4 +7,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: rgb(136, 176, 106);
 }
 
-
+.card {
+  box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+  -webkit-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+  -moz-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
+}

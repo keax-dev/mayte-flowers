@@ -1,36 +1,29 @@
-.navbar{
+.navbar {
   min-height: 70px;
 }
-
 .color-green {
   color: rgb(136, 176, 106);
 }
-
 .hover-logo {
   cursor: pointer;
 }
-
 .hover-logo img {
   max-height: 50px;
   transition: 0.5s;
 }
-
 .hover-logo span {
   max-height: 50px;
   transition: 0.5s;
 }
-
 .hover-logo:hover img {
   max-height: 60px;
   transition: 0.5s;
 }
-
 .hover-logo:hover span {
   font-size: 25px !important;
   transition: 0.5s;
-  color:  rgb(97, 161, 48);
+  color: rgb(97, 161, 48);
 }
-
 .btn-0 {
   position: relative;
   display: block;
@@ -39,9 +32,8 @@
   transition: all 5000ms ease;
   z-index: 0;
   transition: 1.2s;
-  color:  gray;
+  color: gray;
 }
-
 .btn-0::before {
   content: "";
   position: absolute;
@@ -49,11 +41,10 @@
   right: 0;
   top: 0;
   margin: auto;
-  background-color:  rgb(97, 161, 48);
+  background-color: rgb(97, 161, 48);
   transition: all 500ms ease;
   z-index: -1;
 }
-
 .btn--4::before {
   left: -300px;
   right: 0;
@@ -63,34 +54,28 @@
   transform: rotate(45deg);
   box-shadow: 0 0 10px white, 0 0 20px white, 0 0 20px white;
 }
-
 .btn--4:hover::before {
   left: 300px;
 }
-
 @keyframes shadow-pulse {
   0% {
     box-shadow: 0 0 0 0 white;
   }
   100% {
-    box-shadow: 0 0 8px 16px white
+    box-shadow: 0 0 8px 16px white;
   }
 }
-
 .btn--1::before {
   width: 0;
   height: 100%;
 }
-
 .btn--1:hover {
   color: white;
-  transition: .8s;
+  transition: 0.8s;
 }
-
 .btn--1:hover::before {
   width: 100%;
 }
-
 .name-company {
   font-size: 90px;
   background: linear-gradient(#1497be, #1c2aec);
@@ -100,18 +85,14 @@
   -moz-background-clip: text;
   animation: text 5s linear infinite;
 }
-
 @keyframes text {
   0% {
-      filter: hue-rotate(0deg);
+    filter: hue-rotate(0deg);
   }
   100% {
-      filter: hue-rotate(360deg);
+    filter: hue-rotate(360deg);
   }
 }
-
-
-
 .btn_0 {
   cursor: pointer;
   position: relative;
@@ -119,12 +100,10 @@
   transition: 1s;
   color: rgb(97, 161, 48);
 }
-
-.btn_0:hover{
-  font-weight:500;
+.btn_0:hover {
+  font-weight: 500;
   font-size: 1.2rem;
 }
-
 .btn_0:after,
 .btn_0:before {
   content: " ";
@@ -134,29 +113,24 @@
   border: 0px solid #fff;
   transition: all 1s;
 }
-
 .btn_0:after {
   top: -1px;
   left: -1px;
   border-top: 1.5px solid rgb(97, 161, 48);
   border-left: 1.5px solid rgb(97, 161, 48);
 }
-
 .btn_0:before {
   bottom: -1px;
   right: -1px;
   border-bottom: 1.5px solid rgb(97, 161, 48);
   border-right: 1.5px solid rgb(97, 161, 48);
 }
-
 .btn_0:hover {
   border-top-right-radius: 0px;
   border-bottom-left-radius: 0px;
 }
-
 .btn_0:hover:before,
 .btn_0:hover:after {
   width: 100%;
   height: 100%;
 }
-

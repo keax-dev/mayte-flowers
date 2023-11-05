@@ -11,18 +11,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 h2,
 .btn {
   font-family: "Courier New", Courier, monospace;
 }
-
-.card {
-  box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
-  -webkit-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
-  -moz-box-shadow: -5px 9px 49px 22px rgba(211, 211, 211, 0.75);
-}
-
 .button {
   border-style: none;
   color: #fff;
