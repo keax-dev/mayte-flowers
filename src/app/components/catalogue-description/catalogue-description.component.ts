@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-catalogue-description',
@@ -29,38 +30,78 @@ export class CatalogueDescriptionComponent implements OnInit {
     mondial_rose: { "url": "/assets/roses/mondial.jpg", description: "Mondial roses are classic, elegant white roses, symbolizing purity, innocence, and everlasting love. Their pristine appearance makes them a timeless choice for weddings and romantic occasions.", color: "White", head: "6.4-7.3 cm", length: "50/60/70/80 cm", life: "14+" },
     vendela_rose: { "url": "/assets/roses/vendela.jpg", description: "Vendela roses are classic, with pale ivory or light pink petals that symbolize charm, grace, and timeless elegance. Their gentle color and appearance are perfect for expressing appreciation and admiration.", color: "Cream", head: "5.7-6 cm", length: "40/50/60 cm", life: "14+" },
 
-    rainbow: { url: "/assets/gypsophila/RAINBOW.jpg", description: "Our Gypsophila Rainbow Mix offers a burst of vibrant hues. This enchanting blend showcases a medley of red, yellow, green, purple, and more, creating a colorful spectacle in every arrangement. Perfect for infusing joy and elegance into your floral designs, this mix is the ultimate choice for all occasions.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    xcellent: { url: "/assets/gypsophila/XCELLENT.jpg", description: "Elevate your floral arrangements with our premium Gypsophila. Its delicate, cloud-like blooms make it the perfect choice for both filling and highlighting arrangements.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    dark_pink_: { url: "/assets/gypsophila/DARK_PINK.jpg", description: "Embrace the grace and beauty of pink Gypsophila in your floral arrangements. These gentle pink blooms add a touch of elegance to your bouquets and centerpieces, making them a delightful choice for any occasion.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    purple: { url: "/assets/gypsophila/PURPLE.jpg", description: "Add a touch of regal elegance to your floral arrangements with purple Gypsophila, these delicate purple blooms bring a touch of sophistication to your bouquets and centerpieces, making them a captivating choice for all occasions.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    blue: { url: "/assets/gypsophila/BLUE.jpg", description: "Transform your floral creations with the whimsical allure of blue Gypsophila, this delicate bloom adds a touch of enchantment to any arrangement, making it a charming choice for all your floral needs.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    yellow: { url: "/assets/gypsophila/YELOW.jpg", description: "Brighten up your floral arrangements with the cheerful radiance of yellow Gypsophila, these delicate blooms bring a touch of sunshine to your bouquets and centerpieces, making them a delightful choice for all occasions.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    red: { url: "/assets/gypsophila/RED.jpg", description: "Elevate your floral arrangements with the elegance and vibrancy of red Gypsophila, this delicate bloom adds a pop of color and sophistication to your bouquets and centerpieces, making it a captivating choice for all occasions.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
-    green: { url: "/assets/gypsophila/GREEN.jpg ", description: "Embrace the soothing beauty of green Gypsophila, these delicate green blooms infuse a natural, serene elegance into your floral arrangements, making them a refreshing choice for any occasion.",
-  color:"",head:"",length:"70/80cm",life:"15 days" },
+    rainbow: { url: "/assets/gypsophila/RAINBOW.jpg", description: "Our Gypsophila Rainbow Mix offers a burst of vibrant hues. This enchanting blend showcases a medley of red, yellow, green, purple, and more, creating a colorful spectacle in every arrangement. Perfect for infusing joy and elegance into your floral designs, this mix is the ultimate choice for all occasions.", color: "", head: "", length: "70/80cm", life: "15 days" },
+    xcellent: {
+      url: "/assets/gypsophila/XCELLENT.jpg", description: "Elevate your floral arrangements with our premium Gypsophila. Its delicate, cloud-like blooms make it the perfect choice for both filling and highlighting arrangements.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+    dark_pink_: { url: "/assets/gypsophila/DARK_PINK.jpg", description: "Embrace the grace and beauty of pink Gypsophila in your floral arrangements. These gentle pink blooms add a touch of elegance to your bouquets and centerpieces, making them a delightful choice for any occasion.", color: "", head: "", length: "70/80cm", life: "15 days" },
+    purple: {
+      url: "/assets/gypsophila/PURPLE.jpg", description: "Add a touch of regal elegance to your floral arrangements with purple Gypsophila, these delicate purple blooms bring a touch of sophistication to your bouquets and centerpieces, making them a captivating choice for all occasions.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+    blue: {
+      url: "/assets/gypsophila/BLUE.jpg", description: "Transform your floral creations with the whimsical allure of blue Gypsophila, this delicate bloom adds a touch of enchantment to any arrangement, making it a charming choice for all your floral needs.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+    yellow: {
+      url: "/assets/gypsophila/YELOW.jpg", description: "Brighten up your floral arrangements with the cheerful radiance of yellow Gypsophila, these delicate blooms bring a touch of sunshine to your bouquets and centerpieces, making them a delightful choice for all occasions.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+    red: {
+      url: "/assets/gypsophila/RED.jpg", description: "Elevate your floral arrangements with the elegance and vibrancy of red Gypsophila, this delicate bloom adds a pop of color and sophistication to your bouquets and centerpieces, making it a captivating choice for all occasions.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+    green: {
+      url: "/assets/gypsophila/GREEN.jpg ", description: "Embrace the soothing beauty of green Gypsophila, these delicate green blooms infuse a natural, serene elegance into your floral arrangements, making them a refreshing choice for any occasion.",
+      color: "", head: "", length: "70/80cm", life: "15 days"
+    },
+
+
+    red_hympericu: {
+      url: "/assets/hympericu/red.jpg", description: "With its luscious green foliage and cheerful blossoms, our Red Hypericum is more than a plant—it's a statement piece that thrives in various climates. Explore the beauty of nature with this resilient and visually stunning addition to your landscape. Unleash the power of red with our premium Red Hypericum today!",
+      length: "60/70cm", life: "14+"
+    },
+    peach_hympericu: {
+      url: "/assets/hympericu/PEACH.jpg", description: "The flowers of the Peach Hypericum are a sight to behold. They are large, striking and a soft peach color. Their shape resembles that of a star, which makes them look even more charming. Peach Hypericum is a hardy plant that adapts to a wide range of climatic conditions. It is easy to grow and requires little maintenance.",
+      length: "60/70cm", life: "14+"
+    },
+    lollypop_pink_hympericu: {
+      url: "/assets/hympericu/Lillypop Pink.jpg", description: "The flowers of the Lollypop Pink Hypericum are a sight to behold. They are large, striking and bright pink. Its shape resembles that of a lollipop, hence its name. Lollypop Pink Hypericum is a hardy plant that adapts to a wide range of climatic conditions. It is easy to grow and requires little maintenance.",
+      length: "60/70cm", life: "14+"
+    },
+    monster_burgundy_hympericu: {
+      url: "/assets/hympericu/Monster Burgundy.jpg", description: "The Monster Burgundy Hypericum is an ornamental plant characterized by its large dark red flowers. Its flowers are so large and showy that they seem monstrous, hence its name. Monster Burgundy Hypericum is a hardy plant that adapts to a wide range of climatic conditions. It is easy to grow and requires little maintenance.",
+      length: "60/70cm", life: "14+"
+    },
+    green_hympericu: {
+      url: "/assets/hympericu/Green.jpg", description: "The yellow flowers of the green hypericum are a sight to behold. Its bright color and cheerful shape add a touch of joy to any garden. Green hypericum is a hardy plant that adapts to a wide range of climatic conditions. It is easy to grow and requires little maintenance.",
+      length: "60/70cm", life: "14+"
+    },
+
   };
 
   product: any = {};
   name: any = this.route.snapshot.params['product'];
   category: any = this.route.snapshot.params['id'];
   show: boolean = false;
+  table: boolean = false;
 
   constructor(private route: ActivatedRoute,
+    private location: Location,
     private router: Router) {
     this.show = this.category === 'roses';
+    this.table = this.category == 'gypsophila';
   }
 
   ngOnInit(): void {
     this.product = this.products[this.name];
     if (!this.product) this.router.navigateByUrl('/gallery');
     this.name = this.name.replace(/_/g, ' ').toUpperCase();
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

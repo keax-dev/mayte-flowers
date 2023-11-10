@@ -2,7 +2,21 @@
   <div class="card w-75 py-3 my-5">
     <div class="row g-0">
       <div class="col-md-4">
+        <button (click)="goBack()" class="btn btn-secondary d-flex justify-content-center align-items-center"><mat-icon class="me-2">keyboard_backspace</mat-icon>Go back</button>
         <img [src]="product.url" class="img-fluid p-3" [alt]="product.url">
+        <ul [ngClass]="{'flex-row mt-5 flex-wrap': (category == 'hympericu') }" class="p-0 animate__backInUp animate__animated d-flex justify-content-center align-items-center mt-3">
+          <li>
+            <a href="#">
+              <i class="fa-brands fa-instagram icon text-light"></i></a>
+          </li>
+          <li>
+            <a href="https://api.whatsapp.com/send?phone=593980086342&text=" target="_blank"><i class="fa-brands fa-whatsapp icon text-light"></i></a>
+          </li>
+          <li>
+            <a href="tel:+593-98-008-6342" target="_blank"><i class="fa-solid fa-phone icon text-light"></i></a></li>
+          <li>
+            <a href="https://www.google.com/maps/dir//MAYTE+FLOWERS/data=!4m8!4m7!1m0!1m5!1m1!1s0x91d5f5080a969315:0xfbb8e0c97453307d!2m2!1d-78.28539169999999!2d-0.0454457" target="_blank"><i class="fa-sharp fa-solid fa-location-dot icon text-light"></i></a></li>
+        </ul>
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -10,33 +24,72 @@
           <mat-divider class="mb-3 mt-4"></mat-divider>
           <p class="fs-6 m-0 p-0">{{ product.description }}</p>
           <mat-divider *ngIf="show" class="mb-3 mt-4"></mat-divider>
-          <div *ngIf="product.color" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+          <div *ngIf="product.color" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/color.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Color</p>
             </div>
             <p class="display-6">{{ product.color }}</p>
           </div>
-          <div *ngIf="product.head" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+          <div *ngIf="product.head" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550 column-reverse">
             <p class="display-6">{{ product.head }}</p>
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/head.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Head Size</p>
             </div>
           </div>
-          <div *ngIf="product.length" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550">
+          <div *ngIf="product.length" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/length.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Stem Length</p>
             </div>
             <p class="display-6">{{ product.length }}</p>
           </div>
-          <div *ngIf="product.life" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-2 flex-550 column-reverse">
+          <div *ngIf="product.life" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550 column-reverse">
             <p class="display-6">{{ product.life }}</p>
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/life.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Product Vase Life</p>
             </div>
+          </div>
+          <div *ngIf="table" class="w-100 d-flex justify-content-around align-items-center flex-wrap mt-5 flex-550">
+            <table class="w-100 table table-bordered">
+              <thead class="text-danger table-secondary">
+                <tr>
+                  <th>WEIGHT/BOX</th>
+                  <th>QB</th>
+                  <th>HB</th>
+                  <th>HB JUMBO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>250 GR</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td>500 GR</td>
+                  <td>8</td>
+                  <td>18</td>
+                  <td>26</td>
+                </tr>
+                <tr>
+                  <td>750 GR</td>
+                  <td>7</td>
+                  <td>14</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>1000 GR</td>
+                  <td>6</td>
+                  <td>12</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ export class CatalogueComponent implements OnInit {
   categories: any[] = [
     { name: 'ROSES', url: '/assets/catalogue/roses.jpg' },
     { name: 'GYPSOPHILA', url: '/assets/catalogue/gypsophila.jpg' },
-    { name: 'SUNFLOWER', url: '' }
+    { name: 'HYMPERICU', url: '/assets/catalogue/hympericu.jpg' }
   ];
 
   constructor() { }
