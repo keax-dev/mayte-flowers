@@ -13,13 +13,12 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './components/home/home.component';
 import { FormContactComponent } from './components/form-contact/form-contact.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { CatalogueDetailsComponent } from './components/catalogue-details/catalogue-details.component';
 import { CatalogueDescriptionComponent } from './components/catalogue-description/catalogue-description.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,10 +41,9 @@ import { CatalogueDescriptionComponent } from './components/catalogue-descriptio
     MatIconModule,
     MatListModule,
     MatDialogModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

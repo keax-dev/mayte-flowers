@@ -78,7 +78,11 @@ export class CatalogueDescriptionComponent implements OnInit {
       url: "/assets/hympericu/Green.jpg", description: "The yellow flowers of the green hypericum are a sight to behold. Its bright color and cheerful shape add a touch of joy to any garden. Green hypericum is a hardy plant that adapts to a wide range of climatic conditions. It is easy to grow and requires little maintenance.",
       length: "60/70cm", life: "14+"
     },
-
+    sunflower: {
+      url: '/assets/catalogue/sunflower.jpg', description: 'The sunflower is one of the most beautiful flowers in the world, its incredible yellow center and its intense yellow color in its petals highlights elegance and can be in any floral arrangement.',
+      length: '60/70/80 cm', life: "14+", heads: true, head_1: 'MEDIUM (60 CM)', head_2: 'LARGE (70 CM)', head_3: 'XL (70 CM)',
+      head_description_1: '3.1 - 4.4 CM DIAMETER', head_description_2: '4.5 - 5.5 CM DIAMETER', head_description_3: '5.6 + CM DIAMETER'
+    }
   };
 
   product: any = {};

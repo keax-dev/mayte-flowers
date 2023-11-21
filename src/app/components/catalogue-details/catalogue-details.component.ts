@@ -38,7 +38,6 @@ export class CatalogueDetailsComponent implements OnInit {
 
   redirect(name: string) {
     const url = '/gallery/' + this.category + '/' + name.replace(/ /g, '_').toLowerCase();
-    console.log(url);
     this.router.navigateByUrl(url);
   }
 

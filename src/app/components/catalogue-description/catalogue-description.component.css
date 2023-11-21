@@ -111,3 +111,6 @@ ul li:nth-child(4) a {
     line-height: 1.2;
   }
 }
+.table-scroll {
+  overflow-x: auto;
+}
