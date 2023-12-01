@@ -8,7 +8,7 @@ import { CatalogueDescriptionComponent } from './components/catalogue-descriptio
 const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'about-us', component: HomeComponent },
   { path: 'gallery', component: CatalogueComponent },
   { path: 'gallery/:id', component: CatalogueDetailsComponent },
   { path: 'gallery/:id/:product', component: CatalogueDescriptionComponent },
