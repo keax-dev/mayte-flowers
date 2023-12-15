@@ -26,8 +26,8 @@ export class HomeComponent implements AfterViewInit {
   }
 
   click__() {
-    clearInterval(this.set_time);
-    this.set_time = setInterval(() => this.next.click(), 2500);
+    // clearInterval(this.set_time);
+    // this.set_time = setInterval(() => this.next.click(), 2500);
   }
 
 }
