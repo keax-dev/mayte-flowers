@@ -1,0 +1,26 @@
+.main-content {
+  height: calc(100vh - 70px);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 25%,
+      rgba(0, 0, 0, 0.4) 75%
+    ),
+    url("/assets/carrousel-2.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel-item {
+  max-height: calc(100vh - 70px);
+  background-color: red;
+}
+
+.carousel {
+  max-width: 75%;
+  max-height: calc(100vh - 70px);
+}
+.bg-description{
+  background-color: rgba(0, 0, 0, 0.681);
+}
