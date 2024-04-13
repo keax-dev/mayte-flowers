@@ -24,3 +24,36 @@
 .bg-description{
   background-color: rgba(0, 0, 0, 0.681);
 }
+
+@media (max-width: 800px) {
+  .carousel{
+   width:  100% !important;
+   height: 70vh !important;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(255, 255, 255, 0.492) !important;
+  }
+  .carousel-inner{
+    height: 100% !important;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  .carousel-caption{
+    right: 0 !important;
+    left: 0 !important;
+    padding-bottom: 0px !important;
+    bottom: 120% !important;
+  }
+  .d-none{
+    display: block !important;
+  }
+  .carousel-phone{
+    overflow: visible !important;
+  }
+  h5, p {
+    font-size: .7rem;
+    width: 100%;
+  }
+}
