@@ -3,7 +3,9 @@
     <div class="row g-0">
       <div class="col-md-4">
         <button (click)="goBack()" class="btn btn-secondary d-flex justify-content-center align-items-center"><mat-icon class="me-2">keyboard_backspace</mat-icon>Go back</button>
+
         <img [src]="product.url" class="img-fluid p-3" [alt]="product.url">
+
         <ul [ngClass]="{'flex-row mt-5 flex-wrap': (category == 'hympericu') }" class="p-0 animate__backInUp animate__animated d-flex justify-content-center align-items-center mt-3">
           <li>
             <a href="https://instagram.com/alxgardenec?igshid=OGQ5ZDc2ODk2ZA==" target="_blank">
@@ -18,45 +20,61 @@
             <a href="https://www.google.com/maps/dir//MAYTE+FLOWERS/data=!4m8!4m7!1m0!1m5!1m1!1s0x91d5f5080a969315:0xfbb8e0c97453307d!2m2!1d-78.28539169999999!2d-0.0454457" target="_blank"><i class="fa-sharp fa-solid fa-location-dot icon text-light"></i></a></li>
         </ul>
       </div>
+
       <div class="col-md-8">
         <div class="card-body">
+
           <h5 class="card-title display-1 fs-1 mt-3 lead fw-bolder">{{ name }}</h5>
           <mat-divider class="mb-3 mt-4"></mat-divider>
+
           <p class="fs-6 m-0 p-0">{{ product.description }}</p>
           <mat-divider *ngIf="show" class="mb-3 mt-4"></mat-divider>
+
           <div *ngIf="product.heads" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550">
             <p class="display-6 text-center"><span class="text-warning fw-bolder">{{ product.head_1 }}</span><br>{{ product.head_description_1 }}</p>
             <p class="display-6 text-center"><span class="text-warning fw-bolder">{{ product.head_2 }}</span><br>{{ product.head_description_2 }}</p>
             <p class="display-6 text-center"><span class="text-warning fw-bolder">{{ product.head_3 }}</span><br>{{ product.head_description_3 }}</p>
           </div>
+
           <div *ngIf="product.color" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/color.png" alt="Color">
                <p class="mt-2 fs-3 fw-bolder">Color</p>
             </div>
+
             <p class="display-6">{{ product.color }}</p>
           </div>
+
           <div *ngIf="product.head" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550 column-reverse">
             <p class="display-6">{{ product.head }}</p>
+
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/head.png" alt="Color">
+
                <p class="mt-2 fs-3 fw-bolder">Head Size</p>
             </div>
           </div>
+
           <div *ngIf="product.length" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550">
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/length.png" alt="Color">
+
                <p class="mt-2 fs-3 fw-bolder">Stem Length</p>
             </div>
+
             <p class="display-6">{{ product.length }}</p>
           </div>
+
           <div *ngIf="product.life" class="w-100 d-flex justify-content-around align-items-center flex-wrap my-3 flex-550 column-reverse">
             <p class="display-6">{{ product.life }}</p>
+
             <div class="d-flex justify-content-center align-items-center flex-column flex-nowrap">
               <img src="/assets/catalogue/life.png" alt="Color">
+
                <p class="mt-2 fs-3 fw-bolder">Product Vase Life</p>
             </div>
           </div>
+
           <div *ngIf="table" class="w-100 d-flex justify-content-center align-items-center flex-wrap mt-5 flex-550 table-scroll">
             <table class="w-100 table table-bordered">
               <thead class="text-danger table-secondary">

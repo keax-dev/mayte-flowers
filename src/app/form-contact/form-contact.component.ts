@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
@@ -15,9 +14,10 @@ export class FormContactComponent {
     Message: ['', [Validators.required]]
   });
 
-  constructor(private fb: FormBuilder, public dialogref: MatDialogRef<FormContactComponent>, private htt: HttpClient) { }
+  constructor(private dialogref: MatDialogRef<FormContactComponent>,
+    private fb: FormBuilder) { }
 
-  close() {
+  close(): void {
     this.dialogref.close();
   }
 

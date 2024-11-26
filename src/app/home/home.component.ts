@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +7,8 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 })
 export class HomeComponent implements AfterViewInit {
 
-  next:any;
-
   set_time: any;
+  next: any;
 
   data: any[] = [
     { url: '/assets/carrusel/1.jpg' },
@@ -22,12 +21,12 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.next = document.getElementById('next');
-    this.click__();
+    // this.click();
   }
 
-  click__() {
-    // clearInterval(this.set_time);
-    // this.set_time = setInterval(() => this.next.click(), 2500);
-  }
+  // click() {
+  //   // clearInterval(this.set_time);
+  //   // this.set_time = setInterval(() => this.next.click(), 2500);
+  // }
 
 }

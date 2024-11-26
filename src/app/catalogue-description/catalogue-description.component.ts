@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -29,7 +29,6 @@ export class CatalogueDescriptionComponent implements OnInit {
     tibet_rose: { "url": "/assets/roses/Tibet_White_SingleSt_X.jpg", description: "The Tibet rose is a delicate and pure white variety, symbolizing purity and tranquility. Its pristine, snow-like appearance evokes a sense of serenity, making it a popular choice for moments of calm reflection and remembrance.", color: "White", head: "6-6.4 cm", length: "40/50/60 cm", life: "14+" },
     mondial_rose: { "url": "/assets/roses/mondial.jpg", description: "Mondial roses are classic, elegant white roses, symbolizing purity, innocence, and everlasting love. Their pristine appearance makes them a timeless choice for weddings and romantic occasions.", color: "White", head: "6.4-7.3 cm", length: "50/60/70/80 cm", life: "14+" },
     vendela_rose: { "url": "/assets/roses/vendela.jpg", description: "Vendela roses are classic, with pale ivory or light pink petals that symbolize charm, grace, and timeless elegance. Their gentle color and appearance are perfect for expressing appreciation and admiration.", color: "Cream", head: "5.7-6 cm", length: "40/50/60 cm", life: "14+" },
-
     rainbow: { url: "/assets/gypsophila/RAINBOW.jpg", description: "Our Gypsophila Rainbow Mix offers a burst of vibrant hues. This enchanting blend showcases a medley of red, yellow, green, purple, and more, creating a colorful spectacle in every arrangement. Perfect for infusing joy and elegance into your floral designs, this mix is the ultimate choice for all occasions.", color: "", head: "", length: "70/80cm", life: "15 days" },
     xcellent: {
       url: "/assets/gypsophila/XCELLENT.jpg", description: "Elevate your floral arrangements with our premium Gypsophila. Its delicate, cloud-like blooms make it the perfect choice for both filling and highlighting arrangements.",
@@ -56,8 +55,6 @@ export class CatalogueDescriptionComponent implements OnInit {
       url: "/assets/gypsophila/GREEN.jpg ", description: "Embrace the soothing beauty of green Gypsophila, these delicate green blooms infuse a natural, serene elegance into your floral arrangements, making them a refreshing choice for any occasion.",
       color: "", head: "", length: "70/80cm", life: "15 days"
     },
-
-
     red_hympericu: {
       url: "/assets/hympericu/red.jpg", description: "With its luscious green foliage and cheerful blossoms, our Red Hypericum is more than a plant—it's a statement piece that thrives in various climates. Explore the beauty of nature with this resilient and visually stunning addition to your landscape. Unleash the power of red with our premium Red Hypericum today!",
       length: "60/70cm", life: "14+"
@@ -85,26 +82,25 @@ export class CatalogueDescriptionComponent implements OnInit {
     }
   };
 
-  product: any = {};
-  name: any = this.route.snapshot.params['product'];
   category: any = this.route.snapshot.params['id'];
-  show: boolean = false;
+  product: any = {};
   table: boolean = false;
+  show: boolean = false;
+  name: any = this.route.snapshot.params['product'];
 
-  constructor(private route: ActivatedRoute,
-    private location: Location,
-    private router: Router) {
-    this.show = this.category === 'roses';
-    this.table = this.category == 'gypsophila';
-  }
+  constructor(private location: Location,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.show = this.category === 'roses';
+    this.table = this.category == 'gypsophila';
     this.product = this.products[this.name];
     if (!this.product) this.router.navigateByUrl('/gallery');
     this.name = this.name.replace(/_/g, ' ').toUpperCase();
   }
 
-  goBack() {
+  goBack(): void {
     this.location.back();
   }
 

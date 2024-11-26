@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-catalogue-details',
@@ -8,13 +8,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CatalogueDetailsComponent implements OnInit {
 
-  data!: any[];
   category: any = this.route.snapshot.params['id'];
+  data: any[] = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     switch (this.category) {
       case 'roses':
         this.data = [{ "name": "EXPLORER ROSE", "url": "/assets/roses/explorer.jpg" }, { "name": "CHECKMATE ROSE", "url": "/assets/roses/Checkmate-macro.jpg" }, { "name": "FREEDOM ROSE", "url": "/assets/roses/FREEDOM.jpg" }, { "name": "IGUANA ROSE", "url": "/assets/roses/Iguana_Bicolor_Single_X-1.jpg" }, { "name": "HIGH MAGIC ROSE", "url": "/assets/roses/High-Magic-B.jpg" }, { "name": "HIGH ORANGE MAGIC ROSE", "url": "/assets/roses/High-Orange-Magic-B.jpg" }, { "name": "PINKFLOYD ROSE", "url": "/assets/roses/pinkfloyd-rose-skyroses.jpg" }, { "name": "GOTCHA ROSE", "url": "/assets/roses/Gotcha-B.jpg" }, { "name": "TOPAZ ROSE", "url": "/assets/roses/topaz_top.png" }, { "name": "HERMOSA ROSE", "url": "/assets/roses/Hermosa_Aerial_View.jpg" }, { "name": "MANDALA ROSE", "url": "/assets/roses/mandala-abierto.jpg" }, { "name": "PINK MONDIAL ROSE", "url": "/assets/roses/Pink-Mondial-B.jpg" }, { "name": "SAHARA ROSE", "url": "/assets/roses/rose-cream-sahara-3.jpg" }, { "name": "BRIGHTON ROSE", "url": "/assets/roses/Brighton.png" }, { "name": "TARA ROSE", "url": "/assets/roses/Tara-B.jpg" }, { "name": "TIBET ROSE", "url": "/assets/roses/Tibet_White_SingleSt_X.jpg" }, { "name": "MONDIAL ROSE", "url": "/assets/roses/mondial.jpg" }, { "name": "VENDELA ROSE", "url": "/assets/roses/vendela.jpg" }];
@@ -23,20 +23,12 @@ export class CatalogueDetailsComponent implements OnInit {
         this.data = [{ name: "RAINBOW", url: "/assets/gypsophila/RAINBOW.jpg" }, { name: "XCELLENT", url: "/assets/gypsophila/XCELLENT.jpg" }, { name: "DARK PINK ", url: "/assets/gypsophila/DARK_PINK.jpg" }, { name: "PURPLE", url: "/assets/gypsophila/PURPLE.jpg" }, { name: "BLUE", url: "/assets/gypsophila/BLUE.jpg" }, { name: "YELLOW", url: "/assets/gypsophila/YELOW.jpg" }, { name: "RED", url: "/assets/gypsophila/RED.jpg" }, { name: "GREEN", url: "/assets/gypsophila/GREEN.jpg" }];
         break;
       case 'hympericu':
-        this.data = [
-          { name: "RED HYMPERICU", url: "/assets/hympericu/red.jpg" },
-          { name: "PEACH HYMPERICU", url: "/assets/hympericu/PEACH.jpg" },
-          { name: "LOLLYPOP PINK HYMPERICU", url: "/assets/hympericu/Lillypop Pink.jpg" },
-          { name: "MONSTER BURGUNDY HYMPERICU", url: "/assets/hympericu/Monster Burgundy.jpg" },
-          { name: "GREEN HYMPERICU", url: "/assets/hympericu/Green.jpg" },
-        ]
-        break;
-      default:
+        this.data = [{ name: "RED HYMPERICU", url: "/assets/hympericu/red.jpg" }, { name: "PEACH HYMPERICU", url: "/assets/hympericu/PEACH.jpg" }, { name: "LOLLYPOP PINK HYMPERICU", url: "/assets/hympericu/Lillypop Pink.jpg" }, { name: "MONSTER BURGUNDY HYMPERICU", url: "/assets/hympericu/Monster Burgundy.jpg" }, { name: "GREEN HYMPERICU", url: "/assets/hympericu/Green.jpg" }];
         break;
     }
   }
 
-  redirect(name: string) {
+  redirect(name: string): void {
     const url = '/gallery/' + this.category + '/' + name.replace(/ /g, '_').toLowerCase();
     this.router.navigateByUrl(url);
   }

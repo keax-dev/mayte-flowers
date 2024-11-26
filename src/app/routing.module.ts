@@ -1,9 +1,9 @@
-import { CatalogueDescriptionComponent } from './components/catalogue-description/catalogue-description.component';
-import { CatalogueDetailsComponent } from './components/catalogue-details/catalogue-details.component';
+import { CatalogueDescriptionComponent } from './catalogue-description/catalogue-description.component';
+import { CatalogueDetailsComponent } from './catalogue-details/catalogue-details.component';
 import { Routes, RouterModule } from '@angular/router';
-import { CatalogueComponent } from './components/catalogue/catalogue.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { HomeComponent } from './components/home/home.component';
+import { CatalogueComponent } from './catalogue/catalogue.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [

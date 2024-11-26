@@ -12,20 +12,10 @@ export class AboutUsComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openFormContact() {
-    const dialogRef = this.dialog.open(FormContactComponent, {
-      height: "auto",
-      maxHeight: '90vh',
-      minWidth: '300px',
-      width: '30%'
+  openFormContact(): void {
+    this.dialog.open(FormContactComponent, {
+      height: "auto", maxHeight: '90vh', minWidth: '300px', width: '30%'
     });
-    dialogRef.afterClosed().subscribe(
-      result => {
-        if (result) {
-
-        }
-      }
-    );
   }
 
 }
