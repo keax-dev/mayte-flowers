@@ -16,6 +16,7 @@
   max-width: 250px;
   transition: 0.5s;
   cursor: pointer;
+  border: 3px solid white;
 }
 .img-logo:hover {
   width: 35%;
