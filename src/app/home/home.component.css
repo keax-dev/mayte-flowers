@@ -34,7 +34,7 @@
   .carousel-inner {
     height: 100% !important;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
   }
   .carousel-caption {
