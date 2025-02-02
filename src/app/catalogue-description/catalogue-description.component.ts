@@ -84,9 +84,10 @@ export class CatalogueDescriptionComponent implements OnInit {
 
   category: any = this.route.snapshot.params['id'];
   product: any = {};
+  name: any = this.route.snapshot.params['product'];
+
   table: boolean = false;
   show: boolean = false;
-  name: any = this.route.snapshot.params['product'];
 
   constructor(private location: Location,
     private router: Router,
