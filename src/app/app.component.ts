@@ -1,16 +1,25 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+import { NavbarComponent } from '@core/layout/navbar/navbar.component';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  standalone: true,
+  imports: [NavbarComponent, RouterOutlet],
+  template: `
+    <header>
+      <app-navbar></app-navbar>
+    </header>
+    <router-outlet></router-outlet>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  private readonly seo = inject(SeoService);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches), shareReplay());
-
-  constructor(private breakpointObserver: BreakpointObserver) { }
-
+  constructor() {
+    this.seo.initialize();
+  }
 }

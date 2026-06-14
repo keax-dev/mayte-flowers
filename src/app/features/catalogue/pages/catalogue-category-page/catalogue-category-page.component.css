@@ -1,0 +1,28 @@
+.main-content {
+  min-height: calc(100vh - 70px);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.45) 25%, rgba(0, 0, 0, 0.45) 75%),
+    url("/assets/carrousel-3.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card-img-top {
+  width: 275px !important;
+  height: 275px !important;
+}
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.w-all {
+  width: 100% !important;
+}
+
+.font-catalogue {
+  width: 18rem;
+}

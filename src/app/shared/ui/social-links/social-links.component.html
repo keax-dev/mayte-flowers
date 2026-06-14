@@ -1,0 +1,26 @@
+<ul
+  class="social-links p-0"
+  aria-label="Social media and contact links"
+  [ngClass]="{
+    'social-links--column': layout() === 'column',
+    'social-links--wrap': layout() === 'wrap'
+  }"
+>
+  @for (link of links; track link.label) {
+    <li>
+      <a
+        [href]="link.href"
+        [attr.aria-label]="link.label"
+        [attr.rel]="link.openInNewTab ? 'noreferrer' : null"
+        [attr.target]="link.openInNewTab ? '_blank' : null"
+      >
+        <app-icon
+          class="icon"
+          [decorative]="true"
+          [name]="link.icon"
+          [size]="layout() === 'row' ? 22 : 28"
+        ></app-icon>
+      </a>
+    </li>
+  }
+</ul>

@@ -1,0 +1,13 @@
+<svg
+  class="app-icon"
+  [attr.aria-hidden]="decorative()"
+  [attr.aria-label]="decorative() ? null : title()"
+  [attr.height]="size()"
+  [attr.role]="decorative() ? 'presentation' : 'img'"
+  [attr.viewBox]="icon().viewBox ?? '0 0 24 24'"
+  [attr.width]="size()"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path [attr.d]="icon().path"></path>
+</svg>

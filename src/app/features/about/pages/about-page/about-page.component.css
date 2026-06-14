@@ -1,0 +1,73 @@
+.main-content {
+  height: calc(100vh - 70px);
+  background: rgb(0, 0, 0);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.4) 75%),
+    url("/assets/2.jpg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.img-logo {
+  width: 25%;
+  max-width: 250px;
+  transition: 0.5s;
+  cursor: pointer;
+  border: 3px solid white;
+}
+
+.img-logo:hover {
+  width: 35%;
+  max-width: 300px;
+}
+
+.letters-efect {
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+@media (min-width: 800px) {
+  .efect-maquina {
+    display: block;
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: 4px solid;
+    width: 60ch;
+    animation:
+      typing 4s steps(60),
+      blink 0.5s infinite step-end alternate;
+    overflow: hidden;
+  }
+
+  .letters-efect:hover {
+    font-size: 30px !important;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.wrapper {
+  position: relative;
+  width: fit-content;
+  height: auto;
+  margin-top: 1rem;
+}
+
+.wrapper .app-cta-button {
+  min-width: 12rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background-color: rgb(97, 161, 48);
+  color: white;
+}

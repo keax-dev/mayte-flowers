@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg p-0" aria-label="Primary navigation">
+  <div class="container-fluid py-2">
+    <a
+      routerLink="/about-us"
+      class="brand-link btn-0 btn--4 hover-logo mx-3 d-flex align-items-center justify-content-center"
+      (click)="closeMenu()"
+    >
+      <img
+        [src]="company.logo"
+        [alt]="company.name"
+        class="mx-1 rounded-circle"
+        decoding="async"
+        fetchpriority="high"
+      >
+      <span class="name-company color-green fw-bolder fs-5">{{ company.name }}</span>
+    </a>
+
+    <button
+      type="button"
+      class="navbar-toggler"
+      aria-controls="navbarNavigation"
+      aria-label="Toggle navigation"
+      [attr.aria-expanded]="isMenuOpen()"
+      (click)="toggleMenu()"
+    >
+      <app-icon
+        [decorative]="true"
+        [name]="isMenuOpen() ? 'close' : 'menu'"
+        [size]="24"
+      ></app-icon>
+    </button>
+
+    <div id="navbarNavigation" class="collapse navbar-collapse" [class.show]="isMenuOpen()">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item mx-2">
+          <a
+            routerLink="/home"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="btn btn_0 nav-link-button w-100"
+            (click)="closeMenu()"
+          >
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a
+            routerLink="/gallery"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: false }"
+            class="btn btn_0 nav-link-button w-100"
+            (click)="closeMenu()"
+          >
+            Products
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a
+            routerLink="/about-us"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="btn btn_0 nav-link-button w-100"
+            (click)="closeMenu()"
+          >
+            About us
+          </a>
+        </li>
+      </ul>
+
+      <div class="d-flex">
+        <button type="button" class="btn btn_0 nav-link-button w-100" (click)="openContact()">
+          Contact
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

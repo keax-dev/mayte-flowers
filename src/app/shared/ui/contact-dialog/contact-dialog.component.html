@@ -1,0 +1,70 @@
+<section class="contact-dialog-shell app-surface-card" aria-labelledby="contact-dialog-title">
+  <form
+    class="d-flex align-items-center flex-column justify-content-center p-4"
+    [formGroup]="contactForm"
+    novalidate
+    (ngSubmit)="submit()"
+  >
+    <h2 id="contact-dialog-title" class="app-mono-text display-6 m-0 p-0 text-start fw-bolder">
+      CONTACT US
+    </h2>
+    <hr class="app-divider mt-2 mb-3 w-100">
+
+    <div class="form-floating mb-3 w-100">
+      <input
+        id="Email"
+        type="email"
+        name="Email"
+        class="form-control"
+        formControlName="email"
+        placeholder="name@example.com"
+        autocomplete="email"
+        required
+      >
+      <label for="Email">Email address</label>
+    </div>
+    @if (contactForm.controls.email.invalid && contactForm.controls.email.touched) {
+      <p class="validation-message w-100">Please enter a valid email address.</p>
+    }
+
+    <div class="form-floating mb-4 w-100">
+      <textarea
+        id="Comment"
+        name="Comment"
+        class="form-control"
+        formControlName="comment"
+        placeholder="Leave a comment here"
+        required
+      ></textarea>
+      <label for="Comment">Comment</label>
+    </div>
+    @if (contactForm.controls.comment.invalid && contactForm.controls.comment.touched) {
+      <p class="validation-message w-100">Tell us a little more about what you need.</p>
+    }
+
+    <div class="honeypot-field" aria-hidden="true">
+      <label for="Website">Website</label>
+      <input id="Website" type="text" name="website" formControlName="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <hr class="app-divider mb-4 w-100">
+
+    @if (feedback()) {
+      <p
+        class="feedback-message w-100"
+        [class.feedback-message--error]="submissionState() === 'error'"
+        [class.feedback-message--success]="submissionState() === 'success'"
+        aria-live="polite"
+      >
+        {{ feedback() }}
+      </p>
+    }
+
+    <div class="contenedor_2 w-100">
+      <button type="button" class="btn_0 btn-04 btn lead pointer" (click)="close()">Cancel</button>
+      <button type="submit" class="btn_0 btn-3 btn lead pointer" [disabled]="contactForm.invalid || isSubmitting()">
+        {{ isSubmitting() ? 'Sending...' : 'Send' }}
+      </button>
+    </div>
+  </form>
+</section>

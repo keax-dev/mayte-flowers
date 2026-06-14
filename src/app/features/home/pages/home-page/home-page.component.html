@@ -1,0 +1,62 @@
+<main class="main-content row justify-content-center align-items-center m-0">
+  <section class="hero-slider app-animate-in" aria-labelledby="home-hero-title">
+    <div class="hero-slider__frame">
+      <div
+        class="hero-slider__track"
+        [style.transform]="'translateX(-' + activeIndex() * 100 + '%)'"
+      >
+        @for (slide of slides; track slide.image; let index = $index) {
+          <article class="hero-slider__slide">
+            <img
+              [src]="slide.image"
+              class="hero-slider__image"
+              [alt]="slide.title"
+              decoding="async"
+              [attr.fetchpriority]="index === 0 ? 'high' : 'low'"
+              [attr.loading]="index === 0 ? 'eager' : 'lazy'"
+            />
+          </article>
+        }
+      </div>
+    </div>
+
+    <header class="hero-slider__content">
+      <p class="hero-slider__eyebrow">Premium flowers</p>
+      <h1 id="home-hero-title">{{ currentSlide().title }}</h1>
+      <p>{{ currentSlide().description }}</p>
+    </header>
+
+    <nav class="hero-slider__controls" aria-label="Carousel controls">
+      <button
+        type="button"
+        class="hero-slider__nav"
+        aria-label="Previous slide"
+        (click)="previous()"
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+
+      <div class="carousel-indicators" aria-label="Slide indicators">
+        @for (slide of slides; track slide.image; let index = $index) {
+          <button
+            type="button"
+            class="pointer"
+            [class.active]="index === activeIndex()"
+            [attr.aria-current]="index === activeIndex() ? 'true' : null"
+            [attr.aria-label]="'Slide ' + index"
+            (click)="goTo(index)"
+          ></button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="hero-slider__nav"
+        aria-label="Next slide"
+        (click)="next()"
+      >
+        <span aria-hidden="true">›</span>
+      </button>
+    </nav>
+  </section>
+</main>
