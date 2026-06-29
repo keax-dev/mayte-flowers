@@ -24,6 +24,30 @@
       <p class="hero-slider__eyebrow">Premium flowers</p>
       <h1 id="home-hero-title">{{ currentSlide().title }}</h1>
       <p>{{ currentSlide().description }}</p>
+
+      <div class="hero-slider__actions">
+        <a
+          routerLink="/gallery"
+          class="app-cta-button app-cta-button--compact btn px-4 py-2 lead"
+          (click)="trackCatalogueCta()"
+        >
+          Browse catalogue
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+
+        <button type="button" class="btn btn-secondary px-4 py-2 lead" (click)="openQuoteDialog()">
+          Request quote
+        </button>
+      </div>
+
+      <div class="hero-slider__buyer-tags" aria-label="Buyer focus">
+        <span>Wholesalers</span>
+        <span>Importers</span>
+        <span>Event buyers</span>
+      </div>
     </header>
 
     <nav class="hero-slider__controls" aria-label="Carousel controls">

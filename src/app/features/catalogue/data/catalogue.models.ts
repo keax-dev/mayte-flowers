@@ -3,7 +3,15 @@ export interface ProductHeadOption {
   label: string;
 }
 
-export interface CatalogueProduct {
+export interface CommercialCatalogueDetails {
+  availability?: string;
+  idealFor?: readonly string[];
+  minimumOrder?: string;
+  packing?: string;
+  seasonality?: string;
+}
+
+export interface CatalogueProduct extends CommercialCatalogueDetails {
   aliases?: string[];
   color?: string;
   description: string;
@@ -17,8 +25,9 @@ export interface CatalogueProduct {
   slug: string;
 }
 
-export interface CatalogueCategory {
+export interface CatalogueCategory extends CommercialCatalogueDetails {
   aliases?: string[];
+  buyerNote?: string;
   directProductSlug?: string;
   image: string;
   name: string;
@@ -31,5 +40,6 @@ export interface CatalogueCategoryCard {
   image: string;
   name: string;
   route: readonly string[];
+  summary?: string;
   slug: string;
 }

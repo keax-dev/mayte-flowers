@@ -40,6 +40,7 @@ export class CatalogueRepository {
           slug: category.slug,
           name: category.name,
           image: category.image,
+          summary: category.buyerNote,
           route: category.directProductSlug
             ? ['/gallery', category.routeSlug ?? toRouteSlug(category.slug), toRouteSlug(category.directProductSlug)]
             : ['/gallery', category.routeSlug ?? toRouteSlug(category.slug)]

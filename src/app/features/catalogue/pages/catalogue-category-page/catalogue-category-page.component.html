@@ -4,7 +4,24 @@
       class="col my-5 d-flex flex-wrap align-items-start justify-content-center text-center"
       aria-labelledby="category-title"
     >
-      <h1 id="category-title" class="visually-hidden">{{ currentCategory.name }} catalogue</h1>
+      <header class="category-header app-surface-card app-fade-up p-4 mb-4">
+        <h1 id="category-title" class="category-header__title">{{ currentCategory.name }}</h1>
+        @if (currentCategory.buyerNote) {
+          <p class="category-header__copy m-0 mt-2">{{ currentCategory.buyerNote }}</p>
+        }
+
+        <div class="category-header__chips">
+          @if (currentCategory.availability) {
+            <span class="category-header__chip">{{ currentCategory.availability }}</span>
+          }
+          @if (currentCategory.packing) {
+            <span class="category-header__chip">{{ currentCategory.packing }}</span>
+          }
+          @if (currentCategory.minimumOrder) {
+            <span class="category-header__chip">{{ currentCategory.minimumOrder }}</span>
+          }
+        </div>
+      </header>
 
       @for (product of currentCategory.products; track product.slug) {
         <article class="card app-fade-up m-3 font-catalogue">
@@ -22,6 +39,7 @@
             <a
               [routerLink]="['/gallery', currentCategory.routeSlug ?? currentCategory.slug, product.routeSlug ?? product.slug]"
               class="app-cta-button app-cta-button--compact btn px-4 py-2 lead w-75"
+              (click)="trackProductClick(currentCategory.name, product.name)"
             >
               DETAILS
               <span></span>

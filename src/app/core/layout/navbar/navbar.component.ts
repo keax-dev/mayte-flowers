@@ -25,7 +25,10 @@ export class NavbarComponent {
 
   openContact(): void {
     this.closeMenu();
-    this.contactDialog.open();
+    this.contactDialog.open({
+      inquiryType: 'general',
+      source: 'navbar'
+    });
   }
 
   toggleMenu(): void {

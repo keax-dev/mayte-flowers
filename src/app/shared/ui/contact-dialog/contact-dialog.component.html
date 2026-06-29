@@ -6,25 +6,139 @@
     (ngSubmit)="submit()"
   >
     <h2 id="contact-dialog-title" class="app-mono-text display-6 m-0 p-0 text-start fw-bolder">
-      CONTACT US
+      {{ dialogTitle() }}
     </h2>
+    <p class="quote-promise w-100">
+      {{ quotePromise }}
+    </p>
     <hr class="app-divider mt-2 mb-3 w-100">
 
-    <div class="form-floating mb-3 w-100">
-      <input
-        id="Email"
-        type="email"
-        name="Email"
-        class="form-control"
-        formControlName="email"
-        placeholder="name@example.com"
-        autocomplete="email"
-        required
-      >
-      <label for="Email">Email address</label>
+    <div class="form-grid w-100">
+      <div class="form-floating mb-3">
+        <input
+          id="FullName"
+          type="text"
+          name="FullName"
+          class="form-control"
+          formControlName="fullName"
+          placeholder="Your name"
+          autocomplete="name"
+          required
+        >
+        <label for="FullName">Full name</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="CompanyName"
+          type="text"
+          name="CompanyName"
+          class="form-control"
+          formControlName="companyName"
+          placeholder="Company name"
+          autocomplete="organization"
+        >
+        <label for="CompanyName">Company name</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="Email"
+          type="email"
+          name="Email"
+          class="form-control"
+          formControlName="email"
+          placeholder="name@example.com"
+          autocomplete="email"
+          required
+        >
+        <label for="Email">Email address</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <select
+          id="InquiryType"
+          name="InquiryType"
+          class="form-control"
+          formControlName="inquiryType"
+          required
+        >
+          @for (option of inquiryOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+        <label for="InquiryType">Inquiry type</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="FlowerType"
+          type="text"
+          name="FlowerType"
+          class="form-control"
+          formControlName="flowerType"
+          placeholder="Flower type"
+        >
+        <label for="FlowerType">Flower type or variety</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="Quantity"
+          type="text"
+          name="Quantity"
+          class="form-control"
+          formControlName="quantity"
+          placeholder="Quantity"
+        >
+        <label for="Quantity">Approximate quantity</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="Country"
+          type="text"
+          name="Country"
+          class="form-control"
+          formControlName="country"
+          placeholder="Destination country"
+          autocomplete="country-name"
+        >
+        <label for="Country">Destination country</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          id="NeededBy"
+          type="date"
+          name="NeededBy"
+          class="form-control"
+          formControlName="neededBy"
+          placeholder="Needed by"
+        >
+        <label for="NeededBy">Needed by</label>
+      </div>
+
+      <div class="form-floating mb-3 form-grid__full">
+        <input
+          id="BoxType"
+          type="text"
+          name="BoxType"
+          class="form-control"
+          formControlName="boxType"
+          placeholder="Packing preference"
+        >
+        <label for="BoxType">Packing or box preference</label>
+      </div>
     </div>
+    @if (contactForm.controls.fullName.invalid && contactForm.controls.fullName.touched) {
+      <p class="validation-message w-100">Please enter your full name.</p>
+    }
     @if (contactForm.controls.email.invalid && contactForm.controls.email.touched) {
       <p class="validation-message w-100">Please enter a valid email address.</p>
+    }
+    @if (contactForm.controls.flowerType.invalid && contactForm.controls.flowerType.touched) {
+      <p class="validation-message w-100">Please tell us the flower type you want to quote.</p>
     }
 
     <div class="form-floating mb-4 w-100">
@@ -36,7 +150,7 @@
         placeholder="Leave a comment here"
         required
       ></textarea>
-      <label for="Comment">Comment</label>
+      <label for="Comment">Project or order details</label>
     </div>
     @if (contactForm.controls.comment.invalid && contactForm.controls.comment.touched) {
       <p class="validation-message w-100">Tell us a little more about what you need.</p>

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NavbarComponent } from '@core/layout/navbar/navbar.component';
+import { AnalyticsService } from '@core/services/analytics.service';
 import { SeoService } from '@core/services/seo.service';
 
 @Component({
@@ -17,9 +18,11 @@ import { SeoService } from '@core/services/seo.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  private readonly analytics = inject(AnalyticsService);
   private readonly seo = inject(SeoService);
 
   constructor() {
+    this.analytics.initialize();
     this.seo.initialize();
   }
 }

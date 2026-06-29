@@ -13,6 +13,7 @@
         [attr.aria-label]="link.label"
         [attr.rel]="link.openInNewTab ? 'noreferrer' : null"
         [attr.target]="link.openInNewTab ? '_blank' : null"
+        (click)="trackClick(link.label)"
       >
         <app-icon
           class="icon"

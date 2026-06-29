@@ -21,7 +21,7 @@
           >
 
           <aside class="app-slide-up mt-3 social-links-panel" aria-label="Contact links">
-            <app-social-links [layout]="socialLayout()"></app-social-links>
+            <app-social-links [layout]="socialLayout()" context="product_page"></app-social-links>
           </aside>
         </div>
 
@@ -33,6 +33,61 @@
             <hr class="app-divider mt-4 mb-3">
 
             <p class="m-0 p-0 fs-6">{{ currentProduct.description }}</p>
+
+            <section class="sales-panel app-surface-card mt-4 p-3" aria-label="Quote actions">
+              <p class="sales-panel__eyebrow m-0">Ready to buy or request pricing?</p>
+              <h2 class="sales-panel__title m-0 mt-2">Request availability for {{ currentProduct.name }}</h2>
+              <p class="sales-panel__copy mt-2 mb-3">
+                Share your quantity, country, required date and packing preference. We will
+                follow up with the right commercial details.
+              </p>
+
+              <div class="sales-panel__actions d-flex flex-wrap align-items-center">
+                <button
+                  type="button"
+                  class="app-cta-button btn px-4 py-2 lead"
+                  (click)="openQuoteDialog()"
+                >
+                  Request quote
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+
+                <a
+                  [href]="productWhatsappUrl()"
+                  target="_blank"
+                  rel="noreferrer"
+                  class="btn btn-secondary px-4 py-2 lead"
+                  (click)="trackWhatsappQuote()"
+                >
+                  Ask on WhatsApp
+                </a>
+              </div>
+            </section>
+
+            @if (commercialHighlights().length) {
+              <section class="commercial-grid mt-4" aria-label="Commercial details">
+                @for (detail of commercialHighlights(); track detail.label) {
+                  <article class="commercial-card app-fade-up p-3">
+                    <p class="commercial-card__label m-0">{{ detail.label }}</p>
+                    <p class="commercial-card__value m-0 mt-2">{{ detail.value }}</p>
+                  </article>
+                }
+              </section>
+            }
+
+            @if (idealFor().length) {
+              <section class="ideal-for mt-4" aria-label="Recommended uses">
+                <h2 class="ideal-for__title">Ideal for</h2>
+                <div class="ideal-for__chips">
+                  @for (use of idealFor(); track use) {
+                    <span class="ideal-for__chip">{{ use }}</span>
+                  }
+                </div>
+              </section>
+            }
 
             @if (hasMetadata()) {
               <hr class="app-divider mt-4 mb-3">

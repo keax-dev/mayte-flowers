@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
+import { AnalyticsService } from '@core/services/analytics.service';
+import { ContactDialogService } from '@core/services/contact-dialog.service';
 import { HomePageComponent } from '@features/home/pages/home-page/home-page.component';
 
 describe('HomePageComponent', () => {
@@ -8,7 +11,22 @@ describe('HomePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePageComponent]
+      imports: [HomePageComponent],
+      providers: [
+        provideRouter([]),
+        {
+          provide: AnalyticsService,
+          useValue: {
+            trackEvent: jasmine.createSpy('trackEvent')
+          }
+        },
+        {
+          provide: ContactDialogService,
+          useValue: {
+            open: jasmine.createSpy('open')
+          }
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePageComponent);

@@ -1,4 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { AnalyticsService } from '@core/services/analytics.service';
+import { ContactDialogService } from '@core/services/contact-dialog.service';
 
 interface HomeSlide {
   description: string;
@@ -9,11 +13,14 @@ interface HomeSlide {
 @Component({
   selector: 'app-home-page',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent {
+  private readonly analytics = inject(AnalyticsService);
+  private readonly contactDialog = inject(ContactDialogService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly activeIndex = signal(0);
@@ -64,5 +71,24 @@ export class HomePageComponent {
     this.activeIndex.update((currentIndex) =>
       currentIndex === 0 ? this.slides.length - 1 : currentIndex - 1
     );
+  }
+
+  openQuoteDialog(): void {
+    this.analytics.trackEvent('home_quote_cta_clicked', {
+      product_highlight: this.currentSlide().title
+    });
+
+    this.contactDialog.open({
+      flowerType: this.currentSlide().title,
+      inquiryType: 'quote',
+      message: `Hello ALX Garden, I would like a quote for ${this.currentSlide().title}. Please share availability and packing options.`,
+      source: 'home_hero'
+    });
+  }
+
+  trackCatalogueCta(): void {
+    this.analytics.trackEvent('home_catalogue_cta_clicked', {
+      product_highlight: this.currentSlide().title
+    });
   }
 }

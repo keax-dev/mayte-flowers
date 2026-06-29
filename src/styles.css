@@ -323,6 +323,13 @@ textarea.form-control {
   transform: translateY(-50%) scale(0.85);
 }
 
+.form-floating > select.form-control + label,
+.form-floating > input[type="date"].form-control + label {
+  top: 0;
+  color: var(--app-accent);
+  transform: translateY(-50%) scale(0.85);
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;

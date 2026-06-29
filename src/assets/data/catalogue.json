@@ -3,6 +3,12 @@
     "slug": "roses",
     "name": "ROSES",
     "image": "/assets/catalogue/roses.jpg",
+    "buyerNote": "A commercial rose selection prepared for bouquet programs, event work, retail needs and wholesale conversations.",
+    "availability": "Year-round availability planning",
+    "packing": "Custom export packing confirmed on quote",
+    "minimumOrder": "Mixed and full-box requests available",
+    "seasonality": "Consistent supply windows available",
+    "idealFor": ["Wholesale bouquets", "Retail programs", "Event floral design"],
     "products": [
       {
         "slug": "explorer_rose",
@@ -191,6 +197,12 @@
     "name": "HYPERICUM",
     "image": "/assets/catalogue/hympericu.jpg",
     "aliases": ["hympericu"],
+    "buyerNote": "Hypericum varieties designed to add texture, color accents and value to bouquet and arrangement programs.",
+    "availability": "Year-round availability planning",
+    "packing": "Commercial packing options confirmed per request",
+    "minimumOrder": "Program and mixed-order requests available",
+    "seasonality": "Stable production planning available",
+    "idealFor": ["Bouquet accents", "Mixed floral programs", "Retail add-on stems"],
     "products": [
       {
         "slug": "red_hypericum",
@@ -238,6 +250,12 @@
     "slug": "gypsophila",
     "name": "GYPSOPHILA",
     "image": "/assets/catalogue/gypsophila.jpg",
+    "buyerNote": "A filler-focused gypsophila line with color options and practical box formats for bouquet and event work.",
+    "availability": "Year-round color availability planning",
+    "packing": "Quarter, half and jumbo box options available",
+    "minimumOrder": "Box mix requests reviewed on quote",
+    "seasonality": "Consistent floral filler programs available",
+    "idealFor": ["Bouquets", "Event installations", "Floral filler programs"],
     "products": [
       {
         "slug": "rainbow",
@@ -311,6 +329,12 @@
     "name": "SUNFLOWER",
     "image": "/assets/catalogue/sunflower.jpg",
     "directProductSlug": "sunflower",
+    "buyerNote": "Sunflower stems for bright seasonal programs, event work and cheerful bouquet mixes.",
+    "availability": "Availability confirmed by production window",
+    "packing": "Stem size and head diameter selected per order",
+    "minimumOrder": "Quote based on requested size and volume",
+    "seasonality": "Seasonal planning recommended",
+    "idealFor": ["Retail bouquets", "Event décor", "Seasonal floral programs"],
     "products": [
       {
         "slug": "sunflower",

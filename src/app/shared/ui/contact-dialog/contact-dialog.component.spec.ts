@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogRef } from '@angular/cdk/dialog';
 import { of, throwError } from 'rxjs';
 
+import { AnalyticsService } from '@core/services/analytics.service';
 import { ContactSubmissionService } from '@core/services/contact-submission.service';
 import { ContactDialogComponent } from '@shared/ui/contact-dialog/contact-dialog.component';
 
@@ -20,6 +21,12 @@ describe('ContactDialogComponent', () => {
           provide: ContactSubmissionService,
           useValue: {
             submit: submitSpy
+          }
+        },
+        {
+          provide: AnalyticsService,
+          useValue: {
+            trackEvent: jasmine.createSpy('trackEvent')
           }
         },
         {
@@ -44,8 +51,16 @@ describe('ContactDialogComponent', () => {
 
   it('submits valid form data and shows success feedback', () => {
     component.contactForm.setValue({
+      boxType: 'Half box',
       comment: 'Please send me a quote.',
+      companyName: 'Flower Buyer Inc.',
+      country: 'United States',
       email: 'hello@example.com',
+      flowerType: 'Explorer Rose',
+      fullName: 'Jane Buyer',
+      inquiryType: 'quote',
+      neededBy: '2026-06-30',
+      quantity: '10 boxes',
       website: ''
     });
 
@@ -53,19 +68,36 @@ describe('ContactDialogComponent', () => {
     fixture.detectChanges();
 
     expect(submitSpy).toHaveBeenCalledWith({
+      boxType: 'Half box',
+      companyName: 'Flower Buyer Inc.',
+      country: 'United States',
       email: 'hello@example.com',
+      flowerType: 'Explorer Rose',
+      fullName: 'Jane Buyer',
       honeypot: '',
-      message: 'Please send me a quote.'
+      inquiryType: 'quote',
+      message: 'Please send me a quote.',
+      neededBy: '2026-06-30',
+      quantity: '10 boxes',
+      source: 'website'
     });
     expect(component.submissionState()).toBe('success');
-    expect(component.feedback()).toContain('Thanks for reaching out');
+    expect(component.feedback()).toContain('Thanks for your request');
   });
 
   it('shows error feedback when the submission fails', () => {
     submitSpy.and.returnValue(throwError(() => new Error('network')));
     component.contactForm.setValue({
+      boxType: 'Half box',
       comment: 'Please send me a quote.',
+      companyName: 'Flower Buyer Inc.',
+      country: 'United States',
       email: 'hello@example.com',
+      flowerType: 'Explorer Rose',
+      fullName: 'Jane Buyer',
+      inquiryType: 'quote',
+      neededBy: '2026-06-30',
+      quantity: '10 boxes',
       website: ''
     });
 

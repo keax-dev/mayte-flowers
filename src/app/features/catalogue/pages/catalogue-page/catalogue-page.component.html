@@ -11,8 +11,15 @@
 
         <div class="card-body pt-1">
           <h2 class="app-mono-text m-0 fw-bolder text-dark">{{ category.name }}</h2>
+          @if (category.summary) {
+            <p class="category-card__summary">{{ category.summary }}</p>
+          }
 
-          <a [routerLink]="category.route" class="app-cta-button app-cta-button--compact btn px-4 py-2 lead w-75">
+          <a
+            [routerLink]="category.route"
+            class="app-cta-button app-cta-button--compact btn px-4 py-2 lead w-75"
+            (click)="trackCategoryClick(category.name)"
+          >
             SHOW
             <span></span>
             <span></span>

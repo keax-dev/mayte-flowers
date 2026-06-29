@@ -1,36 +1,84 @@
 <main class="main-content row justify-content-center align-items-center m-0">
-  <section
-    class="col position-relative d-flex flex-column align-items-center justify-content-center text-center app-animate-in"
-    aria-labelledby="about-title"
-  >
-    <h1 id="about-title" class="visually-hidden">About ALX Garden</h1>
-
-    <img
-      [src]="company.logo"
-      [alt]="company.name"
-      class="img-logo app-pulse-slow position-relative mb-3 mb-4 rounded-circle shadow-lg"
-      decoding="async"
-      fetchpriority="high"
+  <section class="about-shell col" aria-labelledby="about-title">
+    <div
+      class="about-hero position-relative d-flex flex-column align-items-center justify-content-center text-center app-animate-in"
     >
+      <h1 id="about-title" class="visually-hidden">About ALX Garden</h1>
 
-    <p class="efect-maquina letters-efect app-mono-text position-relative fs-4 fw-bolder text-light">
-      {{ company.tagline }}
-    </p>
+      <img
+        [src]="company.logo"
+        [alt]="company.name"
+        class="img-logo app-pulse-slow position-relative mb-3 mb-4 rounded-circle shadow-lg"
+        decoding="async"
+        fetchpriority="high"
+      >
 
-    <p class="letters-efect app-mono-text position-relative fs-4 fw-bolder text-light">
-      {{ company.openingHours }}
-    </p>
+      <p class="efect-maquina letters-efect app-mono-text position-relative fs-4 fw-bolder text-light">
+        {{ company.tagline }}
+      </p>
 
-    <app-social-links class="app-slide-up"></app-social-links>
+      <p class="letters-efect app-mono-text position-relative fs-4 fw-bolder text-light">
+        {{ company.openingHours }}
+      </p>
 
-    <div class="wrapper">
-      <button type="button" class="app-cta-button btn px-4 py-2 lead" (click)="openContact()">
-        CONTACT US
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <p class="about-hero__copy">
+        {{ company.salesFocus }}
+      </p>
+
+      <app-social-links class="app-slide-up" context="about_page"></app-social-links>
+
+      <div class="wrapper">
+        <button type="button" class="app-cta-button btn px-4 py-2 lead" (click)="openContact()">
+          CONTACT US
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
+
+    <section class="about-trust app-surface-card app-fade-up p-4 p-md-5 mt-4" aria-labelledby="about-trust-title">
+      <header class="about-trust__header">
+        <p class="about-trust__eyebrow">Why buyers choose us</p>
+        <h2 id="about-trust-title" class="about-trust__title">A cleaner path from interest to quote</h2>
+        <p class="about-trust__copy">
+          We built this catalogue for commercial conversations: flower type, stem length, packing
+          needs, destination and timing are all easy to share from the start.
+        </p>
+      </header>
+
+      <div class="trust-grid">
+        @for (highlight of trustHighlights; track highlight.label) {
+          <article class="trust-card">
+            <p class="trust-card__label">{{ highlight.label }}</p>
+            <p class="trust-card__value">{{ highlight.value }}</p>
+            <p class="trust-card__copy">{{ highlight.description }}</p>
+          </article>
+        }
+      </div>
+
+      <div class="promise-grid mt-4">
+        @for (promise of buyerPromises; track promise.title) {
+          <article class="promise-card">
+            <h3 class="promise-card__title">{{ promise.title }}</h3>
+            <p class="promise-card__copy">{{ promise.description }}</p>
+          </article>
+        }
+      </div>
+
+      <section class="buyer-checklist mt-4" aria-labelledby="buyer-checklist-title">
+        <h3 id="buyer-checklist-title" class="buyer-checklist__title">What to include in your request</h3>
+
+        <div class="buyer-checklist__grid">
+          @for (item of buyerChecklist; track item.title) {
+            <article class="buyer-checklist__item">
+              <h4 class="buyer-checklist__item-title">{{ item.title }}</h4>
+              <p class="buyer-checklist__item-copy">{{ item.description }}</p>
+            </article>
+          }
+        </div>
+      </section>
+    </section>
   </section>
 </main>

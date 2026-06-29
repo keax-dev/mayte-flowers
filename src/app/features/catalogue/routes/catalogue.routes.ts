@@ -14,7 +14,8 @@ export const CATALOGUE_ROUTES: Routes = [
     path: '',
     data: {
       description:
-        'Browse our premium flower catalogue with roses, gypsophila, hypericum and sunflowers from ALX Garden.'
+        'Browse our premium flower catalogue with roses, gypsophila, hypericum and sunflowers from ALX Garden.',
+      image: '/assets/catalogue/roses.jpg'
     },
     resolve: {
       cards: catalogueCardsResolver
@@ -28,6 +29,7 @@ export const CATALOGUE_ROUTES: Routes = [
     path: ':category/:product',
     title: catalogueProductTitleResolver,
     resolve: {
+      categoryData: catalogueCategoryResolver,
       description: catalogueProductDescriptionResolver,
       productData: catalogueProductResolver
     },

@@ -13,6 +13,7 @@ describe('CatalogueRepository', () => {
       slug: 'sunflower',
       name: 'SUNFLOWER',
       image: '/assets/catalogue/sunflower.jpg',
+      buyerNote: 'Seasonal sunflower programs',
       directProductSlug: 'sunflower',
       products: [
         {
@@ -30,6 +31,7 @@ describe('CatalogueRepository', () => {
       aliases: ['hympericu'],
       name: 'HYPERICUM',
       image: '/assets/catalogue/hympericu.jpg',
+      buyerNote: 'Textured bouquet accents',
       products: [
         {
           slug: 'red_hypericum',
@@ -71,12 +73,14 @@ describe('CatalogueRepository', () => {
         slug: 'sunflower',
         name: 'SUNFLOWER',
         image: '/assets/catalogue/sunflower.jpg',
+        summary: 'Seasonal sunflower programs',
         route: ['/gallery', 'sunflower', 'sunflower']
       },
       {
         slug: 'hypericum',
         name: 'HYPERICUM',
         image: '/assets/catalogue/hympericu.jpg',
+        summary: 'Textured bouquet accents',
         route: ['/gallery', 'hypericum']
       }
     ]);
