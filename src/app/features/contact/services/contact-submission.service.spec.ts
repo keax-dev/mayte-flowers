@@ -1,10 +1,7 @@
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ContactSubmissionService } from '@app/features/contact/services/contact-submission.service';
 import { TestBed } from '@angular/core/testing';
-import {
-  provideHttpClientTesting,
-  HttpTestingController,
-} from '@angular/common/http/testing';
 
 describe('ContactSubmissionService', () => {
   let httpMock: HttpTestingController;
@@ -35,17 +32,11 @@ describe('ContactSubmissionService', () => {
       })
       .subscribe();
 
-    const request = httpMock.expectOne(
-      'https://formsubmit.co/ajax/sales@alxgarden.com',
-    );
+    const request = httpMock.expectOne('https://formsubmit.co/ajax/sales@alxgarden.com');
     expect(request.request.method).toBe('POST');
     expect(request.request.body instanceof FormData).toBeTrue();
-    expect((request.request.body as FormData).get('email')).toBe(
-      'hello@example.com',
-    );
-    expect((request.request.body as FormData).get('message')).toBe(
-      'I need a quote.',
-    );
+    expect((request.request.body as FormData).get('email')).toBe('hello@example.com');
+    expect((request.request.body as FormData).get('message')).toBe('I need a quote.');
     request.flush({ success: 'true' });
   });
 

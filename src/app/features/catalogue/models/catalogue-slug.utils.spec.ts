@@ -1,7 +1,4 @@
-import {
-  slugMatches,
-  toRouteSlug
-} from '@features/catalogue/models/catalogue-slug.utils';
+import { slugMatches, toRouteSlug } from '@features/catalogue/models/catalogue-slug.utils';
 
 describe('catalogue slug utilities', () => {
   it('normalizes spaces, separators and diacritics into a route-safe slug', () => {

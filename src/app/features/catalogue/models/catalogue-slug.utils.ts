@@ -27,7 +27,5 @@ export function slugMatches(
 ): boolean {
   const normalizedInput = normalizeSlug(input);
 
-  return [value, ...aliases].some(
-    (candidate) => normalizeSlug(candidate) === normalizedInput,
-  );
+  return [value, ...aliases].some((candidate) => normalizeSlug(candidate) === normalizedInput);
 }

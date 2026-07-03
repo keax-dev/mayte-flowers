@@ -3,18 +3,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@app/*": [
-        "./src/app/*"
-      ],
-      "@core/*": [
-        "./src/app/core/*"
-      ],
-      "@features/*": [
-        "./src/app/features/*"
-      ],
-      "@shared/*": [
-        "./src/app/shared/*"
-      ]
+      "@app/*": ["./src/app/*"],
+      "@core/*": ["./src/app/core/*"],
+      "@features/*": ["./src/app/features/*"],
+      "@shared/*": ["./src/app/shared/*"]
     },
     "esModuleInterop": true,
     "outDir": "./dist/out-tsc",

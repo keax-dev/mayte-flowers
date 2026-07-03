@@ -2,5 +2,5 @@
   min-height: calc(100vh - 74px);
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.55) 25%, rgba(0, 0, 0, 0.55) 75%),
-    url("/assets/carrousel-3.jpg") top / cover no-repeat;
+    url('/assets/carrousel-3.jpg') top / cover no-repeat;
 }

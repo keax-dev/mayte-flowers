@@ -1,7 +1,6 @@
 :root {
   --app-font-body:
-    "Segoe UI", "Helvetica Neue", Arial, system-ui, -apple-system,
-    BlinkMacSystemFont, sans-serif;
+    'Segoe UI', 'Helvetica Neue', Arial, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html,

@@ -1,8 +1,5 @@
 @if (highlights().length) {
-  <section
-    aria-label="Commercial details"
-    class="row row-cols-1 row-cols-md-2 g-3 mt-3"
-  >
+  <section aria-label="Commercial details" class="row row-cols-1 row-cols-md-2 g-3 mt-3">
     @for (detail of highlights(); track detail.label) {
       <div class="col">
         <article class="h-100 border rounded-4 p-3 shadow-sm">

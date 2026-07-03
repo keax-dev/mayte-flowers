@@ -1,13 +1,8 @@
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { CatalogueCategoryCard } from '@features/catalogue/models/catalogue.models';
 import { CatalogueRepository } from '@features/catalogue/data-access/catalogue.repository';
 import { AnalyticsService } from '@core/analytics/analytics.service';
 import { RouterLink } from '@angular/router';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-} from '@angular/core';
 
 @Component({
   selector: 'app-catalogue-page',

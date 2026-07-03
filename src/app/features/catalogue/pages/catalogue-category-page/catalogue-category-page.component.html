@@ -31,9 +31,7 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
         @for (product of currentCategory.products; track product.slug) {
           <div class="col">
-            <article
-              class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden"
-            >
+            <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
               <div class="ratio ratio-1x1">
                 <img
                   [src]="product.image"
@@ -56,9 +54,7 @@
                     product.routeSlug ?? product.slug,
                   ]"
                   class="btn btn-success mt-auto"
-                  (click)="
-                    trackProductClick(currentCategory.name, product.name)
-                  "
+                  (click)="trackProductClick(currentCategory.name, product.name)"
                 >
                   View details
                 </a>

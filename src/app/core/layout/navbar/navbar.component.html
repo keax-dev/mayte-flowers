@@ -28,18 +28,10 @@
       class="navbar-toggler"
       type="button"
     >
-      <app-icon
-        [decorative]="true"
-        [name]="isMenuOpen() ? 'close' : 'menu'"
-        [size]="24"
-      ></app-icon>
+      <app-icon [decorative]="true" [name]="isMenuOpen() ? 'close' : 'menu'" [size]="24"></app-icon>
     </button>
 
-    <div
-      [class.show]="isMenuOpen()"
-      class="collapse navbar-collapse"
-      id="navbarNavigation"
-    >
+    <div [class.show]="isMenuOpen()" class="collapse navbar-collapse" id="navbarNavigation">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
@@ -82,13 +74,7 @@
       </ul>
 
       <div class="d-grid">
-        <button
-          (click)="openContact()"
-          class="btn btn-success px-4"
-          type="button"
-        >
-          Contact
-        </button>
+        <button (click)="openContact()" class="btn btn-success px-4" type="button">Contact</button>
       </div>
     </div>
   </div>

@@ -2,5 +2,5 @@
   min-height: calc(100vh - 74px);
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.4) 75%),
-    url("/assets/2.jpg") top / cover no-repeat;
+    url('/assets/2.jpg') top / cover no-repeat;
 }

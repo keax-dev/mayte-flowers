@@ -136,6 +136,10 @@ npm install
 npm start
 npm run build
 npm test
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
 npm run typecheck
 ```
 

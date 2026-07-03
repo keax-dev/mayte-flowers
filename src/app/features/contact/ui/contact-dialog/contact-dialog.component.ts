@@ -1,3 +1,5 @@
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ContactSubmissionService } from '@app/features/contact/services/contact-submission.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
@@ -5,21 +7,9 @@ import { AnalyticsService } from '@core/analytics/analytics.service';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import { finalize } from 'rxjs/operators';
 import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
   ContactDialogData,
   ContactInquiryType,
 } from '@features/contact/models/contact-dialog.models';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -36,8 +26,7 @@ export class ContactDialogComponent {
   private readonly contactSubmission = inject(ContactSubmissionService);
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly analytics = inject(AnalyticsService);
-  private readonly dialogRef =
-    inject<DialogRef<unknown, ContactDialogComponent>>(DialogRef);
+  private readonly dialogRef = inject<DialogRef<unknown, ContactDialogComponent>>(DialogRef);
   private readonly config = inject(APP_CONFIG);
 
   private static readonly MESSAGE_MAX_LENGTH = 2000;
@@ -61,15 +50,9 @@ export class ContactDialogComponent {
     boxType: ['', Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH)],
     comment: [
       '',
-      [
-        Validators.required,
-        Validators.maxLength(ContactDialogComponent.MESSAGE_MAX_LENGTH),
-      ],
+      [Validators.required, Validators.maxLength(ContactDialogComponent.MESSAGE_MAX_LENGTH)],
     ],
-    companyName: [
-      '',
-      Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH),
-    ],
+    companyName: ['', Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH)],
     country: ['', Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH)],
     email: [
       '',
@@ -85,26 +68,17 @@ export class ContactDialogComponent {
     ],
     fullName: [
       '',
-      [
-        Validators.required,
-        Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH),
-      ],
+      [Validators.required, Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH)],
     ],
     inquiryType: [this.dialogData?.inquiryType ?? 'general'],
     neededBy: [''],
-    quantity: [
-      '',
-      Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH),
-    ],
+    quantity: ['', Validators.maxLength(ContactDialogComponent.TEXT_MAX_LENGTH)],
     website: [''],
   });
 
-  readonly inquiryType = toSignal(
-    this.contactForm.controls.inquiryType.valueChanges,
-    {
-      initialValue: this.contactForm.controls.inquiryType.value,
-    },
-  );
+  readonly inquiryType = toSignal(this.contactForm.controls.inquiryType.valueChanges, {
+    initialValue: this.contactForm.controls.inquiryType.value,
+  });
 
   readonly dialogTitle = computed(() =>
     this.inquiryType() === 'general' ? 'CONTACT US' : 'REQUEST A QUOTE',
@@ -207,9 +181,7 @@ export class ContactDialogComponent {
 
   syncFlowerTypeValidator(inquiryType: ContactInquiryType): void {
     if (inquiryType === 'general') {
-      this.contactForm.controls.flowerType.removeValidators(
-        Validators.required,
-      );
+      this.contactForm.controls.flowerType.removeValidators(Validators.required);
     } else {
       this.contactForm.controls.flowerType.addValidators(Validators.required);
     }

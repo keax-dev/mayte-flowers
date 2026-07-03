@@ -1,8 +1,6 @@
 <main class="home-page d-flex align-items-center py-5">
   <section class="container" aria-labelledby="home-hero-title">
-    <div
-      class="row g-4 align-items-center rounded-5 bg-white bg-opacity-10 shadow-lg p-3 p-md-4"
-    >
+    <div class="row g-4 align-items-center rounded-5 bg-white bg-opacity-10 shadow-lg p-3 p-md-4">
       <div class="col-12 col-lg-7">
         <div class="ratio ratio-4x3 overflow-hidden rounded-4">
           <img
@@ -16,9 +14,7 @@
       </div>
 
       <header class="col-12 col-lg-5 text-light">
-        <p class="text-uppercase text-light opacity-75 fw-semibold small mb-2">
-          Premium flowers
-        </p>
+        <p class="text-uppercase text-light opacity-75 fw-semibold small mb-2">Premium flowers</p>
         <h1 id="home-hero-title" class="display-3 fw-bold">
           {{ currentSlide().title }}
         </h1>
@@ -53,11 +49,7 @@
           class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-2"
           type="button"
         >
-          <app-icon
-            [decorative]="true"
-            [size]="20"
-            name="chevron-left"
-          ></app-icon>
+          <app-icon [decorative]="true" [size]="20" name="chevron-left"></app-icon>
         </button>
 
         <div aria-label="Slide indicators">
@@ -82,9 +74,7 @@
             <button
               (click)="toggleAutoRotation()"
               [attr.aria-pressed]="!isAutoRotating()"
-              [attr.aria-label]="
-                isAutoRotating() ? 'Pause slideshow' : 'Play slideshow'
-              "
+              [attr.aria-label]="isAutoRotating() ? 'Pause slideshow' : 'Play slideshow'"
               class="btn btn-sm btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-1"
               type="button"
             >
@@ -103,11 +93,7 @@
           class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-2"
           type="button"
         >
-          <app-icon
-            [decorative]="true"
-            [size]="20"
-            name="chevron-right"
-          ></app-icon>
+          <app-icon [decorative]="true" [size]="20" name="chevron-right"></app-icon>
         </button>
       </nav>
     </div>

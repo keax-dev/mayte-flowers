@@ -6,7 +6,7 @@ import { APP_CONFIG } from '@core/config/app-config.token';
 import {
   TRUST_HIGHLIGHTS,
   BUYER_CHECKLIST,
-  BUYER_PROMISES
+  BUYER_PROMISES,
 } from '@features/about/data/about-content.data';
 
 @Component({
@@ -31,7 +31,7 @@ export class AboutPageComponent {
       inquiryType: 'general',
       message:
         'Hello ALX Garden, I would like to learn more about your flower varieties, packing options and commercial process.',
-      source: 'about_page'
+      source: 'about_page',
     });
   }
 

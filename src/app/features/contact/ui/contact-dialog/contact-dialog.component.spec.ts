@@ -19,22 +19,22 @@ describe('ContactDialogComponent', () => {
         {
           provide: ContactSubmissionService,
           useValue: {
-            submit: submitSpy
-          }
+            submit: submitSpy,
+          },
         },
         {
           provide: AnalyticsService,
           useValue: {
-            trackEvent: jasmine.createSpy('trackEvent')
-          }
+            trackEvent: jasmine.createSpy('trackEvent'),
+          },
         },
         {
           provide: DialogRef,
           useValue: {
-            close: jasmine.createSpy('close')
-          }
-        }
-      ]
+            close: jasmine.createSpy('close'),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactDialogComponent);
@@ -43,7 +43,9 @@ describe('ContactDialogComponent', () => {
   });
 
   it('keeps the submit button disabled while the form is invalid', () => {
-    const submitButton = fixture.nativeElement.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitButton = fixture.nativeElement.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement;
 
     expect(submitButton.disabled).toBeTrue();
   });
@@ -83,7 +85,7 @@ describe('ContactDialogComponent', () => {
       inquiryType: 'quote',
       neededBy: '2026-06-30',
       quantity: '10 boxes',
-      website: ''
+      website: '',
     });
 
     component.submit();
@@ -101,7 +103,7 @@ describe('ContactDialogComponent', () => {
       message: 'Please send me a quote.',
       neededBy: '2026-06-30',
       quantity: '10 boxes',
-      source: 'website'
+      source: 'website',
     });
     expect(component.submissionState()).toBe('success');
     expect(component.feedback()).toContain('Thanks for your request');
@@ -120,7 +122,7 @@ describe('ContactDialogComponent', () => {
       inquiryType: 'quote',
       neededBy: '2026-06-30',
       quantity: '10 boxes',
-      website: ''
+      website: '',
     });
 
     component.submit();

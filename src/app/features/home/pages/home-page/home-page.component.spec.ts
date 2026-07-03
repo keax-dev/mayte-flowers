@@ -16,16 +16,16 @@ describe('HomePageComponent', () => {
         {
           provide: AnalyticsService,
           useValue: {
-            trackEvent: jasmine.createSpy('trackEvent')
-          }
+            trackEvent: jasmine.createSpy('trackEvent'),
+          },
         },
         {
           provide: ContactDialogService,
           useValue: {
-            open: jasmine.createSpy('open')
-          }
-        }
-      ]
+            open: jasmine.createSpy('open'),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePageComponent);

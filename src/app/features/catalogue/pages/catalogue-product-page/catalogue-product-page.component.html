@@ -11,12 +11,7 @@
             class="btn btn-outline-secondary d-inline-flex align-items-center"
             type="button"
           >
-            <app-icon
-              [decorative]="true"
-              [size]="20"
-              class="me-2"
-              name="arrow-left"
-            ></app-icon>
+            <app-icon [decorative]="true" [size]="20" class="me-2" name="arrow-left"></app-icon>
             Go back
           </button>
 
@@ -36,10 +31,7 @@
           </div>
         </aside>
 
-        <section
-          class="col-12 col-lg-8 p-4 p-md-5"
-          aria-labelledby="product-title"
-        >
+        <section class="col-12 col-lg-8 p-4 p-md-5" aria-labelledby="product-title">
           <h1 id="product-title" class="display-4 fw-bold">
             {{ currentProduct.name }}
           </h1>
@@ -62,9 +54,7 @@
             <hr class="border-success opacity-50 my-4" />
           }
 
-          <app-product-specifications
-            [product]="currentProduct"
-          ></app-product-specifications>
+          <app-product-specifications [product]="currentProduct"></app-product-specifications>
 
           @if (isGypsophila()) {
             <app-gypsophila-packing-table></app-gypsophila-packing-table>

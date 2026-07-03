@@ -1,8 +1,6 @@
 .home-page {
   min-height: calc(100vh - 74px);
   background:
-    radial-gradient(circle at top right,
-      rgba(20, 151, 190, 0.28),
-      transparent 25%),
+    radial-gradient(circle at top right, rgba(20, 151, 190, 0.28), transparent 25%),
     linear-gradient(135deg, #0a180f 0%, #1c3423 45%, #0f1f14 100%);
 }

@@ -4,6 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-gypsophila-packing-table',
   standalone: true,
   templateUrl: './gypsophila-packing-table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GypsophilaPackingTableComponent {}

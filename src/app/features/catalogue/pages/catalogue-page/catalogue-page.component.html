@@ -2,23 +2,18 @@
   <section class="container" aria-labelledby="catalogue-title">
     <header class="text-center text-white mb-5">
       <h1 id="catalogue-title" class="display-4 fw-bold">Product catalogue</h1>
-      <p class="lead mb-0">
-        Explore our flower lines and commercial specifications.
-      </p>
+      <p class="lead mb-0">Explore our flower lines and commercial specifications.</p>
     </header>
 
     @if (loadError()) {
       <div class="alert alert-light border shadow-sm" role="alert">
-        We could not load the catalogue right now. Please refresh the page or
-        contact us directly.
+        We could not load the catalogue right now. Please refresh the page or contact us directly.
       </div>
     } @else {
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
         @for (category of cards(); track category.slug) {
           <div class="col">
-            <article
-              class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden"
-            >
+            <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
               <div class="ratio ratio-4x3">
                 <img
                   [src]="category.image"

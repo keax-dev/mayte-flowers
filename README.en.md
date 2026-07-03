@@ -3,11 +3,11 @@
 [![Idioma: Espanol](https://img.shields.io/badge/Idioma-Espa%C3%B1ol-0a66c2)](./README.md)
 [![Language: English](https://img.shields.io/badge/Language-English-2ea44f)](./README.en.md)
 
-Angular 22 product catalogue and marketing website built as a frontend portfolio project for a flower exporter brand.
+Angular 22 product catalogue and marketing website built for a flower exporter brand.
 
-This repository showcases how I approach a real-world Angular application beyond the UI layer: architecture, routing, SEO, accessibility, typed forms, analytics, performance-minded loading, and maintainable feature boundaries.
+This repository shows how a real Angular application was approached beyond the interface: architecture, routing, SEO, accessibility, typed forms, analytics, performance-minded loading, and maintainable feature boundaries.
 
-## Why This Project Matters
+## Project Description
 
 This is not a demo with a single page and static cards. It is a structured frontend application designed to reflect the kind of work expected in a professional Angular team:
 
@@ -19,8 +19,6 @@ This is not a demo with a single page and static cards. It is a structured front
 - analytics abstraction for page views and business events
 - resilient catalogue loading and explicit error states
 - type safety improvements such as `noUncheckedIndexedAccess`
-
-If you are reviewing this repository as a recruiter or hiring manager, the main signal is not only the visual result, but the engineering decisions behind it.
 
 ## Product Scope
 
@@ -34,9 +32,7 @@ The application includes:
 - an accessible contact dialog for lead capture
 - SEO metadata and structured data for marketing visibility
 
-## What I Wanted To Demonstrate
-
-This project was intentionally shaped to highlight practical frontend skills that transfer well to production environments:
+This project was intentionally oriented to showcase practical frontend skills that transfer well to production environments:
 
 - translating business content into a maintainable Angular application
 - splitting responsibilities between `core`, `features`, and `shared`
@@ -140,6 +136,10 @@ npm install
 npm start
 npm run build
 npm test
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
 npm run typecheck
 ```
 
@@ -166,32 +166,3 @@ npm run build
 ```
 
 The production output is generated in `dist/mayte-flowres`.
-
-## Portfolio Positioning
-
-This repository is useful in interviews because it gives concrete evidence of:
-
-- Angular architecture decisions, not only component markup
-- maintainability concerns such as boundaries, reusability, and naming
-- awareness of UX details like transitions, focus handling, and error states
-- frontend ownership across code quality, testing, SEO, accessibility, and performance
-
-## What I Would Improve Next
-
-If this evolved into a longer production engagement, the next steps I would prioritize are:
-
-- move runtime configuration to environment-based external config
-- add ESLint and Prettier enforcement
-- add end-to-end coverage for critical user flows
-- optimize and convert more image assets to modern formats
-- connect a real GA4 measurement ID and a production lead endpoint
-- add CI checks for build, tests, and type validation
-
-## Notes
-
-- This project currently uses client-side rendering, not SSR.
-- Google Analytics integration is implemented through a dedicated service, but requires a real `gaMeasurementId` to send live data.
-
-## Contact
-
-If you are reviewing this repository for a frontend role, I would be happy to walk through the architectural decisions, tradeoffs, and improvements I made in this codebase.

@@ -23,11 +23,7 @@
         class="d-block my-3"
       ></app-social-links>
 
-      <button
-        type="button"
-        class="btn btn-success btn-lg px-5"
-        (click)="openContact()"
-      >
+      <button type="button" class="btn btn-success btn-lg px-5" (click)="openContact()">
         Contact us
       </button>
     </header>
@@ -37,25 +33,20 @@
       aria-labelledby="about-trust-title"
     >
       <header class="mb-4">
-        <p class="text-success fw-bold text-uppercase small mb-2">
-          Why buyers choose us
-        </p>
+        <p class="text-success fw-bold text-uppercase small mb-2">Why buyers choose us</p>
         <h2 id="about-trust-title" class="display-5 fw-bold">
           A cleaner path from interest to quote
         </h2>
         <p class="lead lh-lg mb-0">
-          We built this catalogue for commercial conversations: flower type,
-          stem length, packing needs, destination and timing are all easy to
-          share from the start.
+          We built this catalogue for commercial conversations: flower type, stem length, packing
+          needs, destination and timing are all easy to share from the start.
         </p>
       </header>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3">
         @for (highlight of trustHighlights; track highlight.label) {
           <div class="col">
-            <article
-              class="h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm"
-            >
+            <article class="h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm">
               <p class="text-body-secondary fw-bold text-uppercase small mb-2">
                 {{ highlight.label }}
               </p>
@@ -80,9 +71,7 @@
       </div>
 
       <section class="mt-5" aria-labelledby="buyer-checklist-title">
-        <h3 id="buyer-checklist-title" class="h4 fw-bold mb-3">
-          What to include in your request
-        </h3>
+        <h3 id="buyer-checklist-title" class="h4 fw-bold mb-3">What to include in your request</h3>
 
         <div class="row row-cols-1 row-cols-md-2 g-3">
           @for (item of buyerChecklist; track item.title) {

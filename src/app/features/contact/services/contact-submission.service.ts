@@ -1,12 +1,9 @@
+import { ContactSubmissionPayload, FormSubmitResponse } from '../interfaces/contact.interface';
 import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import { map } from 'rxjs/operators';
-import {
-  ContactSubmissionPayload,
-  FormSubmitResponse,
-} from '../interfaces/contact.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ContactSubmissionService {
@@ -35,10 +32,7 @@ export class ContactSubmissionService {
     formData.append('_honey', payload.honeypot?.trim() ?? '');
 
     return this.http
-      .post<FormSubmitResponse>(
-        `https://formsubmit.co/ajax/${this.config.contactEmail}`,
-        formData,
-      )
+      .post<FormSubmitResponse>(`https://formsubmit.co/ajax/${this.config.contactEmail}`, formData)
       .pipe(map(() => void 0));
   }
 }

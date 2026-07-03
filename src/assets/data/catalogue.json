@@ -8,11 +8,7 @@
     "packing": "Custom export packing confirmed on quote",
     "minimumOrder": "Mixed and full-box requests available",
     "seasonality": "Consistent supply windows available",
-    "idealFor": [
-      "Wholesale bouquets",
-      "Retail programs",
-      "Event floral design"
-    ],
+    "idealFor": ["Wholesale bouquets", "Retail programs", "Event floral design"],
     "products": [
       {
         "slug": "explorer_rose",
@@ -206,11 +202,7 @@
     "packing": "Commercial packing options confirmed per request",
     "minimumOrder": "Program and mixed-order requests available",
     "seasonality": "Stable production planning available",
-    "idealFor": [
-      "Bouquet accents",
-      "Mixed floral programs",
-      "Retail add-on stems"
-    ],
+    "idealFor": ["Bouquet accents", "Mixed floral programs", "Retail add-on stems"],
     "products": [
       {
         "slug": "red_hypericum",

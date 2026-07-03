@@ -1,5 +1,6 @@
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { Injectable, inject, signal } from '@angular/core';
+import { slugMatches, toRouteSlug } from '@features/catalogue/models/catalogue-slug.utils';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import { of } from 'rxjs';
@@ -8,10 +9,6 @@ import {
   CatalogueCategory,
   CatalogueProduct,
 } from '@features/catalogue/models/catalogue.models';
-import {
-  slugMatches,
-  toRouteSlug,
-} from '@features/catalogue/models/catalogue-slug.utils';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogueRepository {
@@ -68,9 +65,7 @@ export class CatalogueRepository {
   getCategoryBySlug$(categorySlug: string) {
     return this.categories$.pipe(
       map((categories) =>
-        categories.find((category) =>
-          slugMatches(category.slug, categorySlug, category.aliases),
-        ),
+        categories.find((category) => slugMatches(category.slug, categorySlug, category.aliases)),
       ),
     );
   }

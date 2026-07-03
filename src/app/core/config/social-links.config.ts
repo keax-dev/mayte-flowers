@@ -7,9 +7,7 @@ export interface SocialLinkConfig {
   readonly openInNewTab?: boolean;
 }
 
-export function createSocialLinks(
-  config: AppConfig,
-): readonly SocialLinkConfig[] {
+export function createSocialLinks(config: AppConfig): readonly SocialLinkConfig[] {
   return [
     {
       label: 'Instagram',

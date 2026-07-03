@@ -1,8 +1,7 @@
-import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-
 import { CatalogueRepository } from '@features/catalogue/data-access/catalogue.repository';
+import { TestBed } from '@angular/core/testing';
 
 describe('CatalogueRepository', () => {
   let httpMock: HttpTestingController;
@@ -22,9 +21,9 @@ describe('CatalogueRepository', () => {
           image: '/assets/catalogue/sunflower.jpg',
           description: 'Yellow sunflower',
           length: '60/70/80 cm',
-          life: '14+'
-        }
-      ]
+          life: '14+',
+        },
+      ],
     },
     {
       slug: 'hypericum',
@@ -40,15 +39,15 @@ describe('CatalogueRepository', () => {
           image: '/assets/hympericu/red.jpg',
           description: 'Red hypericum',
           length: '60/70cm',
-          life: '14+'
-        }
-      ]
-    }
+          life: '14+',
+        },
+      ],
+    },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CatalogueRepository, provideHttpClient(withFetch()), provideHttpClientTesting()]
+      providers: [CatalogueRepository, provideHttpClient(withFetch()), provideHttpClientTesting()],
     });
 
     httpMock = TestBed.inject(HttpTestingController);
@@ -74,15 +73,15 @@ describe('CatalogueRepository', () => {
         name: 'SUNFLOWER',
         image: '/assets/catalogue/sunflower.jpg',
         summary: 'Seasonal sunflower programs',
-        route: ['/gallery', 'sunflower', 'sunflower']
+        route: ['/gallery', 'sunflower', 'sunflower'],
       },
       {
         slug: 'hypericum',
         name: 'HYPERICUM',
         image: '/assets/catalogue/hympericu.jpg',
         summary: 'Textured bouquet accents',
-        route: ['/gallery', 'hypericum']
-      }
+        route: ['/gallery', 'hypericum'],
+      },
     ]);
   });
 
@@ -114,9 +113,7 @@ describe('CatalogueRepository', () => {
       categories = value;
     });
 
-    httpMock
-      .expectOne('assets/data/catalogue.json')
-      .error(new ProgressEvent('network error'));
+    httpMock.expectOne('assets/data/catalogue.json').error(new ProgressEvent('network error'));
 
     expect(categories).toEqual([]);
     expect(repository.loadError()).toBeTrue();

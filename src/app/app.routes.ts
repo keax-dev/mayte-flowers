@@ -15,9 +15,7 @@ export const appRoutes: Routes = [
       image: '/assets/carrousel-1.jpg',
     },
     loadComponent: () =>
-      import('@features/home/pages/home-page/home-page.component').then(
-        (m) => m.HomePageComponent,
-      ),
+      import('@features/home/pages/home-page/home-page.component').then((m) => m.HomePageComponent),
   },
   {
     path: 'about-us',
@@ -41,9 +39,7 @@ export const appRoutes: Routes = [
       image: '/assets/catalogue/roses.jpg',
     },
     loadChildren: () =>
-      import('@app/features/catalogue/routes/catalogue.routes').then(
-        (m) => m.CATALOGUE_ROUTES,
-      ),
+      import('@app/features/catalogue/routes/catalogue.routes').then((m) => m.CATALOGUE_ROUTES),
   },
   {
     path: 'not-found',

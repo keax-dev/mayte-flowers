@@ -1,13 +1,7 @@
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { createSocialLinks } from '@core/config/social-links.config';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
 import { APP_CONFIG } from '@core/config/app-config.token';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  output,
-} from '@angular/core';
 
 @Component({
   selector: 'app-social-links',

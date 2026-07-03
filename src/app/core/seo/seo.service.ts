@@ -1,3 +1,4 @@
+import { ActivatedRouteSnapshot, ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { StructuredData, SeoCategory, SeoProduct } from '@core/seo/seo.models';
 import { DestroyRef, Injectable, inject } from '@angular/core';
 import { filter, map, startWith } from 'rxjs/operators';
@@ -7,12 +8,6 @@ import { buildAbsoluteUrl } from '@core/config/url.utils';
 import { Meta, Title } from '@angular/platform-browser';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import { DOCUMENT } from '@angular/common';
-import {
-  ActivatedRouteSnapshot,
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
 import {
   buildOrganizationSchema,
   buildCollectionSchema,
@@ -44,8 +39,7 @@ export class SeoService {
 
   updateMetadata(activeRoute: ActivatedRouteSnapshot): void {
     const description =
-      (activeRoute.data['description'] as string | undefined) ??
-      this.config.defaultDescription;
+      (activeRoute.data['description'] as string | undefined) ?? this.config.defaultDescription;
     const image = this.resolveImage(activeRoute);
     const keywords = this.buildKeywords(activeRoute);
     const ogType = activeRoute.data['productData']
@@ -53,9 +47,7 @@ export class SeoService {
       : ((activeRoute.data['ogType'] as string | undefined) ?? 'website');
     const robots =
       (activeRoute.data['robots'] as string | undefined) ??
-      (activeRoute.routeConfig?.path === 'not-found'
-        ? 'noindex, nofollow'
-        : 'index, follow');
+      (activeRoute.routeConfig?.path === 'not-found' ? 'noindex, nofollow' : 'index, follow');
     const pageTitle = this.title.getTitle() || this.config.name;
     const pageUrl = buildAbsoluteUrl(
       this.router.url === '/' ? '/home' : this.router.url,
@@ -84,20 +76,12 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:image', content: image });
 
     this.updateCanonicalLink(pageUrl);
-    this.updateStructuredData(
-      activeRoute,
-      pageTitle,
-      description,
-      pageUrl,
-      image,
-    );
+    this.updateStructuredData(activeRoute, pageTitle, description, pageUrl, image);
   }
 
   buildKeywords(activeRoute: ActivatedRouteSnapshot): string {
     const product = activeRoute.data['productData'] as SeoProduct | undefined;
-    const category = activeRoute.data['categoryData'] as
-      | SeoCategory
-      | undefined;
+    const category = activeRoute.data['categoryData'] as SeoCategory | undefined;
 
     return [
       this.config.name,
@@ -123,16 +107,11 @@ export class SeoService {
 
   resolveImage(activeRoute: ActivatedRouteSnapshot): string {
     const product = activeRoute.data['productData'] as SeoProduct | undefined;
-    const category = activeRoute.data['categoryData'] as
-      | SeoCategory
-      | undefined;
+    const category = activeRoute.data['categoryData'] as SeoCategory | undefined;
     const routeImage = activeRoute.data['image'] as string | undefined;
 
     return buildAbsoluteUrl(
-      product?.image ??
-        category?.image ??
-        routeImage ??
-        this.config.defaultOgImage,
+      product?.image ?? category?.image ?? routeImage ?? this.config.defaultOgImage,
       this.config.siteUrl,
     );
   }
@@ -159,43 +138,22 @@ export class SeoService {
     image: string,
   ): void {
     const product = activeRoute.data['productData'] as SeoProduct | undefined;
-    const category = activeRoute.data['categoryData'] as
-      | SeoCategory
-      | undefined;
+    const category = activeRoute.data['categoryData'] as SeoCategory | undefined;
     const graph: StructuredData[] = [
       buildOrganizationSchema(this.config),
       buildBreadcrumbSchema(this.activatedRoute.snapshot.root, this.config),
     ];
 
     if (product) {
-      graph.push(
-        buildProductSchema(
-          this.config,
-          product,
-          category,
-          description,
-          pageUrl,
-          image,
-        ),
-      );
+      graph.push(buildProductSchema(this.config, product, category, description, pageUrl, image));
     } else if (category) {
-      graph.push(
-        buildCollectionSchema(
-          this.config,
-          category,
-          description,
-          pageUrl,
-          image,
-        ),
-      );
+      graph.push(buildCollectionSchema(this.config, category, description, pageUrl, image));
     } else {
       graph.push(buildWebsiteSchema(this.config));
       graph.push(buildWebPageSchema(pageTitle, description, pageUrl, image));
     }
 
-    let script = this.document.getElementById(
-      'app-structured-data',
-    ) as HTMLScriptElement | null;
+    let script = this.document.getElementById('app-structured-data') as HTMLScriptElement | null;
 
     if (!script) {
       script = this.document.createElement('script');

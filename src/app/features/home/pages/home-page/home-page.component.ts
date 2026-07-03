@@ -34,8 +34,7 @@ export class HomePageComponent {
 
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly prefersReducedMotion =
-    this.isBrowser &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.isBrowser && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   private rotationIntervalId: number | null = null;
 
@@ -69,9 +68,7 @@ export class HomePageComponent {
     },
   ];
 
-  readonly currentSlide = computed(
-    () => this.slides[this.activeIndex()] ?? this.slides[0],
-  );
+  readonly currentSlide = computed(() => this.slides[this.activeIndex()] ?? this.slides[0]);
 
   constructor() {
     if (this.isBrowser && this.isAutoRotating()) {
@@ -86,9 +83,7 @@ export class HomePageComponent {
   }
 
   next(): void {
-    this.activeIndex.update(
-      (currentIndex) => (currentIndex + 1) % this.slides.length,
-    );
+    this.activeIndex.update((currentIndex) => (currentIndex + 1) % this.slides.length);
   }
 
   previous(): void {

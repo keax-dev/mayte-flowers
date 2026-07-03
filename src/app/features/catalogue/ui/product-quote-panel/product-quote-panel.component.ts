@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  output,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, input } from '@angular/core';
 
 @Component({
   selector: 'app-product-quote-panel',

@@ -1,3 +1,5 @@
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { CatalogueCategory, CatalogueProduct } from '@features/catalogue/models/catalogue.models';
 import { GypsophilaPackingTableComponent } from '@features/catalogue/ui/gypsophila-packing-table/gypsophila-packing-table.component';
 import { ProductSpecificationsComponent } from '@features/catalogue/ui/product-specifications/product-specifications.component';
 import { ProductQuotePanelComponent } from '@features/catalogue/ui/product-quote-panel/product-quote-panel.component';
@@ -9,20 +11,9 @@ import { AnalyticsService } from '@core/analytics/analytics.service';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import { Location } from '@angular/common';
 import {
-  CatalogueCategory,
-  CatalogueProduct,
-} from '@features/catalogue/models/catalogue.models';
-import {
   ProductCommercialDetailsComponent,
   CommercialHighlight,
 } from '@features/catalogue/ui/product-commercial-details/product-commercial-details.component';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-} from '@angular/core';
 
 @Component({
   selector: 'app-catalogue-product-page',
@@ -49,31 +40,29 @@ export class CatalogueProductPageComponent {
   readonly productData = input<CatalogueProduct | null>(null);
   readonly category = input('');
 
-  readonly commercialHighlights = computed<readonly CommercialHighlight[]>(
-    () => {
-      const product = this.productData();
-      const category = this.categoryData();
+  readonly commercialHighlights = computed<readonly CommercialHighlight[]>(() => {
+    const product = this.productData();
+    const category = this.categoryData();
 
-      return [
-        {
-          label: 'Availability',
-          value: product?.availability ?? category?.availability ?? '',
-        },
-        {
-          label: 'Seasonality',
-          value: product?.seasonality ?? category?.seasonality ?? '',
-        },
-        {
-          label: 'Packing',
-          value: product?.packing ?? category?.packing ?? '',
-        },
-        {
-          label: 'Minimum order',
-          value: product?.minimumOrder ?? category?.minimumOrder ?? '',
-        },
-      ].filter((item) => item.value);
-    },
-  );
+    return [
+      {
+        label: 'Availability',
+        value: product?.availability ?? category?.availability ?? '',
+      },
+      {
+        label: 'Seasonality',
+        value: product?.seasonality ?? category?.seasonality ?? '',
+      },
+      {
+        label: 'Packing',
+        value: product?.packing ?? category?.packing ?? '',
+      },
+      {
+        label: 'Minimum order',
+        value: product?.minimumOrder ?? category?.minimumOrder ?? '',
+      },
+    ].filter((item) => item.value);
+  });
 
   readonly hasMetadata = computed(() => {
     const product = this.productData();

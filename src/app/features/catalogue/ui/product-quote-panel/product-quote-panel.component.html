@@ -1,22 +1,13 @@
-<section
-  aria-label="Quote actions"
-  class="bg-body-tertiary border rounded-4 p-4 mt-4"
->
-  <p class="text-success fw-bold text-uppercase small mb-2">
-    Ready to buy or request pricing?
-  </p>
+<section aria-label="Quote actions" class="bg-body-tertiary border rounded-4 p-4 mt-4">
+  <p class="text-success fw-bold text-uppercase small mb-2">Ready to buy or request pricing?</p>
   <h2 class="h3 fw-bold">Request availability for {{ productName() }}</h2>
   <p class="lh-lg">
-    Share your quantity, country, required date and packing preference. We will
-    follow up with the right commercial details.
+    Share your quantity, country, required date and packing preference. We will follow up with the
+    right commercial details.
   </p>
 
   <div class="d-grid d-sm-flex gap-2">
-    <button
-      (click)="quoteRequested.emit()"
-      class="btn btn-success btn-lg px-4"
-      type="button"
-    >
+    <button (click)="quoteRequested.emit()" class="btn btn-success btn-lg px-4" type="button">
       Request quote
     </button>
 

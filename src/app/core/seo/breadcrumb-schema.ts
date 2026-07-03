@@ -43,10 +43,7 @@ export function buildBreadcrumbSchema(
   };
 }
 
-function getRouteLabel(
-  route: ActivatedRouteSnapshot,
-  companyName: string,
-): string {
+function getRouteLabel(route: ActivatedRouteSnapshot, companyName: string): string {
   const product = route.data['productData'] as SeoProduct | undefined;
   const category = route.data['categoryData'] as SeoCategory | undefined;
 
@@ -69,8 +66,6 @@ function getRouteLabel(
 
   return (
     labels[path] ??
-    (typeof title === 'string'
-      ? title.replace(` | ${companyName}`, '')
-      : path || companyName)
+    (typeof title === 'string' ? title.replace(` | ${companyName}`, '') : path || companyName)
   );
 }
