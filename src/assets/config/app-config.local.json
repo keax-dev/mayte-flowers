@@ -1,0 +1,17 @@
+{
+  "contactEmail": "dev.sales@example.com",
+  "defaultDescription": "ALX Garden Dev is a local runtime configuration for validating catalogue flows, contact forms and SEO behavior.",
+  "defaultOgImage": "/assets/carrousel-1.jpg",
+  "gaMeasurementId": "G-LOCALDEV123",
+  "logo": "/assets/logo.jpg",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Quito%2C+Ecuador",
+  "name": "ALX Garden Dev",
+  "openingHours": "Development schedule",
+  "phoneDisplay": "+1 555-0100",
+  "phoneHref": "tel:+15550100",
+  "quoteResponsePromise": "Local development runtime config for validating quote interactions before production release.",
+  "salesFocus": "Local development setup for catalogue, lead capture and navigation testing.",
+  "siteUrl": "http://localhost:4200",
+  "tagline": "Development environment for ALX Garden",
+  "whatsappUrl": "https://api.whatsapp.com/send?phone=15550100"
+}

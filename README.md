@@ -93,6 +93,14 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - Seguimiento automatico de page views en cambios de ruta
 - Eventos personalizados para CTAs, apertura de modal, acciones de WhatsApp y estados de envio de leads
 
+### Configuracion Runtime
+
+- La aplicacion carga configuracion publica desde `src/assets/config/`.
+- En `localhost` consume `app-config.local.json`; fuera del entorno local consume `app-config.json`.
+- Valores como `siteUrl`, `gaMeasurementId`, datos de contacto, branding base y enlaces externos pueden cambiarse sin recompilar el bundle.
+- La configuracion se resuelve durante el arranque en `src/main.ts` y se inyecta en la aplicacion mediante `APP_CONFIG`.
+- Este mecanismo esta pensado para valores publicos; los secretos reales deben permanecer en backend o infraestructura, nunca en el frontend.
+
 ## Estructura Del Proyecto
 
 ```text

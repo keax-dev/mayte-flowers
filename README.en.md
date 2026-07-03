@@ -93,6 +93,14 @@ This project was intentionally oriented to showcase practical frontend skills th
 - automatic page view tracking on route changes
 - custom event tracking for CTA clicks, modal opens, WhatsApp actions, and lead submission states
 
+### Runtime Configuration
+
+- The application loads public configuration from `src/assets/config/`.
+- On `localhost`, it consumes `app-config.local.json`; outside the local environment, it consumes `app-config.json`.
+- Values such as `siteUrl`, `gaMeasurementId`, contact details, base branding, and external links can be changed without rebuilding the bundle.
+- The configuration is resolved during bootstrap in `src/main.ts` and injected into the application through `APP_CONFIG`.
+- This mechanism is intended for public values; real secrets should remain in the backend or infrastructure layer, never in the frontend.
+
 ## Project Structure
 
 ```text

@@ -1,6 +1,6 @@
 import { AppConfig } from '@core/config/app-config.model';
 
-export const APP_CONFIG_VALUE: AppConfig = {
+export const TEST_APP_CONFIG: AppConfig = {
   contactEmail: 'sales@alxgarden.com',
   defaultDescription:
     'ALX Garden produces and markets premium flowers including roses, gypsophila, hypericum and sunflowers.',

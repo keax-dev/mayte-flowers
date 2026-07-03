@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactSubmissionService } from '@app/features/contact/services/contact-submission.service';
+import { TEST_APP_CONFIG } from '@app/testing/test-app-config';
 import { ContactDialogComponent } from '@features/contact/ui/contact-dialog/contact-dialog.component';
 import { AnalyticsService } from '@core/analytics/analytics.service';
+import { APP_CONFIG } from '@core/config/app-config.token';
 import { of, throwError } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
 
@@ -16,6 +18,7 @@ describe('ContactDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ContactDialogComponent],
       providers: [
+        { provide: APP_CONFIG, useValue: TEST_APP_CONFIG },
         {
           provide: ContactSubmissionService,
           useValue: {

@@ -1,6 +1,8 @@
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ContactSubmissionService } from '@app/features/contact/services/contact-submission.service';
+import { APP_CONFIG } from '@core/config/app-config.token';
+import { TEST_APP_CONFIG } from '@app/testing/test-app-config';
 import { TestBed } from '@angular/core/testing';
 
 describe('ContactSubmissionService', () => {
@@ -11,6 +13,7 @@ describe('ContactSubmissionService', () => {
     TestBed.configureTestingModule({
       providers: [
         ContactSubmissionService,
+        { provide: APP_CONFIG, useValue: TEST_APP_CONFIG },
         provideHttpClient(withFetch()),
         provideHttpClientTesting(),
       ],
