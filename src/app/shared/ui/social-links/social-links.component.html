@@ -1,22 +1,22 @@
 <ul
-  class="nav justify-content-center gap-2 p-0"
-  aria-label="Social media and contact links"
   [class.flex-column]="layout() === 'column'"
   [class.flex-wrap]="layout() === 'wrap'"
+  class="nav justify-content-center gap-2 p-0"
+  aria-label="Social media and contact links"
 >
   @for (link of links; track link.label) {
     <li class="nav-item">
       <a
+        (click)="trackClick(link.label)"
+        [class.btn-secondary]="link.icon === 'location'"
+        [class.btn-success]="link.icon === 'whatsapp'"
+        [class.btn-danger]="link.icon === 'instagram'"
+        [attr.aria-label]="link.label"
+        [class.btn-dark]="link.icon === 'phone'"
+        [attr.target]="link.openInNewTab ? '_blank' : null"
+        [attr.rel]="link.openInNewTab ? 'noopener noreferrer' : null"
         [href]="link.href"
         class="btn rounded-circle d-inline-flex align-items-center justify-content-center p-3 shadow-sm"
-        [class.btn-danger]="link.icon === 'instagram'"
-        [class.btn-success]="link.icon === 'whatsapp'"
-        [class.btn-dark]="link.icon === 'phone'"
-        [class.btn-secondary]="link.icon === 'location'"
-        [attr.aria-label]="link.label"
-        [attr.rel]="link.openInNewTab ? 'noreferrer' : null"
-        [attr.target]="link.openInNewTab ? '_blank' : null"
-        (click)="trackClick(link.label)"
       >
         <app-icon
           [decorative]="true"

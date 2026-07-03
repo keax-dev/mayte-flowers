@@ -1,0 +1,53 @@
+@if (product().headOptions?.length) {
+  <div class="row row-cols-1 row-cols-md-2 g-3 my-3">
+    @for (option of product().headOptions; track option.label) {
+      <div class="col">
+        <p class="h4 text-center bg-body-tertiary rounded-4 p-4 h-100 mb-0">
+          <span class="fw-bold text-warning">{{ option.label }}</span>
+          <br />
+          {{ option.description }}
+        </p>
+      </div>
+    }
+  </div>
+}
+
+@if (product().color) {
+  <div class="row align-items-center text-center border-bottom py-4">
+    <div class="col-12 col-sm-6">
+      <img src="/assets/catalogue/color.png" alt="" width="96" height="96" />
+      <p class="h4 fw-bold mt-2">Color</p>
+    </div>
+    <p class="col-12 col-sm-6 display-6 mb-0">{{ product().color }}</p>
+  </div>
+}
+
+@if (product().head) {
+  <div class="row align-items-center text-center border-bottom py-4">
+    <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ product().head }}</p>
+    <div class="col-12 col-sm-6">
+      <img src="/assets/catalogue/head.png" alt="" width="96" height="96" />
+      <p class="h4 fw-bold mt-2">Head size</p>
+    </div>
+  </div>
+}
+
+@if (product().length) {
+  <div class="row align-items-center text-center border-bottom py-4">
+    <div class="col-12 col-sm-6">
+      <img src="/assets/catalogue/length.png" alt="" width="96" height="96" />
+      <p class="h4 fw-bold mt-2">Stem length</p>
+    </div>
+    <p class="col-12 col-sm-6 display-6 mb-0">{{ product().length }}</p>
+  </div>
+}
+
+@if (product().life) {
+  <div class="row align-items-center text-center border-bottom py-4">
+    <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ product().life }}</p>
+    <div class="col-12 col-sm-6">
+      <img src="/assets/catalogue/life.png" alt="" width="96" height="96" />
+      <p class="h4 fw-bold mt-2">Product vase life</p>
+    </div>
+  </div>
+}

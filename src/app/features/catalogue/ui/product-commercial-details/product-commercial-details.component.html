@@ -1,0 +1,28 @@
+@if (highlights().length) {
+  <section
+    aria-label="Commercial details"
+    class="row row-cols-1 row-cols-md-2 g-3 mt-3"
+  >
+    @for (detail of highlights(); track detail.label) {
+      <div class="col">
+        <article class="h-100 border rounded-4 p-3 shadow-sm">
+          <p class="text-body-secondary fw-bold text-uppercase small mb-2">
+            {{ detail.label }}
+          </p>
+          <p class="fw-semibold lh-lg mb-0">{{ detail.value }}</p>
+        </article>
+      </div>
+    }
+  </section>
+}
+
+@if (idealFor().length) {
+  <section class="mt-4" aria-label="Recommended uses">
+    <h2 class="h5 fw-bold">Ideal for</h2>
+    <div class="d-flex flex-wrap gap-2">
+      @for (use of idealFor(); track use) {
+        <span class="badge rounded-pill text-bg-success p-2">{{ use }}</span>
+      }
+    </div>
+  </section>
+}

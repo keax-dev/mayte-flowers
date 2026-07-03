@@ -1,29 +1,32 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top py-2" aria-label="Primary navigation">
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top py-2"
+  aria-label="Primary navigation"
+>
   <div class="container-fluid">
     <a
+      (click)="closeMenu()"
       routerLink="/about-us"
       class="navbar-brand d-flex align-items-center gap-2"
-      (click)="closeMenu()"
     >
       <img
         [src]="company.logo"
         [alt]="company.name"
+        fetchpriority="high"
+        decoding="async"
+        height="50"
         class="rounded-circle border border-3 border-white object-fit-cover"
         width="50"
-        height="50"
-        decoding="async"
-        fetchpriority="high"
-      >
+      />
       <span class="fw-bold fs-5 text-success">{{ company.name }}</span>
     </a>
 
     <button
-      type="button"
-      class="navbar-toggler"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen()"
       aria-controls="navbarNavigation"
       aria-label="Toggle navigation"
-      [attr.aria-expanded]="isMenuOpen()"
-      (click)="toggleMenu()"
+      class="navbar-toggler"
+      type="button"
     >
       <app-icon
         [decorative]="true"
@@ -32,16 +35,20 @@
       ></app-icon>
     </button>
 
-    <div id="navbarNavigation" class="collapse navbar-collapse" [class.show]="isMenuOpen()">
+    <div
+      [class.show]="isMenuOpen()"
+      class="collapse navbar-collapse"
+      id="navbarNavigation"
+    >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-            routerLink="/home"
-            routerLinkActive="active"
+            (click)="closeMenu()"
             [routerLinkActiveOptions]="{ exact: true }"
             ariaCurrentWhenActive="page"
+            routerLinkActive="active"
+            routerLink="/home"
             class="nav-link text-center px-3"
-            (click)="closeMenu()"
           >
             Home
           </a>
@@ -49,12 +56,12 @@
 
         <li class="nav-item">
           <a
-            routerLink="/gallery"
-            routerLinkActive="active"
+            (click)="closeMenu()"
             [routerLinkActiveOptions]="{ exact: false }"
             ariaCurrentWhenActive="page"
+            routerLinkActive="active"
+            routerLink="/gallery"
             class="nav-link text-center px-3"
-            (click)="closeMenu()"
           >
             Products
           </a>
@@ -62,12 +69,12 @@
 
         <li class="nav-item">
           <a
-            routerLink="/about-us"
-            routerLinkActive="active"
+            (click)="closeMenu()"
             [routerLinkActiveOptions]="{ exact: true }"
             ariaCurrentWhenActive="page"
+            routerLinkActive="active"
+            routerLink="/about-us"
             class="nav-link text-center px-3"
-            (click)="closeMenu()"
           >
             About us
           </a>
@@ -75,7 +82,11 @@
       </ul>
 
       <div class="d-grid">
-        <button type="button" class="btn btn-success px-4" (click)="openContact()">
+        <button
+          (click)="openContact()"
+          class="btn btn-success px-4"
+          type="button"
+        >
           Contact
         </button>
       </div>

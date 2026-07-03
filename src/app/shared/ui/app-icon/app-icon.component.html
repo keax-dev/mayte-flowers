@@ -1,13 +1,13 @@
 <svg
-  class="d-block flex-shrink-0"
   [attr.aria-hidden]="decorative()"
   [attr.aria-label]="decorative() ? null : title()"
-  [attr.height]="size()"
-  [attr.role]="decorative() ? 'presentation' : 'img'"
   [attr.viewBox]="icon().viewBox ?? '0 0 24 24'"
+  [attr.height]="size()"
   [attr.width]="size()"
-  fill="currentColor"
+  [attr.role]="decorative() ? 'presentation' : 'img'"
+  class="d-block flex-shrink-0"
   xmlns="http://www.w3.org/2000/svg"
+  fill="currentColor"
 >
   <path [attr.d]="icon().path"></path>
 </svg>

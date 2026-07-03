@@ -7,7 +7,7 @@ import {
   catalogueCategoryResolver,
   catalogueProductResolver,
   catalogueCardsResolver,
-} from '@features/catalogue/data/catalogue.resolvers';
+} from '@features/catalogue/data-access/catalogue.resolvers';
 
 export const CATALOGUE_ROUTES: Routes = [
   {
@@ -15,15 +15,15 @@ export const CATALOGUE_ROUTES: Routes = [
     data: {
       description:
         'Browse our premium flower catalogue with roses, gypsophila, hypericum and sunflowers from ALX Garden.',
-      image: '/assets/catalogue/roses.jpg'
+      image: '/assets/catalogue/roses.jpg',
     },
     resolve: {
-      cards: catalogueCardsResolver
+      cards: catalogueCardsResolver,
     },
     loadComponent: () =>
       import('@features/catalogue/pages/catalogue-page/catalogue-page.component').then(
-        (m) => m.CataloguePageComponent
-      )
+        (m) => m.CataloguePageComponent,
+      ),
   },
   {
     path: ':category/:product',
@@ -31,23 +31,23 @@ export const CATALOGUE_ROUTES: Routes = [
     resolve: {
       categoryData: catalogueCategoryResolver,
       description: catalogueProductDescriptionResolver,
-      productData: catalogueProductResolver
+      productData: catalogueProductResolver,
     },
     loadComponent: () =>
       import('@features/catalogue/pages/catalogue-product-page/catalogue-product-page.component').then(
-        (m) => m.CatalogueProductPageComponent
-      )
+        (m) => m.CatalogueProductPageComponent,
+      ),
   },
   {
     path: ':category',
     title: catalogueCategoryTitleResolver,
     resolve: {
       categoryData: catalogueCategoryResolver,
-      description: catalogueCategoryDescriptionResolver
+      description: catalogueCategoryDescriptionResolver,
     },
     loadComponent: () =>
       import('@features/catalogue/pages/catalogue-category-page/catalogue-category-page.component').then(
-        (m) => m.CatalogueCategoryPageComponent
-      )
-  }
+        (m) => m.CatalogueCategoryPageComponent,
+      ),
+  },
 ];

@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
-import {
-  BUYER_CHECKLIST,
-  BUYER_PROMISES,
-  COMPANY_INFO,
-  TRUST_HIGHLIGHTS
-} from '@core/data/company.data';
-import { ContactDialogService } from '@core/services/contact-dialog.service';
+import { ContactDialogService } from '@features/contact';
 import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
+import { AnalyticsService } from '@core/analytics/analytics.service';
+import { APP_CONFIG } from '@core/config/app-config.token';
+import {
+  TRUST_HIGHLIGHTS,
+  BUYER_CHECKLIST,
+  BUYER_PROMISES
+} from '@features/about/data/about-content.data';
 
 @Component({
   selector: 'app-about-page',
@@ -15,22 +15,30 @@ import { SocialLinksComponent } from '@shared/ui/social-links/social-links.compo
   imports: [SocialLinksComponent],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutPageComponent {
   private readonly contactDialog = inject(ContactDialogService);
+  private readonly analytics = inject(AnalyticsService);
 
+  readonly trustHighlights = TRUST_HIGHLIGHTS;
   readonly buyerChecklist = BUYER_CHECKLIST;
   readonly buyerPromises = BUYER_PROMISES;
-  readonly company = COMPANY_INFO;
-  readonly trustHighlights = TRUST_HIGHLIGHTS;
+  readonly company = inject(APP_CONFIG);
 
   openContact(): void {
-    this.contactDialog.open({
+    void this.contactDialog.open({
       inquiryType: 'general',
       message:
         'Hello ALX Garden, I would like to learn more about your flower varieties, packing options and commercial process.',
       source: 'about_page'
+    });
+  }
+
+  trackSocialClick(label: string): void {
+    this.analytics.trackEvent('external_contact_clicked', {
+      channel: label.toLowerCase(),
+      context: 'about_page',
     });
   }
 }

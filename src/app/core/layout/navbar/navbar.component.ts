@@ -1,9 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  output,
+  signal,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
-import { COMPANY_INFO } from '@core/data/company.data';
-import { ContactDialogService } from '@core/services/contact-dialog.service';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
+import { APP_CONFIG } from '@core/config/app-config.token';
 
 @Component({
   selector: 'app-navbar',
@@ -11,13 +15,12 @@ import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
   imports: [RouterLink, RouterLinkActive, AppIconComponent],
   templateUrl: './navbar.component.html',
   host: { class: 'd-block' },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  private readonly contactDialog = inject(ContactDialogService);
-
-  readonly company = COMPANY_INFO;
+  readonly contactRequested = output<void>();
   readonly isMenuOpen = signal(false);
+  readonly company = inject(APP_CONFIG);
 
   closeMenu(): void {
     this.isMenuOpen.set(false);
@@ -25,10 +28,7 @@ export class NavbarComponent {
 
   openContact(): void {
     this.closeMenu();
-    this.contactDialog.open({
-      inquiryType: 'general',
-      source: 'navbar'
-    });
+    this.contactRequested.emit();
   }
 
   toggleMenu(): void {

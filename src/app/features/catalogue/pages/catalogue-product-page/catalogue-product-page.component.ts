@@ -1,108 +1,113 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
+import { GypsophilaPackingTableComponent } from '@features/catalogue/ui/gypsophila-packing-table/gypsophila-packing-table.component';
+import { ProductSpecificationsComponent } from '@features/catalogue/ui/product-specifications/product-specifications.component';
+import { ProductQuotePanelComponent } from '@features/catalogue/ui/product-quote-panel/product-quote-panel.component';
+import { ContactDialogService } from '@features/contact';
+import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
+import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
+import { buildWhatsappUrl } from '@core/config/url.utils';
+import { AnalyticsService } from '@core/analytics/analytics.service';
+import { APP_CONFIG } from '@core/config/app-config.token';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-
-import { buildWhatsappUrl } from '@core/data/company.data';
-import { AnalyticsService } from '@core/services/analytics.service';
-import { ContactDialogService } from '@core/services/contact-dialog.service';
 import {
   CatalogueCategory,
-  CatalogueProduct
-} from '@features/catalogue/data/catalogue.models';
-import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
-import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
+  CatalogueProduct,
+} from '@features/catalogue/models/catalogue.models';
+import {
+  ProductCommercialDetailsComponent,
+  CommercialHighlight,
+} from '@features/catalogue/ui/product-commercial-details/product-commercial-details.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 
 @Component({
   selector: 'app-catalogue-product-page',
   standalone: true,
-  imports: [AppIconComponent, SocialLinksComponent],
+  imports: [
+    ProductCommercialDetailsComponent,
+    GypsophilaPackingTableComponent,
+    ProductSpecificationsComponent,
+    ProductQuotePanelComponent,
+    SocialLinksComponent,
+    AppIconComponent,
+  ],
   templateUrl: './catalogue-product-page.component.html',
   styleUrl: './catalogue-product-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogueProductPageComponent {
-  private readonly analytics = inject(AnalyticsService);
   private readonly contactDialog = inject(ContactDialogService);
+  private readonly analytics = inject(AnalyticsService);
   private readonly location = inject(Location);
-  private readonly router = inject(Router);
+  private readonly config = inject(APP_CONFIG);
 
+  readonly categoryData = input<CatalogueCategory | null>(null);
+  readonly productData = input<CatalogueProduct | null>(null);
   readonly category = input('');
-  readonly categoryData = input<CatalogueCategory | null | undefined>(null);
-  readonly productData = input<CatalogueProduct | null | undefined>(null);
+
+  readonly commercialHighlights = computed<readonly CommercialHighlight[]>(
+    () => {
+      const product = this.productData();
+      const category = this.categoryData();
+
+      return [
+        {
+          label: 'Availability',
+          value: product?.availability ?? category?.availability ?? '',
+        },
+        {
+          label: 'Seasonality',
+          value: product?.seasonality ?? category?.seasonality ?? '',
+        },
+        {
+          label: 'Packing',
+          value: product?.packing ?? category?.packing ?? '',
+        },
+        {
+          label: 'Minimum order',
+          value: product?.minimumOrder ?? category?.minimumOrder ?? '',
+        },
+      ].filter((item) => item.value);
+    },
+  );
+
   readonly hasMetadata = computed(() => {
     const product = this.productData();
-    const category = this.categoryData();
 
     return !!(
+      this.commercialHighlights().length ||
+      this.idealFor().length ||
       product?.headOptions?.length ||
       product?.color ||
       product?.head ||
       product?.length ||
       product?.life ||
-      product?.availability ||
-      product?.minimumOrder ||
-      product?.packing ||
-      product?.seasonality ||
-      product?.idealFor?.length ||
-      category?.availability ||
-      category?.minimumOrder ||
-      category?.packing ||
-      category?.seasonality ||
-      category?.idealFor?.length ||
       this.isGypsophila()
     );
   });
-  readonly isGypsophila = computed(() => this.category() === 'gypsophila');
-  readonly socialLayout = computed<'column' | 'wrap'>(() =>
-    ['hypericum', 'hympericu'].includes(this.category()) ? 'wrap' : 'column'
-  );
-  readonly commercialHighlights = computed(() => {
-    const product = this.productData();
-    const category = this.categoryData();
 
-    return [
-      {
-        label: 'Availability',
-        value: product?.availability ?? category?.availability ?? ''
-      },
-      {
-        label: 'Seasonality',
-        value: product?.seasonality ?? category?.seasonality ?? ''
-      },
-      {
-        label: 'Packing',
-        value: product?.packing ?? category?.packing ?? ''
-      },
-      {
-        label: 'Minimum order',
-        value: product?.minimumOrder ?? category?.minimumOrder ?? ''
-      }
-    ].filter((item) => item.value);
-  });
   readonly idealFor = computed(
-    () => this.productData()?.idealFor ?? this.categoryData()?.idealFor ?? []
+    () => this.productData()?.idealFor ?? this.categoryData()?.idealFor ?? [],
   );
+
+  readonly isGypsophila = computed(() => this.category() === 'gypsophila');
+
   readonly productWhatsappUrl = computed(() => {
     const product = this.productData();
+    const message = product
+      ? `Hello ALX Garden, I would like a quote for ${product.name}. Please share availability and packing options.`
+      : 'Hello ALX Garden, I would like to receive more information about your flower catalogue.';
 
-    if (!product) {
-      return buildWhatsappUrl(
-        'Hello ALX Garden, I would like to receive more information about your flower catalogue.'
-      );
-    }
-
-    return buildWhatsappUrl(
-      `Hello ALX Garden, I would like a quote for ${product.name}. Please share availability and packing options.`
-    );
+    return buildWhatsappUrl(message, this.config.whatsappUrl);
   });
 
-  constructor() {
-    effect(() => {
-      if (this.productData() === undefined) {
-        this.router.navigateByUrl('/not-found');
-      }
-    });
-  }
+  readonly socialLayout = computed<'column' | 'wrap'>(() =>
+    ['hypericum', 'hympericu'].includes(this.category()) ? 'wrap' : 'column',
+  );
 
   goBack(): void {
     this.location.back();
@@ -117,23 +122,28 @@ export class CatalogueProductPageComponent {
 
     this.analytics.trackEvent('product_quote_cta_clicked', {
       category: this.category(),
-      product_name: product.name
+      product_name: product.name,
     });
 
-    this.contactDialog.open({
+    void this.contactDialog.open({
       flowerType: product.name,
       inquiryType: 'quote',
       message: `Hello ALX Garden, I would like a quote for ${product.name}. Please share availability, packing options and next steps.`,
-      source: 'product_page'
+      source: 'product_page',
     });
   }
 
   trackWhatsappQuote(): void {
-    const product = this.productData();
-
     this.analytics.trackEvent('product_whatsapp_clicked', {
       category: this.category(),
-      product_name: product?.name ?? ''
+      product_name: this.productData()?.name ?? '',
+    });
+  }
+
+  trackSocialClick(label: string): void {
+    this.analytics.trackEvent('external_contact_clicked', {
+      channel: label.toLowerCase(),
+      context: 'product_page',
     });
   }
 }

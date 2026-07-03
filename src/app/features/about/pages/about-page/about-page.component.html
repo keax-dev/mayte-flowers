@@ -1,48 +1,67 @@
 <main class="about-page py-5">
   <section class="container" aria-labelledby="about-title">
-    <header class="d-flex flex-column align-items-center justify-content-center text-center text-light py-5">
+    <header
+      class="d-flex flex-column align-items-center justify-content-center text-center text-light py-5"
+    >
       <img
         [src]="company.logo"
         [alt]="company.name"
-        class="rounded-circle border border-3 border-white shadow-lg object-fit-cover mb-4"
-        width="220"
-        height="220"
-        decoding="async"
         fetchpriority="high"
-      >
+        decoding="async"
+        height="220"
+        width="220"
+        class="rounded-circle border border-3 border-white shadow-lg object-fit-cover mb-4"
+      />
 
       <h1 id="about-title" class="display-4 fw-bold">{{ company.name }}</h1>
       <p class="font-monospace fs-4 fw-bold mb-2">{{ company.tagline }}</p>
       <p class="font-monospace fs-5 fw-semibold">{{ company.openingHours }}</p>
       <p class="lead lh-lg col-12 col-lg-8">{{ company.salesFocus }}</p>
 
-      <app-social-links class="d-block my-3" context="about_page"></app-social-links>
+      <app-social-links
+        (linkClicked)="trackSocialClick($event)"
+        class="d-block my-3"
+      ></app-social-links>
 
-      <button type="button" class="btn btn-success btn-lg px-5" (click)="openContact()">
+      <button
+        type="button"
+        class="btn btn-success btn-lg px-5"
+        (click)="openContact()"
+      >
         Contact us
       </button>
     </header>
 
-    <section class="bg-white rounded-5 shadow-lg p-4 p-md-5 mt-4" aria-labelledby="about-trust-title">
+    <section
+      class="bg-white rounded-5 shadow-lg p-4 p-md-5 mt-4"
+      aria-labelledby="about-trust-title"
+    >
       <header class="mb-4">
-        <p class="text-success fw-bold text-uppercase small mb-2">Why buyers choose us</p>
+        <p class="text-success fw-bold text-uppercase small mb-2">
+          Why buyers choose us
+        </p>
         <h2 id="about-trust-title" class="display-5 fw-bold">
           A cleaner path from interest to quote
         </h2>
         <p class="lead lh-lg mb-0">
-          We built this catalogue for commercial conversations: flower type, stem length, packing
-          needs, destination and timing are all easy to share from the start.
+          We built this catalogue for commercial conversations: flower type,
+          stem length, packing needs, destination and timing are all easy to
+          share from the start.
         </p>
       </header>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3">
         @for (highlight of trustHighlights; track highlight.label) {
           <div class="col">
-            <article class="h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm">
+            <article
+              class="h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm"
+            >
               <p class="text-body-secondary fw-bold text-uppercase small mb-2">
                 {{ highlight.label }}
               </p>
-              <p class="display-6 fw-bold text-success mb-2">{{ highlight.value }}</p>
+              <p class="display-6 fw-bold text-success mb-2">
+                {{ highlight.value }}
+              </p>
               <p class="lh-lg mb-0">{{ highlight.description }}</p>
             </article>
           </div>

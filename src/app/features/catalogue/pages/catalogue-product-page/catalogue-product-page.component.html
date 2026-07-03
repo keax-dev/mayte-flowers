@@ -1,189 +1,73 @@
 <main class="product-page py-4 py-lg-5">
   @if (productData(); as currentProduct) {
-    <article class="container card border-0 rounded-4 shadow-lg overflow-hidden" aria-labelledby="product-title">
+    <article
+      class="container card border-0 rounded-4 shadow-lg overflow-hidden"
+      aria-labelledby="product-title"
+    >
       <div class="row g-0">
         <aside class="col-12 col-lg-4 bg-body-tertiary p-3 p-md-4">
           <button
-            type="button"
-            class="btn btn-outline-secondary d-inline-flex align-items-center"
             (click)="goBack()"
+            class="btn btn-outline-secondary d-inline-flex align-items-center"
+            type="button"
           >
-            <app-icon class="me-2" [decorative]="true" name="arrow-left" [size]="20"></app-icon>
+            <app-icon
+              [decorative]="true"
+              [size]="20"
+              class="me-2"
+              name="arrow-left"
+            ></app-icon>
             Go back
           </button>
 
           <img
             [src]="currentProduct.image"
-            class="img-fluid rounded-3 d-block mx-auto my-4"
             [alt]="currentProduct.name"
-            decoding="async"
             fetchpriority="high"
-          >
+            decoding="async"
+            class="img-fluid rounded-3 d-block mx-auto my-4"
+          />
 
           <div class="d-none d-lg-block mt-3" aria-label="Contact links">
-            <app-social-links [layout]="socialLayout()" context="product_page"></app-social-links>
+            <app-social-links
+              (linkClicked)="trackSocialClick($event)"
+              [layout]="socialLayout()"
+            ></app-social-links>
           </div>
         </aside>
 
-        <section class="col-12 col-lg-8 p-4 p-md-5" aria-labelledby="product-title">
-          <h1 id="product-title" class="display-4 fw-bold">{{ currentProduct.name }}</h1>
-          <hr class="border-success opacity-50 my-4">
-
+        <section
+          class="col-12 col-lg-8 p-4 p-md-5"
+          aria-labelledby="product-title"
+        >
+          <h1 id="product-title" class="display-4 fw-bold">
+            {{ currentProduct.name }}
+          </h1>
+          <hr class="border-success opacity-50 my-4" />
           <p class="lead lh-lg">{{ currentProduct.description }}</p>
 
-          <section class="bg-body-tertiary border rounded-4 p-4 mt-4" aria-label="Quote actions">
-            <p class="text-success fw-bold text-uppercase small mb-2">
-              Ready to buy or request pricing?
-            </p>
-            <h2 class="h3 fw-bold">Request availability for {{ currentProduct.name }}</h2>
-            <p class="lh-lg">
-              Share your quantity, country, required date and packing preference. We will
-              follow up with the right commercial details.
-            </p>
+          <app-product-quote-panel
+            (whatsappClicked)="trackWhatsappQuote()"
+            (quoteRequested)="openQuoteDialog()"
+            [productName]="currentProduct.name"
+            [whatsappUrl]="productWhatsappUrl()"
+          ></app-product-quote-panel>
 
-            <div class="d-grid d-sm-flex gap-2">
-              <button type="button" class="btn btn-success btn-lg px-4" (click)="openQuoteDialog()">
-                Request quote
-              </button>
-
-              <a
-                [href]="productWhatsappUrl()"
-                target="_blank"
-                rel="noreferrer"
-                class="btn btn-outline-secondary btn-lg px-4"
-                (click)="trackWhatsappQuote()"
-              >
-                Ask on WhatsApp
-              </a>
-            </div>
-          </section>
-
-          @if (commercialHighlights().length) {
-            <section class="row row-cols-1 row-cols-md-2 g-3 mt-3" aria-label="Commercial details">
-              @for (detail of commercialHighlights(); track detail.label) {
-                <div class="col">
-                  <article class="h-100 border rounded-4 p-3 shadow-sm">
-                    <p class="text-body-secondary fw-bold text-uppercase small mb-2">
-                      {{ detail.label }}
-                    </p>
-                    <p class="fw-semibold lh-lg mb-0">{{ detail.value }}</p>
-                  </article>
-                </div>
-              }
-            </section>
-          }
-
-          @if (idealFor().length) {
-            <section class="mt-4" aria-label="Recommended uses">
-              <h2 class="h5 fw-bold">Ideal for</h2>
-              <div class="d-flex flex-wrap gap-2">
-                @for (use of idealFor(); track use) {
-                  <span class="badge rounded-pill text-bg-success p-2">{{ use }}</span>
-                }
-              </div>
-            </section>
-          }
+          <app-product-commercial-details
+            [highlights]="commercialHighlights()"
+            [idealFor]="idealFor()"
+          ></app-product-commercial-details>
 
           @if (hasMetadata()) {
-            <hr class="border-success opacity-50 my-4">
+            <hr class="border-success opacity-50 my-4" />
           }
 
-          @if (currentProduct.headOptions?.length) {
-            <div class="row row-cols-1 row-cols-md-2 g-3 my-3">
-              @for (option of currentProduct.headOptions; track option.label) {
-                <div class="col">
-                  <p class="h4 text-center bg-body-tertiary rounded-4 p-4 h-100 mb-0">
-                    <span class="fw-bold text-warning">{{ option.label }}</span>
-                    <br>
-                    {{ option.description }}
-                  </p>
-                </div>
-              }
-            </div>
-          }
-
-          @if (currentProduct.color) {
-            <div class="row align-items-center text-center border-bottom py-4">
-              <div class="col-12 col-sm-6">
-                <img src="/assets/catalogue/color.png" alt="" width="96" height="96">
-                <p class="h4 fw-bold mt-2">Color</p>
-              </div>
-              <p class="col-12 col-sm-6 display-6 mb-0">{{ currentProduct.color }}</p>
-            </div>
-          }
-
-          @if (currentProduct.head) {
-            <div class="row align-items-center text-center border-bottom py-4">
-              <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ currentProduct.head }}</p>
-              <div class="col-12 col-sm-6">
-                <img src="/assets/catalogue/head.png" alt="" width="96" height="96">
-                <p class="h4 fw-bold mt-2">Head size</p>
-              </div>
-            </div>
-          }
-
-          @if (currentProduct.length) {
-            <div class="row align-items-center text-center border-bottom py-4">
-              <div class="col-12 col-sm-6">
-                <img src="/assets/catalogue/length.png" alt="" width="96" height="96">
-                <p class="h4 fw-bold mt-2">Stem length</p>
-              </div>
-              <p class="col-12 col-sm-6 display-6 mb-0">{{ currentProduct.length }}</p>
-            </div>
-          }
-
-          @if (currentProduct.life) {
-            <div class="row align-items-center text-center border-bottom py-4">
-              <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ currentProduct.life }}</p>
-              <div class="col-12 col-sm-6">
-                <img src="/assets/catalogue/life.png" alt="" width="96" height="96">
-                <p class="h4 fw-bold mt-2">Product vase life</p>
-              </div>
-            </div>
-          }
+          <app-product-specifications
+            [product]="currentProduct"
+          ></app-product-specifications>
 
           @if (isGypsophila()) {
-            <div class="table-responsive mt-5">
-              <table class="table table-bordered table-hover align-middle text-center">
-                <caption class="visually-hidden">
-                  Gypsophila packing guide by box weight and bunch size
-                </caption>
-                <thead class="table-secondary">
-                  <tr>
-                    <th scope="col">Weight/box</th>
-                    <th scope="col">QB</th>
-                    <th scope="col">HB</th>
-                    <th scope="col">HB Jumbo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">250 gr</th>
-                    <td>15</td>
-                    <td>30</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">500 gr</th>
-                    <td>8</td>
-                    <td>18</td>
-                    <td>26</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">750 gr</th>
-                    <td>7</td>
-                    <td>14</td>
-                    <td>20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1000 gr</th>
-                    <td>6</td>
-                    <td>12</td>
-                    <td>18</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <app-gypsophila-packing-table></app-gypsophila-packing-table>
           }
         </section>
       </div>

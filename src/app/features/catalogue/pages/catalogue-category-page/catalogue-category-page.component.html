@@ -2,7 +2,9 @@
   @if (categoryData(); as currentCategory) {
     <section class="container" aria-labelledby="category-title">
       <header class="bg-white rounded-4 shadow-lg p-4 p-md-5 mb-5">
-        <h1 id="category-title" class="display-5 fw-bold">{{ currentCategory.name }}</h1>
+        <h1 id="category-title" class="display-5 fw-bold">
+          {{ currentCategory.name }}
+        </h1>
         @if (currentCategory.buyerNote) {
           <p class="lead lh-lg mb-0">{{ currentCategory.buyerNote }}</p>
         }
@@ -29,7 +31,9 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
         @for (product of currentCategory.products; track product.slug) {
           <div class="col">
-            <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
+            <article
+              class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden"
+            >
               <div class="ratio ratio-1x1">
                 <img
                   [src]="product.image"
@@ -37,7 +41,7 @@
                   [alt]="product.name"
                   loading="lazy"
                   decoding="async"
-                >
+                />
               </div>
 
               <div class="card-body d-flex flex-column text-center">
@@ -46,15 +50,25 @@
                 </h2>
 
                 <a
-                  [routerLink]="['/gallery', currentCategory.routeSlug ?? currentCategory.slug, product.routeSlug ?? product.slug]"
+                  [routerLink]="[
+                    '/gallery',
+                    currentCategory.routeSlug ?? currentCategory.slug,
+                    product.routeSlug ?? product.slug,
+                  ]"
                   class="btn btn-success mt-auto"
-                  (click)="trackProductClick(currentCategory.name, product.name)"
+                  (click)="
+                    trackProductClick(currentCategory.name, product.name)
+                  "
                 >
                   View details
                 </a>
               </div>
             </article>
           </div>
+        } @empty {
+          <p class="alert alert-light border shadow-sm mb-0">
+            No products are currently available in this category.
+          </p>
         }
       </div>
     </section>

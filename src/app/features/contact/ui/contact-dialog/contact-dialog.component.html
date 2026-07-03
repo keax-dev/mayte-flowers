@@ -1,0 +1,300 @@
+<section
+  aria-labelledby="contact-dialog-title"
+  class="modal-content bg-white text-body border-0 rounded-4 shadow-lg overflow-hidden"
+>
+  <form
+    (ngSubmit)="submit()"
+    [formGroup]="contactForm"
+    class="p-4 p-md-5"
+    novalidate
+  >
+    <div class="d-flex align-items-start justify-content-between gap-3">
+      <div>
+        <h2 id="contact-dialog-title" class="font-monospace h2 fw-bold mb-2">
+          {{ dialogTitle() }}
+        </h2>
+        <p class="text-body-secondary lh-lg mb-0">{{ quotePromise }}</p>
+      </div>
+      <button
+        (click)="close()"
+        class="btn-close flex-shrink-0"
+        type="button"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <hr class="border-success opacity-50 my-4" />
+
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            [attr.aria-describedby]="
+              contactForm.controls.fullName.invalid &&
+              contactForm.controls.fullName.touched
+                ? 'FullNameError'
+                : null
+            "
+            [attr.aria-invalid]="
+              contactForm.controls.fullName.invalid &&
+              contactForm.controls.fullName.touched
+            "
+            formControlName="fullName"
+            autocomplete="name"
+            placeholder="Your name"
+            maxlength="120"
+            class="form-control"
+            name="FullName"
+            type="text"
+            id="FullName"
+            required
+          />
+          <label for="FullName">Full name</label>
+        </div>
+        @if (
+          contactForm.controls.fullName.invalid &&
+          contactForm.controls.fullName.touched
+        ) {
+          <div id="FullNameError" class="invalid-feedback d-block">
+            Please enter a valid full name of no more than 120 characters.
+          </div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            formControlName="companyName"
+            autocomplete="organization"
+            placeholder="Company name"
+            maxlength="120"
+            class="form-control"
+            name="CompanyName"
+            type="text"
+            id="CompanyName"
+          />
+          <label for="CompanyName">Company name</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            [attr.aria-describedby]="
+              contactForm.controls.email.invalid &&
+              contactForm.controls.email.touched
+                ? 'EmailError'
+                : null
+            "
+            [attr.aria-invalid]="
+              contactForm.controls.email.invalid &&
+              contactForm.controls.email.touched
+            "
+            formControlName="email"
+            autocomplete="email"
+            placeholder="name@example.com"
+            maxlength="254"
+            class="form-control"
+            name="Email"
+            type="email"
+            id="Email"
+            required
+          />
+          <label for="Email">Email address</label>
+        </div>
+        @if (
+          contactForm.controls.email.invalid &&
+          contactForm.controls.email.touched
+        ) {
+          <div id="EmailError" class="invalid-feedback d-block">
+            Please enter a valid email address.
+          </div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <select
+            formControlName="inquiryType"
+            class="form-select"
+            name="InquiryType"
+            id="InquiryType"
+            required
+          >
+            @for (option of inquiryOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          <label for="InquiryType">Inquiry type</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            [attr.aria-describedby]="
+              contactForm.controls.flowerType.invalid &&
+              contactForm.controls.flowerType.touched
+                ? 'FlowerTypeError'
+                : null
+            "
+            [attr.aria-invalid]="
+              contactForm.controls.flowerType.invalid &&
+              contactForm.controls.flowerType.touched
+            "
+            formControlName="flowerType"
+            placeholder="Flower type"
+            maxlength="120"
+            class="form-control"
+            name="FlowerType"
+            type="text"
+            id="FlowerType"
+          />
+          <label for="FlowerType">Flower type or variety</label>
+        </div>
+        @if (
+          contactForm.controls.flowerType.invalid &&
+          contactForm.controls.flowerType.touched
+        ) {
+          <div id="FlowerTypeError" class="invalid-feedback d-block">
+            Please enter the flower type you want to quote using no more than
+            120 characters.
+          </div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            formControlName="quantity"
+            placeholder="Quantity"
+            maxlength="120"
+            class="form-control"
+            name="Quantity"
+            type="text"
+            id="Quantity"
+          />
+          <label for="Quantity">Approximate quantity</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            formControlName="country"
+            autocomplete="country-name"
+            placeholder="Destination country"
+            maxlength="120"
+            class="form-control"
+            name="Country"
+            type="text"
+            id="Country"
+          />
+          <label for="Country">Destination country</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            formControlName="neededBy"
+            placeholder="Needed by"
+            class="form-control"
+            name="NeededBy"
+            type="date"
+            id="NeededBy"
+          />
+          <label for="NeededBy">Needed by</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <input
+            formControlName="boxType"
+            placeholder="Packing preference"
+            maxlength="120"
+            class="form-control"
+            name="BoxType"
+            type="text"
+            id="BoxType"
+          />
+          <label for="BoxType">Packing or box preference</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="Comment" class="form-label fw-semibold"
+          >Project or order details</label
+        >
+        <textarea
+          [attr.aria-describedby]="
+            contactForm.controls.comment.invalid &&
+            contactForm.controls.comment.touched
+              ? 'CommentError'
+              : null
+          "
+          [attr.aria-invalid]="
+            contactForm.controls.comment.invalid &&
+            contactForm.controls.comment.touched
+          "
+          formControlName="comment"
+          maxlength="2000"
+          class="form-control"
+          name="Comment"
+          rows="5"
+          id="Comment"
+          required
+        ></textarea>
+        @if (
+          contactForm.controls.comment.invalid &&
+          contactForm.controls.comment.touched
+        ) {
+          <div id="CommentError" class="invalid-feedback d-block">
+            Tell us what you need using no more than 2,000 characters.
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="position-absolute opacity-0 pe-none" aria-hidden="true">
+      <label for="Website">Website</label>
+      <input
+        formControlName="website"
+        autocomplete="off"
+        tabindex="-1"
+        name="website"
+        type="text"
+        id="Website"
+      />
+    </div>
+
+    @if (feedback()) {
+      <div
+        [class.alert-danger]="submissionState() === 'error'"
+        [class.alert-success]="submissionState() === 'success'"
+        class="alert mt-4 mb-0"
+        aria-live="polite"
+      >
+        {{ feedback() }}
+      </div>
+    }
+
+    <hr class="border-success opacity-50 my-4" />
+
+    <div
+      class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2"
+    >
+      <button type="button" class="btn btn-outline-secondary px-5" (click)="close()">
+        Cancel
+      </button>
+      <button
+        [disabled]="contactForm.invalid || isSubmitting()"
+        class="btn btn-success px-5"
+        type="submit"
+      >
+        {{ isSubmitting() ? "Sending..." : "Send" }}
+      </button>
+    </div>
+  </form>
+</section>

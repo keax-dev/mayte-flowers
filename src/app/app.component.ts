@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { AnalyticsService } from '@core/analytics/analytics.service';
+import { ContactDialogService } from '@features/contact';
 import { NavbarComponent } from '@core/layout/navbar/navbar.component';
-import { AnalyticsService } from '@core/services/analytics.service';
-import { SeoService } from '@core/services/seo.service';
+import { RouterOutlet } from '@angular/router';
+import { SeoService } from '@core/seo/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,26 @@ import { SeoService } from '@core/services/seo.service';
   imports: [NavbarComponent, RouterOutlet],
   template: `
     <header>
-      <app-navbar></app-navbar>
+      <app-navbar (contactRequested)="openContact()"></app-navbar>
     </header>
     <router-outlet></router-outlet>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  private readonly contactDialog = inject(ContactDialogService);
   private readonly analytics = inject(AnalyticsService);
   private readonly seo = inject(SeoService);
 
   constructor() {
     this.analytics.initialize();
     this.seo.initialize();
+  }
+
+  openContact(): void {
+    void this.contactDialog.open({
+      inquiryType: 'general',
+      source: 'navbar',
+    });
   }
 }

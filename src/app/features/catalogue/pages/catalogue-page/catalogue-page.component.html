@@ -2,41 +2,59 @@
   <section class="container" aria-labelledby="catalogue-title">
     <header class="text-center text-white mb-5">
       <h1 id="catalogue-title" class="display-4 fw-bold">Product catalogue</h1>
-      <p class="lead mb-0">Explore our flower lines and commercial specifications.</p>
+      <p class="lead mb-0">
+        Explore our flower lines and commercial specifications.
+      </p>
     </header>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
-      @for (category of cards(); track category.slug) {
-        <div class="col">
-          <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
-            <div class="ratio ratio-4x3">
-              <img
-                [src]="category.image"
-                class="card-img-top h-100 object-fit-cover"
-                [alt]="category.name"
-                decoding="async"
-              >
-            </div>
+    @if (loadError()) {
+      <div class="alert alert-light border shadow-sm" role="alert">
+        We could not load the catalogue right now. Please refresh the page or
+        contact us directly.
+      </div>
+    } @else {
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+        @for (category of cards(); track category.slug) {
+          <div class="col">
+            <article
+              class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden"
+            >
+              <div class="ratio ratio-4x3">
+                <img
+                  [src]="category.image"
+                  [alt]="category.name"
+                  decoding="async"
+                  loading="lazy"
+                  class="card-img-top h-100 object-fit-cover"
+                />
+              </div>
 
-            <div class="card-body d-flex flex-column text-center p-4">
-              <h2 class="card-title font-monospace h4 fw-bold">{{ category.name }}</h2>
-              @if (category.summary) {
-                <p class="card-text text-body-secondary lh-lg flex-grow-1">
-                  {{ category.summary }}
-                </p>
-              }
+              <div class="card-body d-flex flex-column text-center p-4">
+                <h2 class="card-title font-monospace h4 fw-bold">
+                  {{ category.name }}
+                </h2>
+                @if (category.summary) {
+                  <p class="card-text text-body-secondary lh-lg flex-grow-1">
+                    {{ category.summary }}
+                  </p>
+                }
 
-              <a
-                [routerLink]="category.route"
-                class="btn btn-success mt-auto"
-                (click)="trackCategoryClick(category.name)"
-              >
-                Show products
-              </a>
-            </div>
-          </article>
-        </div>
-      }
-    </div>
+                <a
+                  (click)="trackCategoryClick(category.name)"
+                  [routerLink]="category.route"
+                  class="btn btn-success mt-auto"
+                >
+                  Show products
+                </a>
+              </div>
+            </article>
+          </div>
+        } @empty {
+          <p class="alert alert-light border shadow-sm mb-0">
+            No catalogue categories are available yet.
+          </p>
+        }
+      </div>
+    }
   </section>
 </main>

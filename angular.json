@@ -27,17 +27,7 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets",
-                "ignore": [
-                  "gypsophila/OneDrive_1_30-11-2023.zip",
-                  "gypsophila/IMG_20231110_180109.png",
-                  "gypsophila/IMG_20231110_180133.png",
-                  "sunflower/**",
-                  "carrousel-2.jpg",
-                  "carrousel-4.jpg",
-                  "roses/Brighton.png",
-                  "roses/topaz_top.png"
-                ]
+                "output": "assets"
               }
             ],
             "styles": [
@@ -103,17 +93,7 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets",
-                "ignore": [
-                  "gypsophila/OneDrive_1_30-11-2023.zip",
-                  "gypsophila/IMG_20231110_180109.png",
-                  "gypsophila/IMG_20231110_180133.png",
-                  "sunflower/**",
-                  "carrousel-2.jpg",
-                  "carrousel-4.jpg",
-                  "roses/Brighton.png",
-                  "roses/topaz_top.png"
-                ]
+                "output": "assets"
               }
             ],
             "styles": [

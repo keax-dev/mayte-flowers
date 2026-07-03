@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { AnalyticsService } from '@core/services/analytics.service';
-import { SOCIAL_LINKS } from '@core/data/company.data';
+import { createSocialLinks } from '@core/config/social-links.config';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
+import { APP_CONFIG } from '@core/config/app-config.token';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-social-links',
@@ -9,19 +15,14 @@ import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
   imports: [AppIconComponent],
   templateUrl: './social-links.component.html',
   host: { class: 'd-block' },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SocialLinksComponent {
-  private readonly analytics = inject(AnalyticsService);
-
-  readonly context = input('shared');
+  readonly linkClicked = output<string>();
   readonly layout = input<'row' | 'column' | 'wrap'>('row');
-  readonly links = SOCIAL_LINKS;
+  readonly links = createSocialLinks(inject(APP_CONFIG));
 
   trackClick(label: string): void {
-    this.analytics.trackEvent('external_contact_clicked', {
-      channel: label.toLowerCase(),
-      context: this.context()
-    });
+    this.linkClicked.emit(label);
   }
 }

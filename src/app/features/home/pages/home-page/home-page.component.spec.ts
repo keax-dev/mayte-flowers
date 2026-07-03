@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
-
-import { AnalyticsService } from '@core/services/analytics.service';
-import { ContactDialogService } from '@core/services/contact-dialog.service';
+import { ContactDialogService } from '@features/contact';
 import { HomePageComponent } from '@features/home/pages/home-page/home-page.component';
+import { AnalyticsService } from '@core/analytics/analytics.service';
+import { provideRouter } from '@angular/router';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
@@ -49,5 +48,15 @@ describe('HomePageComponent', () => {
     component.goTo(1);
 
     expect(component.currentSlide().title).toBe('HYMPERICU');
+  });
+
+  it('allows the user to pause and resume automatic rotation', () => {
+    const initialState = component.isAutoRotating();
+
+    component.toggleAutoRotation();
+    expect(component.isAutoRotating()).toBe(!initialState);
+
+    component.toggleAutoRotation();
+    expect(component.isAutoRotating()).toBe(initialState);
   });
 });

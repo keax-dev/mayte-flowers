@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-
-import { AnalyticsService } from '@core/services/analytics.service';
-import { CatalogueCategory } from '@features/catalogue/data/catalogue.models';
+import { CatalogueCategory } from '@features/catalogue/models/catalogue.models';
+import { AnalyticsService } from '@core/analytics/analytics.service';
+import { RouterLink } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 
 @Component({
   selector: 'app-catalogue-category-page',
@@ -10,26 +14,17 @@ import { CatalogueCategory } from '@features/catalogue/data/catalogue.models';
   imports: [RouterLink],
   templateUrl: './catalogue-category-page.component.html',
   styleUrl: './catalogue-category-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogueCategoryPageComponent {
   private readonly analytics = inject(AnalyticsService);
-  private readonly router = inject(Router);
 
-  readonly categoryData = input<CatalogueCategory | null | undefined>(null);
-
-  constructor() {
-    effect(() => {
-      if (this.categoryData() === undefined) {
-        this.router.navigateByUrl('/not-found');
-      }
-    });
-  }
+  readonly categoryData = input<CatalogueCategory | null>(null);
 
   trackProductClick(categoryName: string, productName: string): void {
     this.analytics.trackEvent('catalogue_product_selected', {
       category_name: categoryName,
-      product_name: productName
+      product_name: productName,
     });
   }
 }

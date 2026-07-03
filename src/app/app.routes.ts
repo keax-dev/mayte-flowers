@@ -4,7 +4,7 @@ export const appRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'home',
   },
   {
     path: 'home',
@@ -12,12 +12,12 @@ export const appRoutes: Routes = [
     data: {
       description:
         'Discover premium flower varieties from ALX Garden, including roses, gypsophila, hypericum and sunflowers.',
-      image: '/assets/carrousel-1.jpg'
+      image: '/assets/carrousel-1.jpg',
     },
     loadComponent: () =>
       import('@features/home/pages/home-page/home-page.component').then(
-        (m) => m.HomePageComponent
-      )
+        (m) => m.HomePageComponent,
+      ),
   },
   {
     path: 'about-us',
@@ -25,12 +25,12 @@ export const appRoutes: Routes = [
     data: {
       description:
         'Learn more about ALX Garden, our flower varieties and how to get in touch with our team.',
-      image: '/assets/2.jpg'
+      image: '/assets/2.jpg',
     },
     loadComponent: () =>
       import('@features/about/pages/about-page/about-page.component').then(
-        (m) => m.AboutPageComponent
-      )
+        (m) => m.AboutPageComponent,
+      ),
   },
   {
     path: 'gallery',
@@ -38,10 +38,12 @@ export const appRoutes: Routes = [
     data: {
       description:
         'Browse the ALX Garden flower catalogue with detailed product pages and variety information.',
-      image: '/assets/catalogue/roses.jpg'
+      image: '/assets/catalogue/roses.jpg',
     },
     loadChildren: () =>
-      import('@app/features/catalogue/routes/catalogue.routes').then((m) => m.CATALOGUE_ROUTES)
+      import('@app/features/catalogue/routes/catalogue.routes').then(
+        (m) => m.CATALOGUE_ROUTES,
+      ),
   },
   {
     path: 'not-found',
@@ -49,15 +51,15 @@ export const appRoutes: Routes = [
     data: {
       description: 'The requested ALX Garden page could not be found.',
       image: '/assets/logo.jpg',
-      robots: 'noindex, nofollow'
+      robots: 'noindex, nofollow',
     },
     loadComponent: () =>
       import('@features/not-found/pages/not-found-page/not-found-page.component').then(
-        (m) => m.NotFoundPageComponent
-      )
+        (m) => m.NotFoundPageComponent,
+      ),
   },
   {
     path: '**',
-    redirectTo: 'not-found'
-  }
+    redirectTo: 'not-found',
+  },
 ];

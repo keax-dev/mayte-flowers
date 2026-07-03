@@ -1,14 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { appRoutes } from '@app/app.routes';
 import {
-  provideRouter,
   withComponentInputBinding,
   withInMemoryScrolling,
-  withViewTransitions
+  withViewTransitions,
+  provideRouter,
 } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-import { appRoutes } from '@app/app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,13 +14,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       appRoutes,
       withComponentInputBinding(),
-      withViewTransitions({ skipInitialTransition: true }),
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
-        scrollPositionRestoration: 'enabled'
-      })
+        scrollPositionRestoration: 'enabled',
+      }),
+      withViewTransitions({ skipInitialTransition: true }),
     ),
-    provideHttpClient(withFetch()),
-    provideAnimationsAsync()
-  ]
+    provideHttpClient(),
+  ],
 };
