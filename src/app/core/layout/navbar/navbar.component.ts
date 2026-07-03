@@ -10,7 +10,7 @@ import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, AppIconComponent],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  host: { class: 'd-block' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {

@@ -1,55 +1,62 @@
-<main class="main-content row justify-content-center align-items-center m-0">
+<main class="catalogue-category-page py-5">
   @if (categoryData(); as currentCategory) {
-    <section
-      class="col my-5 d-flex flex-wrap align-items-start justify-content-center text-center"
-      aria-labelledby="category-title"
-    >
-      <header class="category-header app-surface-card app-fade-up p-4 mb-4">
-        <h1 id="category-title" class="category-header__title">{{ currentCategory.name }}</h1>
+    <section class="container" aria-labelledby="category-title">
+      <header class="bg-white rounded-4 shadow-lg p-4 p-md-5 mb-5">
+        <h1 id="category-title" class="display-5 fw-bold">{{ currentCategory.name }}</h1>
         @if (currentCategory.buyerNote) {
-          <p class="category-header__copy m-0 mt-2">{{ currentCategory.buyerNote }}</p>
+          <p class="lead lh-lg mb-0">{{ currentCategory.buyerNote }}</p>
         }
 
-        <div class="category-header__chips">
+        <div class="d-flex flex-wrap gap-2 mt-3">
           @if (currentCategory.availability) {
-            <span class="category-header__chip">{{ currentCategory.availability }}</span>
+            <span class="badge rounded-pill text-bg-success p-2">
+              {{ currentCategory.availability }}
+            </span>
           }
           @if (currentCategory.packing) {
-            <span class="category-header__chip">{{ currentCategory.packing }}</span>
+            <span class="badge rounded-pill text-bg-success p-2">
+              {{ currentCategory.packing }}
+            </span>
           }
           @if (currentCategory.minimumOrder) {
-            <span class="category-header__chip">{{ currentCategory.minimumOrder }}</span>
+            <span class="badge rounded-pill text-bg-success p-2">
+              {{ currentCategory.minimumOrder }}
+            </span>
           }
         </div>
       </header>
 
-      @for (product of currentCategory.products; track product.slug) {
-        <article class="card app-fade-up m-3 font-catalogue">
-          <img
-            [src]="product.image"
-            class="card-img-top w-all p-2"
-            [alt]="product.name"
-            loading="lazy"
-            decoding="async"
-          >
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        @for (product of currentCategory.products; track product.slug) {
+          <div class="col">
+            <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
+              <div class="ratio ratio-1x1">
+                <img
+                  [src]="product.image"
+                  class="card-img-top h-100 object-fit-cover p-2"
+                  [alt]="product.name"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </div>
 
-          <div class="card-body pt-1">
-            <h2 class="app-mono-text truncate-text m-0 fw-bolder text-dark">{{ product.name }}</h2>
+              <div class="card-body d-flex flex-column text-center">
+                <h2 class="card-title font-monospace h5 fw-bold text-truncate">
+                  {{ product.name }}
+                </h2>
 
-            <a
-              [routerLink]="['/gallery', currentCategory.routeSlug ?? currentCategory.slug, product.routeSlug ?? product.slug]"
-              class="app-cta-button app-cta-button--compact btn px-4 py-2 lead w-75"
-              (click)="trackProductClick(currentCategory.name, product.name)"
-            >
-              DETAILS
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </a>
+                <a
+                  [routerLink]="['/gallery', currentCategory.routeSlug ?? currentCategory.slug, product.routeSlug ?? product.slug]"
+                  class="btn btn-success mt-auto"
+                  (click)="trackProductClick(currentCategory.name, product.name)"
+                >
+                  View details
+                </a>
+              </div>
+            </article>
           </div>
-        </article>
-      }
+        }
+      </div>
     </section>
   }
 </main>

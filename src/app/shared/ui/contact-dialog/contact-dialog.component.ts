@@ -14,7 +14,7 @@ import { ContactDialogData } from '@shared/ui/contact-dialog/contact-dialog.mode
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './contact-dialog.component.html',
-  styleUrl: './contact-dialog.component.css',
+  host: { class: 'd-block w-100' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactDialogComponent {

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { AnalyticsService } from '@core/services/analytics.service';
 import { ContactDialogService } from '@core/services/contact-dialog.service';
+import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
 
 interface HomeSlide {
   description: string;
@@ -13,7 +14,7 @@ interface HomeSlide {
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, AppIconComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

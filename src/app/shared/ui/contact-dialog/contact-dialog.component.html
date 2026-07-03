@@ -1,182 +1,206 @@
-<section class="contact-dialog-shell app-surface-card" aria-labelledby="contact-dialog-title">
-  <form
-    class="d-flex align-items-center flex-column justify-content-center p-4"
-    [formGroup]="contactForm"
-    novalidate
-    (ngSubmit)="submit()"
-  >
-    <h2 id="contact-dialog-title" class="app-mono-text display-6 m-0 p-0 text-start fw-bolder">
-      {{ dialogTitle() }}
-    </h2>
-    <p class="quote-promise w-100">
-      {{ quotePromise }}
-    </p>
-    <hr class="app-divider mt-2 mb-3 w-100">
+<section
+  class="modal-content bg-white text-body border-0 rounded-4 shadow-lg overflow-hidden"
+  aria-labelledby="contact-dialog-title"
+>
+  <form class="p-4 p-md-5" [formGroup]="contactForm" novalidate (ngSubmit)="submit()">
+    <div class="d-flex align-items-start justify-content-between gap-3">
+      <div>
+        <h2 id="contact-dialog-title" class="font-monospace h2 fw-bold mb-2">
+          {{ dialogTitle() }}
+        </h2>
+        <p class="text-body-secondary lh-lg mb-0">{{ quotePromise }}</p>
+      </div>
+      <button type="button" class="btn-close flex-shrink-0" aria-label="Close" (click)="close()"></button>
+    </div>
 
-    <div class="form-grid w-100">
-      <div class="form-floating mb-3">
-        <input
-          id="FullName"
-          type="text"
-          name="FullName"
+    <hr class="border-success opacity-50 my-4">
+
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="FullName"
+            type="text"
+            name="FullName"
+            class="form-control"
+            formControlName="fullName"
+            placeholder="Your name"
+            autocomplete="name"
+            required
+          >
+          <label for="FullName">Full name</label>
+        </div>
+        @if (contactForm.controls.fullName.invalid && contactForm.controls.fullName.touched) {
+          <div class="invalid-feedback d-block">Please enter your full name.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="CompanyName"
+            type="text"
+            name="CompanyName"
+            class="form-control"
+            formControlName="companyName"
+            placeholder="Company name"
+            autocomplete="organization"
+          >
+          <label for="CompanyName">Company name</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="Email"
+            type="email"
+            name="Email"
+            class="form-control"
+            formControlName="email"
+            placeholder="name@example.com"
+            autocomplete="email"
+            required
+          >
+          <label for="Email">Email address</label>
+        </div>
+        @if (contactForm.controls.email.invalid && contactForm.controls.email.touched) {
+          <div class="invalid-feedback d-block">Please enter a valid email address.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <select
+            id="InquiryType"
+            name="InquiryType"
+            class="form-select"
+            formControlName="inquiryType"
+            required
+          >
+            @for (option of inquiryOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          <label for="InquiryType">Inquiry type</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="FlowerType"
+            type="text"
+            name="FlowerType"
+            class="form-control"
+            formControlName="flowerType"
+            placeholder="Flower type"
+          >
+          <label for="FlowerType">Flower type or variety</label>
+        </div>
+        @if (contactForm.controls.flowerType.invalid && contactForm.controls.flowerType.touched) {
+          <div class="invalid-feedback d-block">Please tell us the flower type you want to quote.</div>
+        }
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="Quantity"
+            type="text"
+            name="Quantity"
+            class="form-control"
+            formControlName="quantity"
+            placeholder="Quantity"
+          >
+          <label for="Quantity">Approximate quantity</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="Country"
+            type="text"
+            name="Country"
+            class="form-control"
+            formControlName="country"
+            placeholder="Destination country"
+            autocomplete="country-name"
+          >
+          <label for="Country">Destination country</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-floating">
+          <input
+            id="NeededBy"
+            type="date"
+            name="NeededBy"
+            class="form-control"
+            formControlName="neededBy"
+            placeholder="Needed by"
+          >
+          <label for="NeededBy">Needed by</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <input
+            id="BoxType"
+            type="text"
+            name="BoxType"
+            class="form-control"
+            formControlName="boxType"
+            placeholder="Packing preference"
+          >
+          <label for="BoxType">Packing or box preference</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="Comment" class="form-label fw-semibold">Project or order details</label>
+        <textarea
+          id="Comment"
+          name="Comment"
           class="form-control"
-          formControlName="fullName"
-          placeholder="Your name"
-          autocomplete="name"
+          formControlName="comment"
+          rows="5"
           required
-        >
-        <label for="FullName">Full name</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="CompanyName"
-          type="text"
-          name="CompanyName"
-          class="form-control"
-          formControlName="companyName"
-          placeholder="Company name"
-          autocomplete="organization"
-        >
-        <label for="CompanyName">Company name</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="Email"
-          type="email"
-          name="Email"
-          class="form-control"
-          formControlName="email"
-          placeholder="name@example.com"
-          autocomplete="email"
-          required
-        >
-        <label for="Email">Email address</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <select
-          id="InquiryType"
-          name="InquiryType"
-          class="form-control"
-          formControlName="inquiryType"
-          required
-        >
-          @for (option of inquiryOptions; track option.value) {
-            <option [value]="option.value">{{ option.label }}</option>
-          }
-        </select>
-        <label for="InquiryType">Inquiry type</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="FlowerType"
-          type="text"
-          name="FlowerType"
-          class="form-control"
-          formControlName="flowerType"
-          placeholder="Flower type"
-        >
-        <label for="FlowerType">Flower type or variety</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="Quantity"
-          type="text"
-          name="Quantity"
-          class="form-control"
-          formControlName="quantity"
-          placeholder="Quantity"
-        >
-        <label for="Quantity">Approximate quantity</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="Country"
-          type="text"
-          name="Country"
-          class="form-control"
-          formControlName="country"
-          placeholder="Destination country"
-          autocomplete="country-name"
-        >
-        <label for="Country">Destination country</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input
-          id="NeededBy"
-          type="date"
-          name="NeededBy"
-          class="form-control"
-          formControlName="neededBy"
-          placeholder="Needed by"
-        >
-        <label for="NeededBy">Needed by</label>
-      </div>
-
-      <div class="form-floating mb-3 form-grid__full">
-        <input
-          id="BoxType"
-          type="text"
-          name="BoxType"
-          class="form-control"
-          formControlName="boxType"
-          placeholder="Packing preference"
-        >
-        <label for="BoxType">Packing or box preference</label>
+        ></textarea>
+        @if (contactForm.controls.comment.invalid && contactForm.controls.comment.touched) {
+          <div class="invalid-feedback d-block">Tell us a little more about what you need.</div>
+        }
       </div>
     </div>
-    @if (contactForm.controls.fullName.invalid && contactForm.controls.fullName.touched) {
-      <p class="validation-message w-100">Please enter your full name.</p>
-    }
-    @if (contactForm.controls.email.invalid && contactForm.controls.email.touched) {
-      <p class="validation-message w-100">Please enter a valid email address.</p>
-    }
-    @if (contactForm.controls.flowerType.invalid && contactForm.controls.flowerType.touched) {
-      <p class="validation-message w-100">Please tell us the flower type you want to quote.</p>
-    }
 
-    <div class="form-floating mb-4 w-100">
-      <textarea
-        id="Comment"
-        name="Comment"
-        class="form-control"
-        formControlName="comment"
-        placeholder="Leave a comment here"
-        required
-      ></textarea>
-      <label for="Comment">Project or order details</label>
-    </div>
-    @if (contactForm.controls.comment.invalid && contactForm.controls.comment.touched) {
-      <p class="validation-message w-100">Tell us a little more about what you need.</p>
-    }
-
-    <div class="honeypot-field" aria-hidden="true">
+    <div class="position-absolute opacity-0 pe-none" aria-hidden="true">
       <label for="Website">Website</label>
       <input id="Website" type="text" name="website" formControlName="website" tabindex="-1" autocomplete="off">
     </div>
 
-    <hr class="app-divider mb-4 w-100">
-
     @if (feedback()) {
-      <p
-        class="feedback-message w-100"
-        [class.feedback-message--error]="submissionState() === 'error'"
-        [class.feedback-message--success]="submissionState() === 'success'"
+      <div
+        class="alert mt-4 mb-0"
+        [class.alert-danger]="submissionState() === 'error'"
+        [class.alert-success]="submissionState() === 'success'"
         aria-live="polite"
       >
         {{ feedback() }}
-      </p>
+      </div>
     }
 
-    <div class="contenedor_2 w-100">
-      <button type="button" class="btn_0 btn-04 btn lead pointer" (click)="close()">Cancel</button>
-      <button type="submit" class="btn_0 btn-3 btn lead pointer" [disabled]="contactForm.invalid || isSubmitting()">
+    <hr class="border-success opacity-50 my-4">
+
+    <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+      <button
+        type="submit"
+        class="btn btn-success px-4"
+        [disabled]="contactForm.invalid || isSubmitting()"
+      >
         {{ isSubmitting() ? 'Sending...' : 'Send' }}
       </button>
     </div>

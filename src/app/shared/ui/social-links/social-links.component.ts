@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { NgClass } from '@angular/common';
-
 import { AnalyticsService } from '@core/services/analytics.service';
 import { SOCIAL_LINKS } from '@core/data/company.data';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
@@ -8,9 +6,9 @@ import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
 @Component({
   selector: 'app-social-links',
   standalone: true,
-  imports: [AppIconComponent, NgClass],
+  imports: [AppIconComponent],
   templateUrl: './social-links.component.html',
-  styleUrl: './social-links.component.css',
+  host: { class: 'd-block' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocialLinksComponent {

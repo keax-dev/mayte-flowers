@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 
 type IconName =
   | 'arrow-left'
+  | 'chevron-left'
+  | 'chevron-right'
   | 'close'
   | 'instagram'
   | 'location'
@@ -17,6 +19,12 @@ interface IconDefinition {
 const ICONS: Record<IconName, IconDefinition> = {
   'arrow-left': {
     path: 'M11.67 3.87 9.9 2.1 0 12l9.9 9.9 1.77-1.77L4.8 13H24v-2H4.8z'
+  },
+  'chevron-left': {
+    path: 'M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z'
+  },
+  'chevron-right': {
+    path: 'M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z'
   },
   close: {
     path: 'M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z'
@@ -42,7 +50,7 @@ const ICONS: Record<IconName, IconDefinition> = {
   selector: 'app-icon',
   standalone: true,
   templateUrl: './app-icon.component.html',
-  styleUrl: './app-icon.component.css',
+  host: { class: 'd-inline-flex' },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppIconComponent {

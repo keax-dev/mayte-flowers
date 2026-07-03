@@ -5,18 +5,6 @@
 }
 
 .not-found-code {
-  color: #108d44;
   font-size: clamp(4rem, 12vw, 7rem);
-  font-weight: 800;
   letter-spacing: 0.08em;
-}
-
-:host h1 {
-  color: #10231a;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-}
-
-:host p {
-  color: #345a47;
-  max-width: 32rem;
 }

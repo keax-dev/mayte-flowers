@@ -1,11 +1,11 @@
-<main class="main-content row justify-content-center align-items-center p-4">
+<main class="product-page py-4 py-lg-5">
   @if (productData(); as currentProduct) {
-    <article class="card app-fade-up" aria-labelledby="product-title">
+    <article class="container card border-0 rounded-4 shadow-lg overflow-hidden" aria-labelledby="product-title">
       <div class="row g-0">
-        <div class="col-md-4">
+        <aside class="col-12 col-lg-4 bg-body-tertiary p-3 p-md-4">
           <button
             type="button"
-            class="btn btn-secondary d-flex align-items-center justify-content-center pointer"
+            class="btn btn-outline-secondary d-inline-flex align-items-center"
             (click)="goBack()"
           >
             <app-icon class="me-2" [decorative]="true" name="arrow-left" [size]="20"></app-icon>
@@ -14,185 +14,177 @@
 
           <img
             [src]="currentProduct.image"
-            class="img-fluid p-3"
+            class="img-fluid rounded-3 d-block mx-auto my-4"
             [alt]="currentProduct.name"
             decoding="async"
             fetchpriority="high"
           >
 
-          <aside class="app-slide-up mt-3 social-links-panel" aria-label="Contact links">
+          <div class="d-none d-lg-block mt-3" aria-label="Contact links">
             <app-social-links [layout]="socialLayout()" context="product_page"></app-social-links>
-          </aside>
-        </div>
+          </div>
+        </aside>
 
-        <section class="col-md-8" aria-labelledby="product-title">
-          <div class="card-body">
-            <h1 id="product-title" class="card-title display-1 fs-1 mt-3 fw-bolder lead">
-              {{ currentProduct.name }}
-            </h1>
-            <hr class="app-divider mt-4 mb-3">
+        <section class="col-12 col-lg-8 p-4 p-md-5" aria-labelledby="product-title">
+          <h1 id="product-title" class="display-4 fw-bold">{{ currentProduct.name }}</h1>
+          <hr class="border-success opacity-50 my-4">
 
-            <p class="m-0 p-0 fs-6">{{ currentProduct.description }}</p>
+          <p class="lead lh-lg">{{ currentProduct.description }}</p>
 
-            <section class="sales-panel app-surface-card mt-4 p-3" aria-label="Quote actions">
-              <p class="sales-panel__eyebrow m-0">Ready to buy or request pricing?</p>
-              <h2 class="sales-panel__title m-0 mt-2">Request availability for {{ currentProduct.name }}</h2>
-              <p class="sales-panel__copy mt-2 mb-3">
-                Share your quantity, country, required date and packing preference. We will
-                follow up with the right commercial details.
-              </p>
+          <section class="bg-body-tertiary border rounded-4 p-4 mt-4" aria-label="Quote actions">
+            <p class="text-success fw-bold text-uppercase small mb-2">
+              Ready to buy or request pricing?
+            </p>
+            <h2 class="h3 fw-bold">Request availability for {{ currentProduct.name }}</h2>
+            <p class="lh-lg">
+              Share your quantity, country, required date and packing preference. We will
+              follow up with the right commercial details.
+            </p>
 
-              <div class="sales-panel__actions d-flex flex-wrap align-items-center">
-                <button
-                  type="button"
-                  class="app-cta-button btn px-4 py-2 lead"
-                  (click)="openQuoteDialog()"
-                >
-                  Request quote
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
+            <div class="d-grid d-sm-flex gap-2">
+              <button type="button" class="btn btn-success btn-lg px-4" (click)="openQuoteDialog()">
+                Request quote
+              </button>
 
-                <a
-                  [href]="productWhatsappUrl()"
-                  target="_blank"
-                  rel="noreferrer"
-                  class="btn btn-secondary px-4 py-2 lead"
-                  (click)="trackWhatsappQuote()"
-                >
-                  Ask on WhatsApp
-                </a>
+              <a
+                [href]="productWhatsappUrl()"
+                target="_blank"
+                rel="noreferrer"
+                class="btn btn-outline-secondary btn-lg px-4"
+                (click)="trackWhatsappQuote()"
+              >
+                Ask on WhatsApp
+              </a>
+            </div>
+          </section>
+
+          @if (commercialHighlights().length) {
+            <section class="row row-cols-1 row-cols-md-2 g-3 mt-3" aria-label="Commercial details">
+              @for (detail of commercialHighlights(); track detail.label) {
+                <div class="col">
+                  <article class="h-100 border rounded-4 p-3 shadow-sm">
+                    <p class="text-body-secondary fw-bold text-uppercase small mb-2">
+                      {{ detail.label }}
+                    </p>
+                    <p class="fw-semibold lh-lg mb-0">{{ detail.value }}</p>
+                  </article>
+                </div>
+              }
+            </section>
+          }
+
+          @if (idealFor().length) {
+            <section class="mt-4" aria-label="Recommended uses">
+              <h2 class="h5 fw-bold">Ideal for</h2>
+              <div class="d-flex flex-wrap gap-2">
+                @for (use of idealFor(); track use) {
+                  <span class="badge rounded-pill text-bg-success p-2">{{ use }}</span>
+                }
               </div>
             </section>
+          }
 
-            @if (commercialHighlights().length) {
-              <section class="commercial-grid mt-4" aria-label="Commercial details">
-                @for (detail of commercialHighlights(); track detail.label) {
-                  <article class="commercial-card app-fade-up p-3">
-                    <p class="commercial-card__label m-0">{{ detail.label }}</p>
-                    <p class="commercial-card__value m-0 mt-2">{{ detail.value }}</p>
-                  </article>
-                }
-              </section>
-            }
+          @if (hasMetadata()) {
+            <hr class="border-success opacity-50 my-4">
+          }
 
-            @if (idealFor().length) {
-              <section class="ideal-for mt-4" aria-label="Recommended uses">
-                <h2 class="ideal-for__title">Ideal for</h2>
-                <div class="ideal-for__chips">
-                  @for (use of idealFor(); track use) {
-                    <span class="ideal-for__chip">{{ use }}</span>
-                  }
-                </div>
-              </section>
-            }
-
-            @if (hasMetadata()) {
-              <hr class="app-divider mt-4 mb-3">
-            }
-
-            @if (currentProduct.headOptions?.length) {
-              <div class="flex-550 my-3 d-flex w-100 flex-wrap align-items-center justify-content-around">
-                @for (option of currentProduct.headOptions; track option.label) {
-                  <p class="display-6 text-center">
-                    <span class="fw-bolder text-warning">{{ option.label }}</span>
+          @if (currentProduct.headOptions?.length) {
+            <div class="row row-cols-1 row-cols-md-2 g-3 my-3">
+              @for (option of currentProduct.headOptions; track option.label) {
+                <div class="col">
+                  <p class="h4 text-center bg-body-tertiary rounded-4 p-4 h-100 mb-0">
+                    <span class="fw-bold text-warning">{{ option.label }}</span>
                     <br>
                     {{ option.description }}
                   </p>
-                }
-              </div>
-            }
-
-            @if (currentProduct.color) {
-              <div class="flex-550 my-3 d-flex w-100 flex-wrap align-items-center justify-content-around">
-                <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
-                  <img src="/assets/catalogue/color.png" alt="Color">
-                  <p class="mt-2 fs-3 fw-bolder">Color</p>
                 </div>
+              }
+            </div>
+          }
 
-                <p class="display-6">{{ currentProduct.color }}</p>
+          @if (currentProduct.color) {
+            <div class="row align-items-center text-center border-bottom py-4">
+              <div class="col-12 col-sm-6">
+                <img src="/assets/catalogue/color.png" alt="" width="96" height="96">
+                <p class="h4 fw-bold mt-2">Color</p>
               </div>
-            }
+              <p class="col-12 col-sm-6 display-6 mb-0">{{ currentProduct.color }}</p>
+            </div>
+          }
 
-            @if (currentProduct.head) {
-              <div class="flex-550 column-reverse my-3 d-flex w-100 flex-wrap align-items-center justify-content-around">
-                <p class="display-6">{{ currentProduct.head }}</p>
-
-                <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
-                  <img src="/assets/catalogue/head.png" alt="Head size">
-                  <p class="mt-2 fs-3 fw-bolder">Head Size</p>
-                </div>
+          @if (currentProduct.head) {
+            <div class="row align-items-center text-center border-bottom py-4">
+              <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ currentProduct.head }}</p>
+              <div class="col-12 col-sm-6">
+                <img src="/assets/catalogue/head.png" alt="" width="96" height="96">
+                <p class="h4 fw-bold mt-2">Head size</p>
               </div>
-            }
+            </div>
+          }
 
-            @if (currentProduct.length) {
-              <div class="flex-550 my-3 d-flex w-100 flex-wrap align-items-center justify-content-around">
-                <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
-                  <img src="/assets/catalogue/length.png" alt="Stem length">
-                  <p class="mt-2 fs-3 fw-bolder">Stem Length</p>
-                </div>
-
-                <p class="display-6">{{ currentProduct.length }}</p>
+          @if (currentProduct.length) {
+            <div class="row align-items-center text-center border-bottom py-4">
+              <div class="col-12 col-sm-6">
+                <img src="/assets/catalogue/length.png" alt="" width="96" height="96">
+                <p class="h4 fw-bold mt-2">Stem length</p>
               </div>
-            }
+              <p class="col-12 col-sm-6 display-6 mb-0">{{ currentProduct.length }}</p>
+            </div>
+          }
 
-            @if (currentProduct.life) {
-              <div class="flex-550 column-reverse my-3 d-flex w-100 flex-wrap align-items-center justify-content-around">
-                <p class="display-6">{{ currentProduct.life }}</p>
-
-                <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
-                  <img src="/assets/catalogue/life.png" alt="Product vase life">
-                  <p class="mt-2 fs-3 fw-bolder">Product Vase Life</p>
-                </div>
+          @if (currentProduct.life) {
+            <div class="row align-items-center text-center border-bottom py-4">
+              <p class="col-12 col-sm-6 display-6 mb-3 mb-sm-0">{{ currentProduct.life }}</p>
+              <div class="col-12 col-sm-6">
+                <img src="/assets/catalogue/life.png" alt="" width="96" height="96">
+                <p class="h4 fw-bold mt-2">Product vase life</p>
               </div>
-            }
+            </div>
+          }
 
-            @if (isGypsophila()) {
-              <div class="table-scroll flex-550 mt-5 d-flex w-100 flex-wrap align-items-center justify-content-center">
-                <table class="table table-bordered w-100">
-                  <caption class="visually-hidden">
-                    Gypsophila packing guide by box weight and bunch size
-                  </caption>
-                  <thead class="table-secondary text-danger">
-                    <tr>
-                      <th>WEIGHT/BOX</th>
-                      <th>QB</th>
-                      <th>HB</th>
-                      <th>HB JUMBO</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>250 GR</td>
-                      <td>15</td>
-                      <td>30</td>
-                      <td>50</td>
-                    </tr>
-                    <tr>
-                      <td>500 GR</td>
-                      <td>8</td>
-                      <td>18</td>
-                      <td>26</td>
-                    </tr>
-                    <tr>
-                      <td>750 GR</td>
-                      <td>7</td>
-                      <td>14</td>
-                      <td>20</td>
-                    </tr>
-                    <tr>
-                      <td>1000 GR</td>
-                      <td>6</td>
-                      <td>12</td>
-                      <td>18</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            }
-          </div>
+          @if (isGypsophila()) {
+            <div class="table-responsive mt-5">
+              <table class="table table-bordered table-hover align-middle text-center">
+                <caption class="visually-hidden">
+                  Gypsophila packing guide by box weight and bunch size
+                </caption>
+                <thead class="table-secondary">
+                  <tr>
+                    <th scope="col">Weight/box</th>
+                    <th scope="col">QB</th>
+                    <th scope="col">HB</th>
+                    <th scope="col">HB Jumbo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">250 gr</th>
+                    <td>15</td>
+                    <td>30</td>
+                    <td>50</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">500 gr</th>
+                    <td>8</td>
+                    <td>18</td>
+                    <td>26</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">750 gr</th>
+                    <td>7</td>
+                    <td>14</td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">1000 gr</th>
+                    <td>6</td>
+                    <td>12</td>
+                    <td>18</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          }
         </section>
       </div>
     </article>

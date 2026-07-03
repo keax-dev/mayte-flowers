@@ -1,18 +1,20 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg p-0" aria-label="Primary navigation">
-  <div class="container-fluid py-2">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top py-2" aria-label="Primary navigation">
+  <div class="container-fluid">
     <a
       routerLink="/about-us"
-      class="brand-link btn-0 btn--4 hover-logo mx-3 d-flex align-items-center justify-content-center"
+      class="navbar-brand d-flex align-items-center gap-2"
       (click)="closeMenu()"
     >
       <img
         [src]="company.logo"
         [alt]="company.name"
-        class="mx-1 rounded-circle"
+        class="rounded-circle border border-3 border-white object-fit-cover"
+        width="50"
+        height="50"
         decoding="async"
         fetchpriority="high"
       >
-      <span class="name-company color-green fw-bolder fs-5">{{ company.name }}</span>
+      <span class="fw-bold fs-5 text-success">{{ company.name }}</span>
     </a>
 
     <button
@@ -32,36 +34,39 @@
 
     <div id="navbarNavigation" class="collapse navbar-collapse" [class.show]="isMenuOpen()">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item mx-2">
+        <li class="nav-item">
           <a
             routerLink="/home"
-            routerLinkActive="is-active"
+            routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="btn btn_0 nav-link-button w-100"
+            ariaCurrentWhenActive="page"
+            class="nav-link text-center px-3"
             (click)="closeMenu()"
           >
             Home
           </a>
         </li>
 
-        <li class="nav-item mx-2">
+        <li class="nav-item">
           <a
             routerLink="/gallery"
-            routerLinkActive="is-active"
+            routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: false }"
-            class="btn btn_0 nav-link-button w-100"
+            ariaCurrentWhenActive="page"
+            class="nav-link text-center px-3"
             (click)="closeMenu()"
           >
             Products
           </a>
         </li>
 
-        <li class="nav-item mx-2">
+        <li class="nav-item">
           <a
             routerLink="/about-us"
-            routerLinkActive="is-active"
+            routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="btn btn_0 nav-link-button w-100"
+            ariaCurrentWhenActive="page"
+            class="nav-link text-center px-3"
             (click)="closeMenu()"
           >
             About us
@@ -69,8 +74,8 @@
         </li>
       </ul>
 
-      <div class="d-flex">
-        <button type="button" class="btn btn_0 nav-link-button w-100" (click)="openContact()">
+      <div class="d-grid">
+        <button type="button" class="btn btn-success px-4" (click)="openContact()">
           Contact
         </button>
       </div>

@@ -39,6 +39,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@angular/cdk/overlay-prebuilt.css",
               "src/styles.css"
             ],
@@ -115,6 +116,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@angular/cdk/overlay-prebuilt.css",
               "src/styles.css"
             ],
@@ -149,5 +151,8 @@
     "@schematics/angular:resolver": {
       "typeSeparator": "."
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
