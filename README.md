@@ -49,6 +49,7 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - Bootstrap 5
 - RxJS 7
 - Karma + Jasmine para pruebas unitarias
+- Playwright para pruebas end-to-end
 
 ## Puntos Fuertes De Ingenieria
 
@@ -133,7 +134,8 @@ src/app
 
 El proyecto incluye:
 
-- Pruebas unitarias para routing, flujos de contacto, comportamiento del repository e interacciones de la home
+- Pruebas unitarias e integracion para routing, runtime config, bootstrap, flujos de contacto, comportamiento del repository e interacciones de la home
+- Pruebas end-to-end con Playwright para bootstrap, navegacion critica y envio del modal de contacto
 - Script `typecheck` para validar tipos de Angular y templates
 - Verificacion de build de produccion
 
@@ -149,6 +151,7 @@ npm run lint:fix
 npm run format
 npm run format:check
 npm run typecheck
+npm run e2e
 ```
 
 ## Setup Local

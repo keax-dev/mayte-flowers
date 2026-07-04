@@ -49,6 +49,7 @@ This project was intentionally oriented to showcase practical frontend skills th
 - Bootstrap 5
 - RxJS 7
 - Karma + Jasmine for unit testing
+- Playwright for end-to-end testing
 
 ## Engineering Highlights
 
@@ -133,7 +134,8 @@ src/app
 
 The project includes:
 
-- unit tests for routing, contact workflows, repository behavior, and home-page interactions
+- unit and integration tests for routing, runtime config, bootstrap, contact workflows, repository behavior, and home-page interactions
+- end-to-end Playwright coverage for bootstrap, critical navigation, and contact dialog submission
 - `typecheck` script for Angular and template type validation
 - production build verification
 
@@ -149,6 +151,7 @@ npm run lint:fix
 npm run format
 npm run format:check
 npm run typecheck
+npm run e2e
 ```
 
 ## Local Setup

@@ -9,6 +9,8 @@ describe('CatalogueRepository', () => {
   let httpMock: HttpTestingController;
   let repository: CatalogueRepository;
 
+  // Catálogo mínimo controlado para probar transformaciones,
+  // búsqueda por alias y manejo de errores.
   const mockCatalogue = [
     {
       slug: 'sunflower',
@@ -48,6 +50,8 @@ describe('CatalogueRepository', () => {
   ];
 
   beforeEach(() => {
+    // Montamos el repositorio real con HTTP de testing para simular
+    // la carga del JSON del catálogo sin tocar archivos externos.
     TestBed.configureTestingModule({
       providers: [
         CatalogueRepository,
@@ -62,18 +66,23 @@ describe('CatalogueRepository', () => {
   });
 
   afterEach(() => {
+    // Verifica que cada prueba dejó el backend HTTP sin requests pendientes.
     httpMock.verify();
   });
 
   it('maps category cards and keeps direct product routes', () => {
+    // Escuchamos el observable ya transformado que consume la UI del catálogo.
     let cards: unknown;
 
     repository.getCategoryCards$().subscribe((value) => {
       cards = value;
     });
 
+    // Entregamos el JSON mock para disparar el mapeo interno del repositorio.
     httpMock.expectOne('assets/data/catalogue.json').flush(mockCatalogue);
 
+    // Validamos que la salida tenga la forma esperada por la vista,
+    // incluyendo el caso especial de rutas directas a producto.
     expect(cards).toEqual([
       {
         slug: 'sunflower',
@@ -93,6 +102,8 @@ describe('CatalogueRepository', () => {
   });
 
   it('finds categories and products by slug aliases', () => {
+    // Comprobamos que la búsqueda sea tolerante con aliases/variantes,
+    // algo muy útil para URLs históricas o datos inconsistentes.
     let categoryName = '';
     let productName = '';
     let productRouteSlug = '';
@@ -108,12 +119,15 @@ describe('CatalogueRepository', () => {
 
     httpMock.expectOne('assets/data/catalogue.json').flush(mockCatalogue);
 
+    // Debe resolver correctamente tanto la categoría como el producto final.
     expect(categoryName).toBe('HYPERICUM');
     expect(productName).toBe('RED HYPERICUM');
     expect(productRouteSlug).toBe('red-hypericum');
   });
 
   it('returns an empty catalogue when the data request fails', () => {
+    // Si la carga del JSON falla, el repositorio no debe romper la app:
+    // debe devolver una colección vacía y marcar el estado de error.
     let categories: unknown;
 
     repository.getCategories$().subscribe((value) => {

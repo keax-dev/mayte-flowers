@@ -34,15 +34,16 @@ export async function loadRuntimeAppConfig(): Promise<AppConfig> {
   return parseAppConfig((await response.json()) as unknown);
 }
 
-function resolveRuntimeAppConfigUrl(): string {
-  const configPath = LOCAL_HOSTS.has(window.location.hostname)
-    ? LOCAL_CONFIG_PATH
-    : PRODUCTION_CONFIG_PATH;
+export function resolveRuntimeAppConfigUrl(
+  hostname = window.location.hostname,
+  baseUri = document.baseURI,
+): string {
+  const runtimePath = LOCAL_HOSTS.has(hostname) ? LOCAL_CONFIG_PATH : PRODUCTION_CONFIG_PATH;
 
-  return new URL(configPath, document.baseURI).toString();
+  return new URL(runtimePath, baseUri).toString();
 }
 
-function parseAppConfig(value: unknown): AppConfig {
+export function parseAppConfig(value: unknown): AppConfig {
   if (!isRecord(value)) {
     throw new Error('Runtime config must be a JSON object.');
   }

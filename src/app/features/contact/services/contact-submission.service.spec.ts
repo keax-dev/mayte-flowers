@@ -10,6 +10,8 @@ describe('ContactSubmissionService', () => {
   let service: ContactSubmissionService;
 
   beforeEach(() => {
+    // Se configura el servicio real con el backend HTTP de testing,
+    // para inspeccionar peticiones sin salir a la red.
     TestBed.configureTestingModule({
       providers: [
         ContactSubmissionService,
@@ -24,10 +26,12 @@ describe('ContactSubmissionService', () => {
   });
 
   afterEach(() => {
+    // Garantiza que cada prueba consume exactamente las requests esperadas.
     httpMock.verify();
   });
 
   it('posts contact requests to FormSubmit AJAX endpoint', () => {
+    // Ejecutamos el flujo público del servicio tal como lo haría el componente.
     service
       .submit({
         email: 'hello@example.com',
@@ -35,15 +39,20 @@ describe('ContactSubmissionService', () => {
       })
       .subscribe();
 
+    // Interceptamos la request para validar destino, método y datos enviados.
     const request = httpMock.expectOne('https://formsubmit.co/ajax/sales@alxgarden.com');
     expect(request.request.method).toBe('POST');
     expect(request.request.body instanceof FormData).toBeTrue();
     expect((request.request.body as FormData).get('email')).toBe('hello@example.com');
     expect((request.request.body as FormData).get('message')).toBe('I need a quote.');
+
+    // Respondemos manualmente para cerrar el flujo observable.
     request.flush({ success: 'true' });
   });
 
   it('short-circuits spam submissions when honeypot is filled', () => {
+    // Si el honeypot viene lleno, asumimos bot/spam y el servicio
+    // debe cortar el flujo sin hacer ninguna petición externa.
     service
       .submit({
         email: 'bot@example.com',
@@ -53,6 +62,8 @@ describe('ContactSubmissionService', () => {
       .subscribe();
 
     httpMock.expectNone('https://formsubmit.co/ajax/sales@alxgarden.com');
+
+    // Este expect solo deja explícito que la prueba llegó al final sin requests.
     expect(true).toBeTrue();
   });
 });

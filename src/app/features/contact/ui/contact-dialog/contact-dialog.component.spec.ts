@@ -13,6 +13,7 @@ describe('ContactDialogComponent', () => {
   let submitSpy: jasmine.Spy;
 
   beforeEach(async () => {
+    // Simulamos el servicio de envío para no depender de llamadas HTTP reales.
     submitSpy = jasmine.createSpy('submit').and.returnValue(of(void 0));
 
     await TestBed.configureTestingModule({
@@ -40,12 +41,15 @@ describe('ContactDialogComponent', () => {
       ],
     }).compileComponents();
 
+    // Creamos el componente y dejamos el formulario/render listo para probar.
     fixture = TestBed.createComponent(ContactDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('keeps the submit button disabled while the form is invalid', () => {
+    // Al iniciar, el formulario está incompleto, así que el usuario
+    // todavía no debería poder enviar la solicitud.
     const submitButton = fixture.nativeElement.querySelector(
       'button[type="submit"]',
     ) as HTMLButtonElement;
@@ -54,6 +58,8 @@ describe('ContactDialogComponent', () => {
   });
 
   it('updates the dialog title when the inquiry type changes', () => {
+    // El título del modal cambia según el contexto:
+    // contacto general o solicitud de cotización.
     expect(component.dialogTitle()).toBe('CONTACT US');
 
     component.contactForm.controls.inquiryType.setValue('quote');
@@ -63,6 +69,8 @@ describe('ContactDialogComponent', () => {
   });
 
   it('preserves length validation when the inquiry type changes', () => {
+    // Esta prueba asegura que al cambiar de tipo de consulta
+    // no se pierdan validaciones importantes del formulario.
     const flowerType = component.contactForm.controls.flowerType;
     flowerType.setValue('x'.repeat(121));
 
@@ -77,6 +85,7 @@ describe('ContactDialogComponent', () => {
   });
 
   it('submits valid form data and shows success feedback', () => {
+    // Llenamos el formulario con datos válidos del flujo de cotización.
     component.contactForm.setValue({
       boxType: 'Half box',
       comment: 'Please send me a quote.',
@@ -94,6 +103,8 @@ describe('ContactDialogComponent', () => {
     component.submit();
     fixture.detectChanges();
 
+    // Verificamos tanto el payload enviado al servicio
+    // como el estado final de éxito mostrado al usuario.
     expect(submitSpy).toHaveBeenCalledWith({
       boxType: 'Half box',
       companyName: 'Flower Buyer Inc.',
@@ -113,6 +124,8 @@ describe('ContactDialogComponent', () => {
   });
 
   it('shows error feedback when the submission fails', () => {
+    // Forzamos un error del servicio para validar el manejo
+    // del estado fallido en la UI del modal.
     submitSpy.and.returnValue(throwError(() => new Error('network')));
     component.contactForm.setValue({
       boxType: 'Half box',
@@ -131,6 +144,7 @@ describe('ContactDialogComponent', () => {
     component.submit();
     fixture.detectChanges();
 
+    // La vista debe reflejar claramente que el envío no se pudo completar.
     expect(component.submissionState()).toBe('error');
     expect(component.feedback()).toContain('We could not send your message');
   });

@@ -8,6 +8,8 @@ describe('ContactDialogService', () => {
   let service: ContactDialogService;
 
   beforeEach(() => {
+    // Espiamos el servicio de diálogo del CDK para comprobar
+    // cómo se abre el modal, sin renderizarlo realmente.
     dialogOpenSpy = jasmine.createSpy('open');
 
     TestBed.configureTestingModule({
@@ -32,8 +34,11 @@ describe('ContactDialogService', () => {
   });
 
   it('loads the contact dialog on demand with accessible focus configuration', async () => {
+    // Ejecutamos el método público que usa el resto de la app.
     await service.open({ inquiryType: 'quote', source: 'test' });
 
+    // La prueba se centra en validar configuración importante de accesibilidad
+    // y de foco inicial al abrir el modal.
     expect(dialogOpenSpy).toHaveBeenCalled();
     expect(dialogOpenSpy.calls.mostRecent().args[1]).toEqual(
       jasmine.objectContaining({
