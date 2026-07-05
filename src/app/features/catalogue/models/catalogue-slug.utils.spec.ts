@@ -4,7 +4,7 @@ describe('catalogue slug utilities', () => {
   it('normalizes spaces, separators and diacritics into a route-safe slug', () => {
     // Esta utilidad convierte nombres "sucios" o con acentos
     // en slugs seguros para usar en rutas.
-    expect(toRouteSlug('  Rosa MÃ¡gica__Premium  ')).toBe('rosa-magica-premium');
+    expect(toRouteSlug('  Rosa Mágica__Premium  ')).toBe('rosa-magica-premium');
   });
 
   it('matches normalized aliases without changing the source data', () => {
