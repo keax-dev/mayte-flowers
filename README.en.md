@@ -11,35 +11,35 @@ This repository shows how a real Angular application was approached beyond the i
 
 This is not a demo with a single page and static cards. It is a structured frontend application designed to reflect the kind of work expected in a professional Angular team:
 
-- standalone Angular architecture with lazy-loaded routes
-- feature-based folder organization with public APIs
-- reusable UI composition instead of page-sized components
-- route-aware SEO with canonical tags and structured data
-- accessible contact workflows with typed validation
-- analytics abstraction for page views and business events
-- resilient catalogue loading and explicit error states
-- type safety improvements such as `noUncheckedIndexedAccess`
+- Standalone Angular architecture with lazy-loaded routes
+- Feature-based folder organization with public APIs
+- Reusable UI composition instead of page-sized components
+- Route-aware SEO with canonical tags and structured data
+- Accessible contact workflows with typed validation
+- Analytics abstraction for page views and business events
+- Resilient catalogue loading and explicit error states
+- Type safety improvements such as `noUncheckedIndexedAccess`
 
 ## Product Scope
 
 The application includes:
 
-- a branded home page with a custom carousel and CTAs
-- an about page focused on trust, business context, and buyer information
-- a catalogue landing page with flower categories
-- category detail pages
-- product detail pages with commercial specifications
-- an accessible contact dialog for lead capture
+- A branded home page with a custom carousel and CTAs
+- An about page focused on trust, business context, and buyer information
+- A catalogue landing page with flower categories
+- Category detail pages
+- Product detail pages with commercial specifications
+- An accessible contact dialog for lead capture
 - SEO metadata and structured data for marketing visibility
 
 This project was intentionally oriented to showcase practical frontend skills that transfer well to production environments:
 
-- translating business content into a maintainable Angular application
-- splitting responsibilities between `core`, `features`, and `shared`
-- keeping public feature contracts explicit through local barrel exports
-- combining Angular Signals, RxJS, and route resolvers in a clean way
-- using Bootstrap as a layout foundation without giving up custom branding
-- improving user experience through view transitions, lazy loading, and safer typing
+- Translating business content into a maintainable Angular application
+- Splitting responsibilities between `core`, `features`, and `shared`
+- Keeping public feature contracts explicit through local barrel exports
+- Combining Angular Signals, RxJS, and route resolvers in a clean way
+- Using Bootstrap as a layout foundation without giving up custom branding
+- Improving user experience through view transitions, lazy loading, and safer typing
 
 ## Tech Stack
 
@@ -50,6 +50,8 @@ This project was intentionally oriented to showcase practical frontend skills th
 - RxJS 7
 - Karma + Jasmine for unit testing
 - Playwright for end-to-end testing
+- GitHub Actions for CI/CD
+- Firebase Hosting for multi-site deployments
 
 ## Engineering Highlights
 
@@ -134,10 +136,12 @@ src/app
 
 The project includes:
 
-- unit and integration tests for routing, runtime config, bootstrap, contact workflows, repository behavior, and home-page interactions
-- end-to-end Playwright coverage for bootstrap, critical navigation, and contact dialog submission
+- Unit and integration tests for routing, runtime config, bootstrap, contact workflows, repository behavior, and home-page interactions
+- End-to-end Playwright coverage for bootstrap, critical navigation, and contact dialog submission
 - `typecheck` script for Angular and template type validation
-- production build verification
+- Production build verification
+
+In addition, the CI workflow publishes a `web-dist` artifact, which is reused by the deploy workflows so that development and production receive the exact same validated build.
 
 Available scripts:
 
@@ -153,6 +157,64 @@ npm run format:check
 npm run typecheck
 npm run e2e
 ```
+
+## Branching Strategy and CI/CD
+
+### Branch model
+
+- `development` acts as the integration branch and continuous validation target.
+- `main` represents the production-ready branch.
+- Pull requests targeting `development` or `main` run automated validation only.
+- Pushes to `development` deploy to a dedicated Firebase Hosting development site.
+- Pushes or merges to `main` trigger the production delivery flow.
+
+### Automated workflows
+
+The repository separates responsibilities into three GitHub Actions workflows:
+
+- `CI`
+  - Runs `format:check`, `lint`, `typecheck`, unit/integration tests, end-to-end tests, and `build`
+  - Uploads the `web-dist` artifact
+  - Cancels outdated runs on the same branch through `concurrency`
+
+- `Deploy Dev`
+  - Runs after a successful `CI` execution on `development`
+  - Downloads the validated `web-dist` artifact
+  - Deploys to the Firebase Hosting `dev` target
+  - Cancels older development deployments when a newer one arrives
+
+- `Deploy Prod`
+  - Runs after a successful `CI` execution on `main`
+  - Downloads the exact artifact produced by CI
+  - Deploys to the Firebase Hosting `prod` target
+  - Serializes production deployments to avoid overlapping releases
+
+### Environments and production promotion
+
+- GitHub Environments separates `development` and `production`.
+- `production` is intended to require a manual approval step before deployment.
+- `main` is designed to be promoted through pull requests and required validation checks.
+- This setup keeps development delivery fast while adding a controlled gate before production.
+
+### Firebase Hosting setup
+
+The project uses a multi-site Firebase Hosting configuration:
+
+- `prod` -> `mayteflowers01`
+- `dev` -> `mayteflowers01-dev`
+
+The targets are defined in `.firebaserc` and referenced from `firebase.json`.
+
+### Operational rollback
+
+If a production deployment needs to be reverted after publication, the recommended recovery path is:
+
+1. identify the last stable release in Firebase Hosting history
+2. restore or re-publish the previous healthy version
+3. fix the issue in `development`
+4. promote the fix again through a pull request to `main`
+
+The key idea behind the pipeline is that production should publish an already-validated artifact, not a separately rebuilt version.
 
 ## Local Setup
 
