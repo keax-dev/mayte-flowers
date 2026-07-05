@@ -13,6 +13,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -56,20 +60,9 @@ jobs:
       - name: Generar build
         run: npm run build
 
-      - name: Desplegar a Firebase Hosting (dev)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/development'
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Subir artifact del build
+        uses: actions/upload-artifact@v4
         with:
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAYTEFLOWERS01 }}
-          projectId: mayteflowers01
-          channelId: live
-          target: dev
-
-      - name: Desplegar a Firebase Hosting (prod)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAYTEFLOWERS01 }}
-          projectId: mayteflowers01
-          channelId: live
-          target: prod
+          name: web-dist
+          path: dist/mayte-flowres
+          retention-days: 7

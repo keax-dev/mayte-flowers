@@ -1,0 +1,45 @@
+name: Deploy Dev
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - development
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: true
+
+jobs:
+  deploy-dev:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Descargar artifact del build
+        uses: actions/download-artifact@v5
+        with:
+          name: web-dist
+          path: dist/mayte-flowres
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Desplegar a Firebase Hosting (dev)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAYTEFLOWERS01 }}
+          projectId: mayteflowers01
+          channelId: live
+          target: dev

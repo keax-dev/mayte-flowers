@@ -10,6 +10,7 @@ import { SeoService } from '@core/seo/seo.service';
   standalone: true,
   imports: [NavbarComponent, RouterOutlet],
   template: `
+    TEST VERSION 1
     <header>
       <app-navbar (contactRequested)="openContact()"></app-navbar>
     </header>
