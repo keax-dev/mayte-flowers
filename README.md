@@ -50,6 +50,8 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - RxJS 7
 - Karma + Jasmine para pruebas unitarias
 - Playwright para pruebas end-to-end
+- GitHub Actions para CI/CD
+- Firebase Hosting para despliegues multi-sitio
 
 ## Puntos Fuertes De Ingenieria
 
@@ -139,6 +141,8 @@ El proyecto incluye:
 - Script `typecheck` para validar tipos de Angular y templates
 - Verificacion de build de produccion
 
+Ademas, el workflow de CI genera un artifact llamado `web-dist`, que luego es reutilizado por los workflows de despliegue para publicar exactamente el mismo build que ya fue validado.
+
 Scripts disponibles:
 
 ```bash
@@ -153,6 +157,64 @@ npm run format:check
 npm run typecheck
 npm run e2e
 ```
+
+## Flujo De Ramas Y CI/CD
+
+### Estrategia de ramas
+
+- `development` funciona como rama de integracion y validacion continua.
+- `main` representa la version promovida a produccion.
+- Los Pull Requests hacia `development` o `main` ejecutan validaciones automáticas, pero no despliegan.
+- Los pushes a `development` despliegan a un sitio de desarrollo en Firebase Hosting.
+- Los pushes o merges a `main` disparan el flujo de produccion.
+
+### Workflows automatizados
+
+El repositorio separa responsabilidades en tres workflows de GitHub Actions:
+
+- `CI`
+  - Ejecuta `format:check`, `lint`, `typecheck`, pruebas unitarias/integracion, pruebas end-to-end y `build`
+  - Publica el artifact `web-dist`
+  - Cancela ejecuciones viejas de la misma rama mediante `concurrency`
+
+- `Deploy Dev`
+  - Se dispara cuando `CI` termina correctamente sobre `development`
+  - Descarga el artifact `web-dist` del run validado
+  - Despliega al target `dev` de Firebase Hosting
+  - Cancela despliegues viejos si llega uno mas reciente
+
+- `Deploy Prod`
+  - Se dispara cuando `CI` termina correctamente sobre `main`
+  - Descarga el mismo artifact validado por CI
+  - Despliega al target `prod` de Firebase Hosting
+  - Serializa despliegues de produccion para evitar que se pisen entre si
+
+### Environments y promocion a produccion
+
+- GitHub Environments separa `development` y `production`.
+- `production` esta pensado para requerir aprobacion manual antes del despliegue.
+- La rama `main` se trabaja mediante Pull Request y validaciones requeridas antes del merge.
+- Este modelo permite validar en desarrollo antes de promover a produccion.
+
+### Firebase Hosting
+
+El proyecto usa configuracion multi-sitio:
+
+- `prod` -> `mayteflowers01`
+- `dev` -> `mayteflowers01-dev`
+
+Los targets estan definidos en `.firebaserc` y resueltos desde `firebase.json`.
+
+### Rollback operativo
+
+Si un despliegue de produccion falla funcionalmente despues de publicarse, la forma recomendada de recuperacion es:
+
+1. identificar la ultima version estable en el historial de Firebase Hosting
+2. restaurar o republicar la version anterior estable
+3. corregir el problema en `development`
+4. volver a promover a `main` mediante Pull Request
+
+La idea principal del pipeline es que produccion siempre publique un artifact ya validado, no un build recompilado aparte.
 
 ## Setup Local
 
