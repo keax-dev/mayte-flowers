@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "mayteflowers01"
-  }
+  },
+  "targets": {
+    "mayteflowers01": {
+      "hosting": {
+        "prod": [
+          "mayteflowers01"
+        ],
+        "dev": [
+          "mayteflowers01-dev"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

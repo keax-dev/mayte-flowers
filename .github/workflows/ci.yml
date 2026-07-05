@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - development
+      - main
+  pull_request:
+    branches:
+      - development
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar Chromium para Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Exponer Chromium para Karma
+        run: |
+          CHROME_BIN=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")
+          echo "CHROME_BIN=$CHROME_BIN" >> $GITHUB_ENV
+
+      - name: Verificar formato
+        run: npm run format:check
+
+      - name: Ejecutar lint
+        run: npm run lint
+
+      - name: Ejecutar typecheck
+        run: npm run typecheck
+
+      - name: Ejecutar pruebas unitarias e integracion
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Ejecutar pruebas e2e
+        run: npm run e2e
+
+      - name: Generar build
+        run: npm run build
