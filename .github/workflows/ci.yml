@@ -64,3 +64,12 @@ jobs:
           projectId: mayteflowers01
           channelId: live
           target: dev
+
+      - name: Desplegar a Firebase Hosting (prod)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAYTEFLOWERS01 }}
+          projectId: mayteflowers01
+          channelId: live
+          target: prod
