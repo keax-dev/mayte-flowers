@@ -1,8 +1,8 @@
 <main class="home-page d-flex align-items-center py-5">
-  <section class="container" aria-labelledby="home-hero-title">
-    <div class="row g-4 align-items-center rounded-5 bg-white bg-opacity-10 shadow-lg p-3 p-md-4">
+  <section class="container hero-shell" aria-labelledby="home-hero-title">
+    <div class="hero-panel row g-4 align-items-center rounded-5 p-3 p-md-4 p-xl-5 shadow-lg">
       <div class="col-12 col-lg-7">
-        <div class="ratio ratio-4x3 overflow-hidden rounded-4">
+        <div class="carousel-stage ratio ratio-4x3 overflow-hidden rounded-4 position-relative">
           <img
             [src]="currentSlide().image"
             [alt]="currentSlide().title"
@@ -13,25 +13,32 @@
         </div>
       </div>
 
-      <header class="col-12 col-lg-5 text-light">
-        <p class="text-uppercase text-light opacity-75 fw-semibold small mb-2">Premium flowers</p>
-        <h1 id="home-hero-title" class="display-3 fw-bold">
+      <header class="col-12 col-lg-5 text-light hero-copy">
+        <span class="hero-kicker badge rounded-pill px-3 py-2 mb-3">Premium flowers</span>
+        <h1 id="home-hero-title" class="display-3 fw-bold hero-title">
           {{ currentSlide().title }}
         </h1>
         <p class="lead lh-lg">{{ currentSlide().description }}</p>
+
+        <div class="hero-highlight rounded-4 p-3 p-md-4 mb-4">
+          <p class="text-uppercase small fw-semibold text-success mb-2">Commercial focus</p>
+          <p class="mb-0">
+            Consistent quality, export-ready handling and fast response for wholesale buyers.
+          </p>
+        </div>
 
         <div class="d-grid d-sm-flex gap-2 mt-4">
           <a
             (click)="trackCatalogueCta()"
             routerLink="/gallery"
-            class="btn btn-success btn-lg px-4"
+            class="btn btn-success btn-lg px-4 hero-action-primary"
           >
             Browse catalogue
           </a>
 
           <button
             (click)="openQuoteDialog()"
-            class="btn btn-outline-light btn-lg px-4"
+            class="btn btn-outline-light btn-lg px-4 hero-action-secondary"
             type="button"
           >
             Request quote
@@ -39,43 +46,55 @@
         </div>
       </header>
 
-      <nav
-        class="col-12 d-flex align-items-center justify-content-between"
-        aria-label="Carousel controls"
-      >
-        <button
-          (click)="previous()"
-          aria-label="Previous slide"
-          class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-2"
-          type="button"
+      <nav class="col-12" aria-label="Carousel controls">
+        <div
+          class="carousel-controls d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded-4 p-3"
         >
-          <app-icon [decorative]="true" [size]="20" name="chevron-left"></app-icon>
-        </button>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              (click)="previous()"
+              aria-label="Previous slide"
+              class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center carousel-arrow"
+              type="button"
+            >
+              <app-icon [decorative]="true" [size]="20" name="chevron-left"></app-icon>
+            </button>
 
-        <div aria-label="Slide indicators">
-          <div class="d-flex gap-2">
-            @for (slide of slides; track slide.image; let index = $index) {
-              <button
-                (click)="goTo(index)"
-                [class.btn-outline-light]="index !== activeIndex()"
-                [attr.aria-current]="index === activeIndex() ? 'true' : null"
-                [attr.aria-label]="'Slide ' + (index + 1)"
-                [class.btn-light]="index === activeIndex()"
-                [title]="slide.title"
-                class="btn btn-sm rounded-circle p-1"
-                type="button"
-              >
-                <span class="visually-hidden">{{ slide.title }}</span>
-              </button>
-            }
+            <button
+              (click)="next()"
+              aria-label="Next slide"
+              class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center carousel-arrow"
+              type="button"
+            >
+              <app-icon [decorative]="true" [size]="20" name="chevron-right"></app-icon>
+            </button>
           </div>
 
-          <div class="text-center mt-1">
+          <div aria-label="Slide indicators" class="flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+              @for (slide of slides; track slide.image; let index = $index) {
+                <button
+                  (click)="goTo(index)"
+                  [attr.aria-current]="index === activeIndex() ? 'true' : null"
+                  [attr.aria-label]="'Slide ' + (index + 1)"
+                  [class.is-active]="index === activeIndex()"
+                  [title]="slide.title"
+                  class="carousel-indicator btn border-0 rounded-pill px-3 py-2"
+                  type="button"
+                >
+                  <span class="indicator-dot rounded-circle"></span>
+                  <span class="indicator-label small fw-semibold">{{ slide.title }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="text-center">
             <button
               (click)="toggleAutoRotation()"
               [attr.aria-pressed]="!isAutoRotating()"
               [attr.aria-label]="isAutoRotating() ? 'Pause slideshow' : 'Play slideshow'"
-              class="btn btn-sm btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-1"
+              class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center carousel-play"
               type="button"
             >
               <app-icon
@@ -86,15 +105,6 @@
             </button>
           </div>
         </div>
-
-        <button
-          (click)="next()"
-          aria-label="Next slide"
-          class="btn btn-outline-light rounded-circle d-inline-flex align-items-center justify-content-center p-2"
-          type="button"
-        >
-          <app-icon [decorative]="true" [size]="20" name="chevron-right"></app-icon>
-        </button>
       </nav>
     </div>
   </section>

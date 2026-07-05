@@ -4,3 +4,146 @@
     radial-gradient(circle at top right, rgba(20, 151, 190, 0.28), transparent 25%),
     linear-gradient(135deg, #0a180f 0%, #1c3423 45%, #0f1f14 100%);
 }
+
+.hero-shell {
+  position: relative;
+}
+
+.hero-panel {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06)),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.carousel-stage {
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.carousel-stage__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.carousel-stage__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 24, 15, 0.04), rgba(10, 24, 15, 0.72));
+}
+
+.slide-meta {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 2rem);
+  max-width: 23rem;
+  background: linear-gradient(145deg, rgba(9, 18, 12, 0.88), rgba(20, 56, 34, 0.72));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+}
+
+.slide-count {
+  color: #16351f;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+.hero-copy {
+  color: #f5fbf7;
+}
+
+.hero-kicker {
+  background: rgba(96, 177, 129, 0.16);
+  border: 1px solid rgba(128, 208, 158, 0.35);
+  color: #d9f7e3;
+}
+
+.hero-title {
+  line-height: 0.96;
+  margin-bottom: 1rem;
+}
+
+.hero-highlight {
+  background: rgba(7, 17, 11, 0.42);
+  border: 1px solid rgba(128, 208, 158, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.hero-action-primary,
+.hero-action-secondary {
+  min-width: 12rem;
+}
+
+.hero-action-primary {
+  box-shadow: 0 1rem 2rem rgba(27, 126, 71, 0.24);
+}
+
+.hero-action-secondary:hover,
+.hero-action-secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.carousel-controls {
+  background: rgba(5, 12, 8, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.carousel-arrow,
+.carousel-play {
+  width: 3rem;
+  height: 3rem;
+}
+
+.carousel-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(245, 251, 247, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.carousel-indicator:hover,
+.carousel-indicator:focus-visible {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.carousel-indicator.is-active {
+  color: #16351f;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 1.8rem rgba(255, 255, 255, 0.15);
+}
+
+.indicator-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.indicator-label {
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: clamp(2.6rem, 10vw, 4rem);
+  }
+
+  .carousel-indicator {
+    padding-inline: 0.85rem !important;
+  }
+
+  .slide-meta {
+    max-width: none;
+  }
+}
