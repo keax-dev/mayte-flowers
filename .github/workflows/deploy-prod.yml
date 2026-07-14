@@ -1,5 +1,7 @@
 name: Deploy Prod
 
+# Espera a que CI termine sobre main antes de evaluar el despliegue.
+# Los workflows activados con workflow_run se resuelven desde la rama por defecto.
 on:
   workflow_run:
     workflows: ['CI']
@@ -8,39 +10,61 @@ on:
     branches:
       - main
 
+# actions:read permite descargar artifacts y contents:read permite hacer checkout.
 permissions:
   actions: read
   contents: read
 
+# Serializa releases y nunca interrumpe un despliegue de produccion en progreso.
 concurrency:
   group: deploy-prod
   cancel-in-progress: false
 
 jobs:
   deploy-prod:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    # Despliega unicamente CI exitoso, causado por un push confiable del mismo repo.
+    # Estas condiciones excluyen ejecuciones manuales y pull requests, incluidos forks.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
-    environment: production
+    # El Environment production aplica la aprobacion y registra la URL desplegada.
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.details_url }}
 
     steps:
+      # Recupera exactamente el commit que produjo el artifact validado por CI.
       - name: Descargar el codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
 
+      # run-id impide mezclar el build con artifacts de otra ejecucion de CI.
       - name: Descargar artifact del build
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: web-dist
           path: dist/mayte-flowres
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
 
+      # Falla temprano si el artifact no contiene la entrada principal de la SPA.
+      - name: Verificar artifact descargado
+        shell: bash
+        run: test -f dist/mayte-flowres/index.html
+
+      # Publica en el canal live de produccion con una version fija de Firebase CLI.
       - name: Desplegar a Firebase Hosting (prod)
-        uses: FirebaseExtended/action-hosting-deploy@v0
+        id: deploy
+        uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a # v0.11.0
         with:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAYTEFLOWERS01 }}
           projectId: mayteflowers01
           channelId: live
           target: prod
+          firebaseToolsVersion: 15.23.0

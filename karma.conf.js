@@ -25,7 +25,15 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/mayte-flowres'),
       subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
+      reporters: [{ type: 'html' }, { type: 'lcovonly' }, { type: 'text-summary' }],
+      check: {
+        global: {
+          statements: 50,
+          branches: 40,
+          functions: 50,
+          lines: 50,
+        },
+      },
     },
     reporters: ['progress', 'kjhtml'],
     customLaunchers: {

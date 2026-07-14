@@ -1,5 +1,7 @@
 name: CI
 
+# Ejecuta la validacion en pushes y pull requests de las ramas principales.
+# workflow_dispatch permite lanzar CI manualmente desde la interfaz de GitHub.
 on:
   push:
     branches:
@@ -9,39 +11,44 @@ on:
     branches:
       - development
       - main
+  workflow_dispatch:
 
+# El token de CI solo necesita leer el contenido del repositorio.
 permissions:
   contents: read
 
+# Mantiene una sola ejecucion por referencia y cancela validaciones obsoletas.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    # Fija el sistema operativo y limita ejecuciones bloqueadas o demasiado largas.
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
+      # Las Actions se fijan por SHA para evitar cambios inesperados en sus tags.
       - name: Descargar el codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 24
+          node-version-file: .nvmrc
           cache: npm
+          cache-dependency-path: package-lock.json
 
+      # npm ci instala exactamente las versiones registradas en package-lock.json.
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Instalar Chromium para Playwright
-        run: npx playwright install --with-deps chromium
-
-      - name: Exponer Chromium para Karma
-        run: |
-          CHROME_BIN=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")
-          echo "CHROME_BIN=$CHROME_BIN" >> $GITHUB_ENV
+      # Controles rapidos que fallan antes de instalar el navegador de pruebas.
+      - name: Auditar dependencias de produccion
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Verificar formato
         run: npm run format:check
@@ -52,18 +59,45 @@ jobs:
       - name: Ejecutar typecheck
         run: npm run typecheck
 
-      - name: Ejecutar pruebas unitarias e integracion
-        run: npm test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
-
-      - name: Ejecutar pruebas e2e
-        run: npm run e2e
-
       - name: Generar build
         run: npm run build
 
+      # Playwright instala Chromium y Karma reutiliza el mismo ejecutable.
+      - name: Instalar Chromium para las pruebas
+        run: npx playwright install --with-deps chromium
+
+      - name: Exponer Chromium para Karma
+        shell: bash
+        run: |
+          CHROME_BIN=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+
+      - name: Ejecutar pruebas unitarias e integracion
+        run: npm run test:ci
+
+      - name: Ejecutar pruebas e2e
+        run: npm run e2e:ci
+
+      # Conserva coverage, reportes, traces, videos y capturas para diagnostico.
+      # !cancelled() permite subir lo disponible incluso si una prueba falla.
+      - name: Subir evidencias de pruebas
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-evidence-${{ github.run_id }}
+          path: |
+            coverage/
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Solo se publica cuando todas las validaciones anteriores terminaron bien.
+      # El deploy descargara este mismo build usando el ID de esta ejecucion.
       - name: Subir artifact del build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: web-dist
-          path: dist/mayte-flowres
-          retention-days: 7
+          path: dist/mayte-flowres/
+          if-no-files-found: error
+          retention-days: 30
