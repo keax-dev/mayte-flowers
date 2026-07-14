@@ -5,7 +5,7 @@
 
 Catalogo de productos y sitio web comercial en Angular 22, construido para una marca exportadora de flores.
 
-Este repositorio muestra como se abordo una aplicacion Angular real mas alla de la interfaz: Arquitectura, enrutamiento, SEO, accesibilidad, formularios tipados, analitica, carga orientada al rendimiento y limites de features mantenibles.
+Este repositorio muestra como se abordo una aplicacion Angular real mas alla de la interfaz: Arquitectura, enrutamiento, SEO, accesibilidad, formularios tipados, analitica, renderizado hibrido con prerender, carga orientada al rendimiento y limites de features mantenibles.
 
 ## Descripción del Proyecto
 
@@ -46,6 +46,7 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - Angular 22
 - TypeScript 6
 - Angular CDK
+- Angular SSR para renderizado hibrido con prerender estatico
 - Bootstrap 5
 - RxJS 7
 - Karma + Jasmine para pruebas unitarias
@@ -68,6 +69,13 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - Las paginas del catalogo usan route resolvers para preparar datos antes del render.
 - El dialogo de contacto se carga bajo demanda para reducir el bundle inicial.
 - Las view transitions estan habilitadas para una navegacion mas agradable.
+
+### Renderizado Hibrido
+
+- El proyecto usa `@angular/ssr` en modo estatico, por lo que `ng build` genera HTML prerenderizado y un cliente hidratable.
+- Rutas como `home`, `about-us`, `gallery` y las paginas del catalogo quedan pre-renderizadas durante el build.
+- Las rutas parametrizadas del catalogo se descubren desde `src/assets/data/catalogue.json`, evitando mantener listas manuales.
+- El fallback para rutas no prerenderizadas se mantiene del lado cliente, lo que permite conservar una entrega simple sobre Firebase Hosting.
 
 ### SEO Y Descubribilidad
 
@@ -102,6 +110,7 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - En `localhost` consume `app-config.local.json`; fuera del entorno local consume `app-config.json`.
 - Valores como `siteUrl`, `gaMeasurementId`, datos de contacto, branding base y enlaces externos pueden cambiarse sin recompilar el bundle.
 - La configuracion se resuelve durante el arranque en `src/main.ts` y se inyecta en la aplicacion mediante `APP_CONFIG`.
+- En produccion, la configuracion resuelta tambien se serializa en el HTML prerenderizado para que la hidratacion no haga una segunda solicitud innecesaria.
 - Este mecanismo esta pensado para valores publicos; los secretos reales deben permanecer en backend o infraestructura, nunca en el frontend.
 
 ## Estructura Del Proyecto
@@ -141,6 +150,7 @@ El proyecto incluye:
 - Umbrales minimos de cobertura para statements, branches, functions y lines
 - Script `typecheck` para validar tipos de Angular y templates
 - Verificacion de build de produccion
+- Verificacion explicita de salida prerenderizada en CI mediante `prerendered-routes.json` y rutas HTML clave
 
 Ademas, el workflow de CI genera un artifact inmutable llamado `web-dist`, aislado por run y reutilizado por los workflows de despliegue para publicar exactamente el mismo build que ya fue validado. Los reportes de cobertura y las evidencias de Playwright se conservan en un artifact separado para facilitar el diagnostico de fallos.
 
@@ -177,6 +187,7 @@ El repositorio separa responsabilidades en tres workflows de GitHub Actions:
 
 - `CI`
   - Audita dependencias de produccion y ejecuta `format:check`, `lint`, `typecheck`, pruebas con cobertura, pruebas end-to-end y `build`
+  - Verifica que el build haya generado salida SSR estatica reutilizable por deploy
   - Publica un artifact inmutable asociado al run validado y conserva evidencias de pruebas
   - Cancela ejecuciones viejas de la misma rama mediante `concurrency`
 
@@ -244,3 +255,10 @@ npm run build
 ```
 
 La salida de produccion se genera en `dist/mayte-flowres`.
+
+Con el renderizado hibrido actual, el build produce:
+
+- `index.html` como redireccion de entrada
+- `index.csr.html` como plantilla CSR base
+- HTML prerenderizado por ruta, por ejemplo `dist/mayte-flowres/home/index.html`
+- `prerendered-routes.json` con el manifiesto de rutas generadas

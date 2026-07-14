@@ -3,6 +3,7 @@ import { AppConfig } from '@core/config/app-config.model';
 const LOCAL_HOSTS = new Set(['127.0.0.1', '0.0.0.0', 'localhost']);
 const PRODUCTION_CONFIG_PATH = 'assets/config/app-config.json';
 const LOCAL_CONFIG_PATH = 'assets/config/app-config.local.json';
+export const RUNTIME_APP_CONFIG_SCRIPT_ID = 'app-runtime-config';
 const APP_CONFIG_KEYS = [
   'contactEmail',
   'defaultDescription',
@@ -22,8 +23,32 @@ const APP_CONFIG_KEYS = [
 ] as const satisfies readonly (keyof AppConfig)[];
 const OPTIONAL_EMPTY_STRING_KEYS = new Set<keyof AppConfig>(['gaMeasurementId']);
 
-export async function loadRuntimeAppConfig(): Promise<AppConfig> {
-  const response = await fetch(resolveRuntimeAppConfigUrl(), {
+interface RuntimeAppConfigLoaderOptions {
+  readonly baseUri?: string;
+  readonly document?: Pick<Document, 'getElementById'> | null;
+  readonly fetchFn?: typeof fetch;
+  readonly hostname?: string;
+}
+
+export async function loadRuntimeAppConfig(
+  options: RuntimeAppConfigLoaderOptions = {},
+): Promise<AppConfig> {
+  const hostname = options.hostname ?? globalThis.location?.hostname ?? 'localhost';
+  const inlineConfig = LOCAL_HOSTS.has(hostname)
+    ? null
+    : readInlineRuntimeAppConfig(options.document ?? globalThis.document);
+
+  if (inlineConfig) {
+    return inlineConfig;
+  }
+
+  const fetchFn = options.fetchFn ?? globalThis.fetch?.bind(globalThis);
+
+  if (!fetchFn) {
+    throw new Error('Fetch API is not available to load the runtime config.');
+  }
+
+  const response = await fetchFn(resolveRuntimeAppConfigUrl(hostname, options.baseUri), {
     cache: 'no-store',
   });
 
@@ -35,12 +60,38 @@ export async function loadRuntimeAppConfig(): Promise<AppConfig> {
 }
 
 export function resolveRuntimeAppConfigUrl(
-  hostname = window.location.hostname,
-  baseUri = document.baseURI,
+  hostname = globalThis.location?.hostname ?? 'localhost',
+  baseUri = globalThis.document?.baseURI ?? 'http://localhost/',
 ): string {
   const runtimePath = LOCAL_HOSTS.has(hostname) ? LOCAL_CONFIG_PATH : PRODUCTION_CONFIG_PATH;
 
   return new URL(runtimePath, baseUri).toString();
+}
+
+export function readInlineRuntimeAppConfig(
+  doc: Pick<Document, 'getElementById'> | null | undefined,
+): AppConfig | null {
+  const script = doc?.getElementById(RUNTIME_APP_CONFIG_SCRIPT_ID);
+  const rawConfig = script?.textContent?.trim();
+
+  if (!rawConfig) {
+    return null;
+  }
+
+  return parseAppConfig(JSON.parse(rawConfig) as unknown);
+}
+
+export function upsertInlineRuntimeAppConfig(doc: Document, config: AppConfig): void {
+  let script = doc.getElementById(RUNTIME_APP_CONFIG_SCRIPT_ID) as HTMLScriptElement | null;
+
+  if (!script) {
+    script = doc.createElement('script');
+    script.id = RUNTIME_APP_CONFIG_SCRIPT_ID;
+    script.type = 'application/json';
+    doc.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(config);
 }
 
 export function parseAppConfig(value: unknown): AppConfig {

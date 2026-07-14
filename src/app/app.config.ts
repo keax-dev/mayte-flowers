@@ -1,4 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { appRoutes } from '@app/app.routes';
 import { APP_CONFIG } from '@core/config/app-config.token';
@@ -15,6 +16,7 @@ export function createAppConfig(runtimeConfig: AppConfig): ApplicationConfig {
     providers: [
       { provide: APP_CONFIG, useValue: runtimeConfig },
       provideZoneChangeDetection({ eventCoalescing: true }),
+      provideClientHydration(withEventReplay()),
       provideRouter(
         appRoutes,
         withComponentInputBinding(),

@@ -5,7 +5,7 @@
 
 Angular 22 product catalogue and marketing website built for a flower exporter brand.
 
-This repository shows how a real Angular application was approached beyond the interface: architecture, routing, SEO, accessibility, typed forms, analytics, performance-minded loading, and maintainable feature boundaries.
+This repository shows how a real Angular application was approached beyond the interface: architecture, routing, SEO, accessibility, typed forms, analytics, hybrid rendering with prerendering, performance-minded loading, and maintainable feature boundaries.
 
 ## Project Description
 
@@ -46,6 +46,7 @@ This project was intentionally oriented to showcase practical frontend skills th
 - Angular 22
 - TypeScript 6
 - Angular CDK
+- Angular SSR for hybrid rendering with static prerendering
 - Bootstrap 5
 - RxJS 7
 - Karma + Jasmine for unit testing
@@ -68,6 +69,13 @@ This project was intentionally oriented to showcase practical frontend skills th
 - Catalogue pages use route resolvers to prepare data before rendering.
 - The contact dialog is loaded on demand to keep the initial bundle smaller.
 - View transitions are enabled for smoother navigation.
+
+### Hybrid Rendering
+
+- The project uses `@angular/ssr` in static mode, so `ng build` generates prerendered HTML plus a hydratable client bundle.
+- Routes such as `home`, `about-us`, `gallery`, and catalogue detail pages are pre-rendered during the build.
+- Parameterized catalogue routes are discovered from `src/assets/data/catalogue.json`, which avoids maintaining manual prerender lists.
+- Non-prerendered route fallback stays client-side, keeping deployment simple on Firebase Hosting.
 
 ### SEO and Discoverability
 
@@ -102,6 +110,7 @@ This project was intentionally oriented to showcase practical frontend skills th
 - On `localhost`, it consumes `app-config.local.json`; outside the local environment, it consumes `app-config.json`.
 - Values such as `siteUrl`, `gaMeasurementId`, contact details, base branding, and external links can be changed without rebuilding the bundle.
 - The configuration is resolved during bootstrap in `src/main.ts` and injected into the application through `APP_CONFIG`.
+- In production, the resolved config is also serialized into the prerendered HTML so hydration does not perform an unnecessary second request.
 - This mechanism is intended for public values; real secrets should remain in the backend or infrastructure layer, never in the frontend.
 
 ## Project Structure
@@ -141,6 +150,7 @@ The project includes:
 - Minimum coverage thresholds for statements, branches, functions, and lines
 - `typecheck` script for Angular and template type validation
 - Production build verification
+- Explicit CI verification of prerendered output through `prerendered-routes.json` and key HTML routes
 
 In addition, the CI workflow publishes an immutable `web-dist` artifact, isolated by run and reused by the deploy workflows so that development and production receive the exact same validated build. Coverage reports and Playwright evidence are retained in a separate artifact to simplify failure diagnosis.
 
@@ -177,6 +187,7 @@ The repository separates responsibilities into three GitHub Actions workflows:
 
 - `CI`
   - Audits production dependencies and runs `format:check`, `lint`, `typecheck`, tests with coverage, end-to-end tests, and `build`
+  - Verifies that the build produced static SSR output ready to be reused by deploy
   - Uploads an immutable artifact associated with the validated run and retains test evidence
   - Cancels outdated runs on the same branch through `concurrency`
 
@@ -244,3 +255,10 @@ npm run build
 ```
 
 The production output is generated in `dist/mayte-flowres`.
+
+With the current hybrid rendering setup, the build produces:
+
+- `index.html` as the entry redirect
+- `index.csr.html` as the base CSR template
+- prerendered HTML per route, for example `dist/mayte-flowres/home/index.html`
+- `prerendered-routes.json` with the generated route manifest

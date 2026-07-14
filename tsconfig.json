@@ -17,6 +17,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,

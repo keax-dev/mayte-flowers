@@ -1,38 +1,55 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-
-import { AppComponent } from '@app/app.component';
-import { createAppConfig } from '@app/app.config';
-import { AppConfig } from '@core/config/app-config.model';
+import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
 import { loadRuntimeAppConfig } from '@core/config/runtime-app-config';
+import { ApplicationConfig } from '@angular/core';
+import { createAppConfig } from '@app/app.config';
+import { AppComponent } from '@app/app.component';
+import { AppConfig } from '@core/config/app-config.model';
 
 interface BootstrapDependencies {
-  readonly bootstrapApplication: (config: ReturnType<typeof createAppConfig>) => Promise<unknown>;
-  readonly document: Document;
+  readonly bootstrapApplication: (
+    config: ApplicationConfig,
+    context?: BootstrapContext,
+  ) => Promise<unknown>;
+  readonly handleError?: (error: unknown) => void;
   readonly loadRuntimeAppConfig: () => Promise<AppConfig>;
-  readonly logError: (message?: unknown, ...optionalParams: unknown[]) => void;
 }
 
 const defaultDependencies: BootstrapDependencies = {
-  bootstrapApplication: (config) => bootstrapApplication(AppComponent, config),
-  document,
+  bootstrapApplication: (config, context) => bootstrapApplication(AppComponent, config, context),
+  handleError: renderBrowserBootstrapError,
   loadRuntimeAppConfig,
-  logError: console.error,
 };
 
 export async function bootstrapRuntimeApp(
   dependencies: BootstrapDependencies = defaultDependencies,
-): Promise<void> {
+  context?: BootstrapContext,
+): Promise<unknown> {
   try {
     const runtimeConfig = await dependencies.loadRuntimeAppConfig();
-    await dependencies.bootstrapApplication(createAppConfig(runtimeConfig));
+    return await dependencies.bootstrapApplication(createAppConfig(runtimeConfig), context);
   } catch (error) {
-    renderBootstrapError(dependencies.document, dependencies.logError, error);
+    if (!dependencies.handleError) {
+      throw error;
+    }
+
+    dependencies.handleError(error);
+    return undefined;
   }
+}
+
+function renderBrowserBootstrapError(error: unknown): void {
+  const document = globalThis.document;
+
+  if (!document) {
+    throw error;
+  }
+
+  renderBootstrapError(document, console.error, error);
 }
 
 export function renderBootstrapError(
   doc: Document,
-  logError: BootstrapDependencies['logError'],
+  logError: (message?: unknown, ...optionalParams: unknown[]) => void,
   error: unknown,
 ): void {
   logError('Failed to bootstrap application configuration.', error);
