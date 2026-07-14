@@ -62,6 +62,15 @@ jobs:
       - name: Generar build
         run: npm run build
 
+      # Confirma que el build genero HTML prerenderizado y su manifiesto.
+      - name: Verificar salida SSR estatica
+        shell: bash
+        run: |
+          test -f dist/mayte-flowres/index.html
+          test -f dist/mayte-flowres/home/index.html
+          test -f dist/mayte-flowres/gallery/index.html
+          test -f dist/mayte-flowres/prerendered-routes.json
+
       # Playwright instala Chromium y Karma reutiliza el mismo ejecutable.
       - name: Instalar Chromium para las pruebas
         run: npx playwright install --with-deps chromium
