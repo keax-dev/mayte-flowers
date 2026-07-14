@@ -138,10 +138,11 @@ The project includes:
 
 - Unit and integration tests for routing, runtime config, bootstrap, contact workflows, repository behavior, and home-page interactions
 - End-to-end Playwright coverage for bootstrap, critical navigation, and contact dialog submission
+- Minimum coverage thresholds for statements, branches, functions, and lines
 - `typecheck` script for Angular and template type validation
 - Production build verification
 
-In addition, the CI workflow publishes a `web-dist` artifact, which is reused by the deploy workflows so that development and production receive the exact same validated build.
+In addition, the CI workflow publishes an immutable `web-dist` artifact, isolated by run and reused by the deploy workflows so that development and production receive the exact same validated build. Coverage reports and Playwright evidence are retained in a separate artifact to simplify failure diagnosis.
 
 Available scripts:
 
@@ -150,12 +151,14 @@ npm install
 npm start
 npm run build
 npm test
+npm run test:ci
 npm run lint
 npm run lint:fix
 npm run format
 npm run format:check
 npm run typecheck
 npm run e2e
+npm run e2e:ci
 ```
 
 ## Branching Strategy and CI/CD
@@ -173,21 +176,23 @@ npm run e2e
 The repository separates responsibilities into three GitHub Actions workflows:
 
 - `CI`
-  - Runs `format:check`, `lint`, `typecheck`, unit/integration tests, end-to-end tests, and `build`
-  - Uploads the `web-dist` artifact
+  - Audits production dependencies and runs `format:check`, `lint`, `typecheck`, tests with coverage, end-to-end tests, and `build`
+  - Uploads an immutable artifact associated with the validated run and retains test evidence
   - Cancels outdated runs on the same branch through `concurrency`
 
 - `Deploy Dev`
-  - Runs after a successful `CI` execution on `development`
-  - Downloads the validated `web-dist` artifact
+  - Runs only after a successful `CI` execution caused by a same-repository push to `development`
+  - Downloads the artifact associated with the exact validated commit
   - Deploys to the Firebase Hosting `dev` target
   - Cancels older development deployments when a newer one arrives
 
 - `Deploy Prod`
-  - Runs after a successful `CI` execution on `main`
+  - Runs only after a successful `CI` execution caused by a same-repository push to `main`
   - Downloads the exact artifact produced by CI
   - Deploys to the Firebase Hosting `prod` target
   - Serializes production deployments to avoid overlapping releases
+
+All external actions and the Firebase CLI version are pinned for reproducible runs. Dependabot checks npm and GitHub Actions dependencies weekly.
 
 ### Environments and production promotion
 
@@ -220,7 +225,7 @@ The key idea behind the pipeline is that production should publish an already-va
 
 ### Requirements
 
-- Node.js `^22.22.3` or `^24.15.0` or `^26.0.0`
+- Node.js `^22.22.3` or `^24.15.0` or `^26.0.0` (`24.18.0` recommended through `.nvmrc`)
 - npm 11+
 
 ### Run Locally

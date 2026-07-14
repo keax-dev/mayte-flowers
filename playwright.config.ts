@@ -10,7 +10,8 @@ export default defineConfig({
   // En CI damos algunos reintentos por si aparece flakiness puntual.
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'list',
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  outputDir: 'test-results',
   use: {
     // URL base para que en los specs baste con usar page.goto('/').
     baseURL: 'http://127.0.0.1:4200',
@@ -21,7 +22,7 @@ export default defineConfig({
   },
   webServer: {
     // Antes de correr E2E, Playwright levanta automáticamente la app Angular.
-    command: 'npx ng serve --host 127.0.0.1 --port 4200',
+    command: 'npm run ng -- serve --host 127.0.0.1 --port 4200',
     // En local reutiliza un server ya abierto; en CI suele levantarse desde cero.
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

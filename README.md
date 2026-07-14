@@ -138,10 +138,11 @@ El proyecto incluye:
 
 - Pruebas unitarias e integracion para routing, runtime config, bootstrap, flujos de contacto, comportamiento del repository e interacciones de la home
 - Pruebas end-to-end con Playwright para bootstrap, navegacion critica y envio del modal de contacto
+- Umbrales minimos de cobertura para statements, branches, functions y lines
 - Script `typecheck` para validar tipos de Angular y templates
 - Verificacion de build de produccion
 
-Ademas, el workflow de CI genera un artifact llamado `web-dist`, que luego es reutilizado por los workflows de despliegue para publicar exactamente el mismo build que ya fue validado.
+Ademas, el workflow de CI genera un artifact inmutable llamado `web-dist`, aislado por run y reutilizado por los workflows de despliegue para publicar exactamente el mismo build que ya fue validado. Los reportes de cobertura y las evidencias de Playwright se conservan en un artifact separado para facilitar el diagnostico de fallos.
 
 Scripts disponibles:
 
@@ -150,12 +151,14 @@ npm install
 npm start
 npm run build
 npm test
+npm run test:ci
 npm run lint
 npm run lint:fix
 npm run format
 npm run format:check
 npm run typecheck
 npm run e2e
+npm run e2e:ci
 ```
 
 ## Flujo De Ramas Y CI/CD
@@ -173,21 +176,23 @@ npm run e2e
 El repositorio separa responsabilidades en tres workflows de GitHub Actions:
 
 - `CI`
-  - Ejecuta `format:check`, `lint`, `typecheck`, pruebas unitarias/integracion, pruebas end-to-end y `build`
-  - Publica el artifact `web-dist`
+  - Audita dependencias de produccion y ejecuta `format:check`, `lint`, `typecheck`, pruebas con cobertura, pruebas end-to-end y `build`
+  - Publica un artifact inmutable asociado al run validado y conserva evidencias de pruebas
   - Cancela ejecuciones viejas de la misma rama mediante `concurrency`
 
 - `Deploy Dev`
-  - Se dispara cuando `CI` termina correctamente sobre `development`
-  - Descarga el artifact `web-dist` del run validado
+  - Se dispara solo cuando `CI` termina correctamente tras un push del mismo repositorio a `development`
+  - Descarga el artifact asociado al commit exacto del run validado
   - Despliega al target `dev` de Firebase Hosting
   - Cancela despliegues viejos si llega uno mas reciente
 
 - `Deploy Prod`
-  - Se dispara cuando `CI` termina correctamente sobre `main`
+  - Se dispara solo cuando `CI` termina correctamente tras un push del mismo repositorio a `main`
   - Descarga el mismo artifact validado por CI
   - Despliega al target `prod` de Firebase Hosting
   - Serializa despliegues de produccion para evitar que se pisen entre si
+
+Todas las acciones externas y la version de Firebase CLI estan fijadas para que las ejecuciones sean reproducibles. Dependabot revisa semanalmente las dependencias npm y GitHub Actions.
 
 ### Environments y promocion a produccion
 
@@ -220,7 +225,7 @@ La idea principal del pipeline es que produccion siempre publique un artifact ya
 
 ### Requisitos
 
-- Node.js `^22.22.3` o `^24.15.0` o `^26.0.0`
+- Node.js `^22.22.3` o `^24.15.0` o `^26.0.0` (`24.18.0` recomendado mediante `.nvmrc`)
 - npm 11+
 
 ### Ejecutar En Local
