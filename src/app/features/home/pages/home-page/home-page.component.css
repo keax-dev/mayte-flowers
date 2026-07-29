@@ -15,43 +15,36 @@
     rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(14px);
+  animation: hero-panel-enter 620ms var(--motion-ease-out) both;
 }
 
 .carousel-stage {
+  background: #13291c;
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28);
 }
 
-.carousel-stage__content {
+.carousel-image {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-end;
+  opacity: 0;
+  transform: scale(1.045);
+  transition:
+    opacity 620ms ease,
+    transform 6s ease-out;
 }
 
-.carousel-stage__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(10, 24, 15, 0.04), rgba(10, 24, 15, 0.72));
-}
-
-.slide-meta {
-  position: relative;
+.carousel-image.is-active {
   z-index: 1;
-  width: calc(100% - 2rem);
-  max-width: 23rem;
-  background: linear-gradient(145deg, rgba(9, 18, 12, 0.88), rgba(20, 56, 34, 0.72));
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-}
-
-.slide-count {
-  color: #16351f;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .hero-copy {
   color: #f5fbf7;
+}
+
+.hero-slide-copy {
+  animation: hero-copy-enter 460ms var(--motion-ease-out) both;
 }
 
 .hero-kicker {
@@ -95,9 +88,16 @@
 .carousel-play {
   width: 3rem;
   height: 3rem;
+  transition:
+    transform var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease;
 }
 
 .carousel-indicator {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -123,6 +123,22 @@
   box-shadow: 0 0.8rem 1.8rem rgba(255, 255, 255, 0.15);
 }
 
+.carousel-indicator.is-active::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  content: '';
+  background: #198754;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.carousel-indicator.is-active.is-playing::after {
+  animation: carousel-progress 6s linear both;
+}
+
 .indicator-dot {
   width: 0.55rem;
   height: 0.55rem;
@@ -134,6 +150,36 @@
   letter-spacing: 0.05em;
 }
 
+@keyframes hero-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateX(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes carousel-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @media (max-width: 991.98px) {
   .hero-title {
     font-size: clamp(2.6rem, 10vw, 4rem);
@@ -143,7 +189,7 @@
     padding-inline: 0.85rem !important;
   }
 
-  .slide-meta {
-    max-width: none;
+  .hero-slide-copy {
+    min-height: 13rem;
   }
 }

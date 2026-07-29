@@ -4,3 +4,26 @@
     linear-gradient(90deg, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.4) 75%),
     url('/assets/carrousel-1.jpg') top / cover no-repeat;
 }
+
+.product-media {
+  overflow: hidden;
+}
+
+.product-image {
+  transition:
+    transform 650ms var(--motion-ease-out),
+    box-shadow 420ms ease;
+}
+
+@media (hover: hover) {
+  .product-image:hover {
+    transform: scale(1.035);
+    box-shadow: 0 1.25rem 2.5rem rgba(8, 30, 17, 0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-image {
+    transition-duration: 0.01ms;
+  }
+}

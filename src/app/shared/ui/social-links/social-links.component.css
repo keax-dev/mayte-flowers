@@ -1,0 +1,21 @@
+.social-link {
+  transition:
+    transform var(--motion-medium) var(--motion-ease-out),
+    box-shadow var(--motion-medium) ease,
+    filter var(--motion-fast) ease;
+}
+
+@media (hover: hover) {
+  .social-link:hover,
+  .social-link:focus-visible {
+    transform: translateY(-0.25rem) rotate(-4deg) scale(1.07);
+    box-shadow: 0 0.9rem 1.6rem rgba(6, 22, 12, 0.22) !important;
+    filter: saturate(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-link {
+    transition-duration: 0.01ms;
+  }
+}

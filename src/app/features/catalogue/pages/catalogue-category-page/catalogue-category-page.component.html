@@ -1,7 +1,10 @@
 <main class="catalogue-category-page py-5">
   @if (categoryData(); as currentCategory) {
     <section class="container" aria-labelledby="category-title">
-      <header class="bg-white rounded-4 shadow-lg p-4 p-md-5 mb-5">
+      <header
+        [appRevealOnScroll]="0"
+        class="motion-surface bg-white rounded-4 shadow-lg p-4 p-md-5 mb-5"
+      >
         <h1 id="category-title" class="display-5 fw-bold">
           {{ currentCategory.name }}
         </h1>
@@ -29,10 +32,13 @@
       </header>
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-        @for (product of currentCategory.products; track product.slug) {
+        @for (product of currentCategory.products; track product.slug; let index = $index) {
           <div class="col">
-            <article class="card h-100 border-0 rounded-4 shadow-lg overflow-hidden">
-              <div class="ratio ratio-1x1">
+            <article
+              [appRevealOnScroll]="index * 60"
+              class="motion-card card h-100 border-0 rounded-4 shadow-lg overflow-hidden"
+            >
+              <div class="ratio ratio-1x1 overflow-hidden">
                 <img
                   [src]="product.image"
                   class="card-img-top h-100 object-fit-cover p-2"

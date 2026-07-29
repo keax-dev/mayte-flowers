@@ -46,31 +46,6 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      # Controles rapidos que fallan antes de instalar el navegador de pruebas.
-      - name: Auditar dependencias de produccion
-        run: npm audit --omit=dev --audit-level=high
-
-      - name: Verificar formato
-        run: npm run format:check
-
-      - name: Ejecutar lint
-        run: npm run lint
-
-      - name: Ejecutar typecheck
-        run: npm run typecheck
-
-      - name: Generar build
-        run: npm run build
-
-      # Confirma que el build genero HTML prerenderizado y su manifiesto.
-      - name: Verificar salida SSR estatica
-        shell: bash
-        run: |
-          test -f dist/mayte-flowres/index.html
-          test -f dist/mayte-flowres/home/index.html
-          test -f dist/mayte-flowres/gallery/index.html
-          test -f dist/mayte-flowres/prerendered-routes.json
-
       # Playwright instala Chromium y Karma reutiliza el mismo ejecutable.
       - name: Instalar Chromium para las pruebas
         run: npx playwright install --with-deps chromium
@@ -81,11 +56,9 @@ jobs:
           CHROME_BIN=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
-      - name: Ejecutar pruebas unitarias e integracion
-        run: npm run test:ci
-
-      - name: Ejecutar pruebas e2e
-        run: npm run e2e:ci
+      # Ejecuta la misma validacion completa disponible para desarrollo local.
+      - name: Ejecutar validacion completa
+        run: npm run validate
 
       # Conserva coverage, reportes, traces, videos y capturas para diagnostico.
       # !cancelled() permite subir lo disponible incluso si una prueba falla.

@@ -1,6 +1,10 @@
 :root {
   --app-font-body:
     'Segoe UI', 'Helvetica Neue', Arial, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --motion-fast: 160ms;
+  --motion-medium: 320ms;
+  --motion-slow: 560ms;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html,
@@ -8,10 +12,109 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   color: #10231a;
   font-family: var(--app-font-body);
+  background: #0f1f14;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(117, 189, 145, 0.55);
+  outline-offset: 3px;
+}
+
+.btn {
+  transition:
+    transform var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+@media (hover: hover) {
+  .btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.65rem 1.25rem rgba(8, 30, 17, 0.16);
+  }
+}
+
+.btn:not(:disabled):active {
+  transform: translateY(0) scale(0.97);
+}
+
+.is-reveal-ready {
+  opacity: 0;
+  transform: translateY(1.35rem);
+}
+
+.is-reveal-ready.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  animation: app-reveal var(--motion-slow) var(--motion-ease-out) var(--reveal-delay, 0ms) backwards;
+}
+
+.motion-card {
+  transition:
+    transform var(--motion-medium) var(--motion-ease-out),
+    box-shadow var(--motion-medium) ease,
+    border-color var(--motion-fast) ease;
+}
+
+.motion-card img {
+  transition: transform 700ms var(--motion-ease-out);
+}
+
+@media (hover: hover) {
+  .motion-card:hover,
+  .motion-card:focus-within {
+    transform: translateY(-0.45rem);
+    box-shadow: 0 1.5rem 3rem rgba(7, 24, 13, 0.24) !important;
+  }
+
+  .motion-card:hover img,
+  .motion-card:focus-within img {
+    transform: scale(1.045);
+  }
+}
+
+.motion-surface {
+  transition:
+    transform var(--motion-medium) var(--motion-ease-out),
+    box-shadow var(--motion-medium) ease;
+}
+
+.quote-panel,
+.commercial-detail,
+.specification-row,
+.packing-table tbody tr {
+  transition:
+    transform var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease;
+}
+
+@media (hover: hover) {
+  .quote-panel:hover {
+    border-color: rgba(25, 135, 84, 0.38) !important;
+    box-shadow: 0 1rem 2rem rgba(8, 30, 17, 0.1);
+  }
+
+  .commercial-detail:hover,
+  .specification-row:hover {
+    background-color: rgba(25, 135, 84, 0.055);
+    transform: translateY(-2px);
+  }
+
+  .packing-table tbody tr:hover {
+    transform: scale(1.008);
+  }
 }
 
 .app-contact-dialog-panel .cdk-dialog-container {
@@ -22,15 +125,34 @@ body {
   overflow-y: auto;
 }
 
+.app-contact-dialog-panel .modal-content {
+  transform-origin: center top;
+  animation: app-dialog-enter 380ms var(--motion-ease-out) both;
+}
+
 .app-contact-dialog-backdrop {
   background: rgba(9, 19, 13, 0.5);
   backdrop-filter: blur(4px);
+  animation: app-backdrop-enter 240ms ease-out both;
 }
 
 .app-contact-dialog-panel .form-control:focus,
 .app-contact-dialog-panel .form-select:focus {
   border-color: #75bd91;
   box-shadow: 0 0 0 0.25rem rgba(16, 141, 68, 0.18);
+}
+
+.app-contact-dialog-panel .form-control,
+.app-contact-dialog-panel .form-select {
+  transition:
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    background-color var(--motion-fast) ease;
+}
+
+.app-contact-dialog-panel .invalid-feedback,
+.app-contact-dialog-panel .alert {
+  animation: app-feedback-enter 240ms var(--motion-ease-out) both;
 }
 
 ::view-transition-old(root),
@@ -64,7 +186,92 @@ body {
   }
 }
 
+@keyframes app-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes app-dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes app-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes app-feedback-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn,
+  .motion-card,
+  .motion-card img,
+  .motion-surface,
+  .quote-panel,
+  .commercial-detail,
+  .specification-row,
+  .packing-table tbody tr,
+  .app-contact-dialog-panel .form-control,
+  .app-contact-dialog-panel .form-select {
+    transition-duration: 0.01ms !important;
+  }
+
+  .is-reveal-ready {
+    opacity: 1;
+    transform: none;
+  }
+
+  .is-reveal-ready.is-revealed,
+  .app-contact-dialog-panel .modal-content,
+  .app-contact-dialog-backdrop,
+  .app-contact-dialog-panel .invalid-feedback,
+  .app-contact-dialog-panel .alert,
+  .hero-panel,
+  .hero-slide-copy,
+  .carousel-indicator.is-active.is-playing::after {
+    animation: none;
+  }
+
+  .carousel-image,
+  .carousel-arrow,
+  .carousel-play {
+    transition-duration: 0.01ms !important;
+  }
+
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;

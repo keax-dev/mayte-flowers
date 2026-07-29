@@ -1,11 +1,11 @@
 import { SeoCategory, SeoProduct, StructuredData } from '@core/seo/seo.models';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { buildAbsoluteUrl } from '@core/config/url.utils';
-import { AppConfig } from '@core/config/app-config.model';
+import { SeoConfig } from '@core/config/app-config.model';
 
 export function buildBreadcrumbSchema(
   root: ActivatedRouteSnapshot,
-  config: AppConfig,
+  config: SeoConfig,
 ): StructuredData {
   const itemListElement: StructuredData[] = [
     {

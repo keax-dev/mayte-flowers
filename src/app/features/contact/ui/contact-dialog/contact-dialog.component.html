@@ -261,7 +261,12 @@
         class="btn btn-success px-5"
         type="submit"
       >
-        {{ isSubmitting() ? 'Sending...' : 'Send' }}
+        @if (isSubmitting()) {
+          <span aria-hidden="true" class="spinner-border spinner-border-sm me-2"></span>
+          Sending...
+        } @else {
+          Send
+        }
       </button>
     </div>
   </form>

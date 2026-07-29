@@ -15,3 +15,29 @@ export interface AppConfig {
   readonly tagline: string;
   readonly whatsappUrl: string;
 }
+
+export type AnalyticsConfig = Pick<AppConfig, 'gaMeasurementId' | 'siteUrl'>;
+
+export type BrandConfig = Pick<
+  AppConfig,
+  'logo' | 'name' | 'openingHours' | 'salesFocus' | 'tagline'
+>;
+
+export type ContactConfig = Pick<
+  AppConfig,
+  'contactEmail' | 'mapUrl' | 'phoneDisplay' | 'phoneHref' | 'quoteResponsePromise' | 'whatsappUrl'
+>;
+
+export type SeoConfig = Pick<
+  AppConfig,
+  | 'contactEmail'
+  | 'defaultDescription'
+  | 'defaultOgImage'
+  | 'logo'
+  | 'mapUrl'
+  | 'name'
+  | 'phoneDisplay'
+  | 'phoneHref'
+  | 'siteUrl'
+  | 'whatsappUrl'
+>;

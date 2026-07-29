@@ -6,9 +6,11 @@ import { ProductQuotePanelComponent } from '@features/catalogue/ui/product-quote
 import { ContactDialogService } from '@features/contact';
 import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
+import { RevealOnScrollDirective } from '@shared/ui/reveal-on-scroll/reveal-on-scroll.directive';
 import { buildWhatsappUrl } from '@core/config/url.utils';
 import { AnalyticsService } from '@core/analytics/analytics.service';
-import { APP_CONFIG } from '@core/config/app-config.token';
+import { CONTACT_CONFIG } from '@core/config/app-config.token';
+import { createSocialLinks } from '@core/config/social-links.config';
 import { Location } from '@angular/common';
 import {
   ProductCommercialDetailsComponent,
@@ -25,6 +27,7 @@ import {
     ProductQuotePanelComponent,
     SocialLinksComponent,
     AppIconComponent,
+    RevealOnScrollDirective,
   ],
   templateUrl: './catalogue-product-page.component.html',
   styleUrl: './catalogue-product-page.component.css',
@@ -34,11 +37,12 @@ export class CatalogueProductPageComponent {
   private readonly contactDialog = inject(ContactDialogService);
   private readonly analytics = inject(AnalyticsService);
   private readonly location = inject(Location);
-  private readonly config = inject(APP_CONFIG);
+  private readonly config = inject(CONTACT_CONFIG);
 
   readonly categoryData = input<CatalogueCategory | null>(null);
   readonly productData = input<CatalogueProduct | null>(null);
   readonly category = input('');
+  readonly socialLinks = createSocialLinks(this.config);
 
   readonly commercialHighlights = computed<readonly CommercialHighlight[]>(() => {
     const product = this.productData();

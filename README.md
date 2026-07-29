@@ -62,6 +62,8 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 - `features` concentra dominios de negocio como `home`, `about`, `catalogue` y `contact`.
 - `shared` contiene piezas de UI reutilizables y presentacionales.
 - El feature de contacto expone una API publica pequena mediante `features/contact/index.ts`, lo que desacopla a los consumidores de la estructura interna.
+- Los features separan contratos de aplicacion, adaptadores de infraestructura y componentes de presentacion.
+- Un chequeo automatico impide dependencias invertidas, accesos profundos entre features y ciclos.
 
 ### Routing Y Estrategia De Carga
 
@@ -93,8 +95,8 @@ Este proyecto fue orientado intencionalmente para mostrar habilidades frontend p
 
 ### Datos Y Estado
 
-- Configuracion tipada mediante un token global de app
-- Carga del catalogo desde JSON a traves de una capa repository
+- Configuracion tipada mediante contratos enfocados para branding, contacto, analitica y SEO
+- Carga del catalogo mediante un data source intercambiable, mappers puros y una capa repository
 - Estado explicito de error de carga en lugar de fallar silenciosamente
 - Uso de Signals donde el estado local de UI lo hace conveniente
 
@@ -126,12 +128,15 @@ src/app
 |   |-- about
 |   |   `-- data
 |   |-- catalogue
+|   |   |-- application
 |   |   |-- data-access
 |   |   |-- models
 |   |   |-- pages
 |   |   |-- routes
 |   |   `-- ui
 |   |-- contact
+|   |   |-- application
+|   |   |-- data-access
 |   |   |-- models
 |   |   |-- services
 |   |   `-- ui
@@ -149,6 +154,7 @@ El proyecto incluye:
 - Pruebas end-to-end con Playwright para bootstrap, navegacion critica y envio del modal de contacto
 - Umbrales minimos de cobertura para statements, branches, functions y lines
 - Script `typecheck` para validar tipos de Angular y templates
+- Script `architecture:check` para validar limites de capas, APIs publicas entre features y ciclos
 - Verificacion de build de produccion
 - Verificacion explicita de salida prerenderizada en CI mediante `prerendered-routes.json` y rutas HTML clave
 
@@ -159,10 +165,12 @@ Scripts disponibles:
 ```bash
 npm install
 npm start
+npm run validate
 npm run build
 npm test
 npm run test:ci
 npm run lint
+npm run architecture:check
 npm run lint:fix
 npm run format
 npm run format:check
@@ -170,6 +178,10 @@ npm run typecheck
 npm run e2e
 npm run e2e:ci
 ```
+
+`npm run validate` ejecuta en secuencia la auditoria de dependencias de produccion, formato,
+lint y limites arquitectonicos, typecheck, pruebas unitarias con cobertura, build,
+verificacion del prerender y pruebas end-to-end.
 
 ## Flujo De Ramas Y CI/CD
 

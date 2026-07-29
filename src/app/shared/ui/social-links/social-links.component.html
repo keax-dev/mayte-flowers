@@ -4,7 +4,7 @@
   class="nav justify-content-center gap-2 p-0"
   aria-label="Social media and contact links"
 >
-  @for (link of links; track link.label) {
+  @for (link of links(); track link.label) {
     <li class="nav-item">
       <a
         (click)="trackClick(link.label)"
@@ -16,7 +16,7 @@
         [attr.target]="link.openInNewTab ? '_blank' : null"
         [attr.rel]="link.openInNewTab ? 'noopener noreferrer' : null"
         [href]="link.href"
-        class="btn rounded-circle d-inline-flex align-items-center justify-content-center p-3 shadow-sm"
+        class="social-link btn rounded-circle d-inline-flex align-items-center justify-content-center p-3 shadow-sm"
       >
         <app-icon
           [decorative]="true"

@@ -1,9 +1,9 @@
 import { PrerenderFallback, RenderMode, ServerRoute } from '@angular/ssr';
 import { CatalogueCategory } from '@features/catalogue/models/catalogue.models';
-import { toRouteSlug } from '@features/catalogue/models/catalogue-slug.utils';
+import { normalizeCatalogue } from '@features/catalogue/data-access/catalogue.mapper';
 import catalogueData from '../assets/data/catalogue.json';
 
-const catalogueCategories = catalogueData as readonly CatalogueCategory[];
+const catalogueCategories = normalizeCatalogue(catalogueData as readonly CatalogueCategory[]);
 
 export const serverRoutes: ServerRoute[] = [
   {
@@ -28,7 +28,7 @@ export const serverRoutes: ServerRoute[] = [
     fallback: PrerenderFallback.Client,
     async getPrerenderParams() {
       return catalogueCategories.map((category) => ({
-        category: category.routeSlug ?? toRouteSlug(category.slug),
+        category: category.routeSlug ?? category.slug,
       }));
     },
   },
@@ -39,8 +39,8 @@ export const serverRoutes: ServerRoute[] = [
     async getPrerenderParams() {
       return catalogueCategories.flatMap((category) =>
         category.products.map((product) => ({
-          category: category.routeSlug ?? toRouteSlug(category.slug),
-          product: product.routeSlug ?? toRouteSlug(product.slug),
+          category: category.routeSlug ?? category.slug,
+          product: product.routeSlug ?? product.slug,
         })),
       );
     },

@@ -3,22 +3,36 @@
     <div class="hero-panel row g-4 align-items-center rounded-5 p-3 p-md-4 p-xl-5 shadow-lg">
       <div class="col-12 col-lg-7">
         <div class="carousel-stage ratio ratio-4x3 overflow-hidden rounded-4 position-relative">
-          <img
-            [src]="currentSlide().image"
-            [alt]="currentSlide().title"
-            fetchpriority="high"
-            decoding="async"
-            class="h-100 w-100 object-fit-cover"
-          />
+          @for (slide of slides; track slide.image; let index = $index) {
+            <img
+              [src]="slide.image"
+              [alt]="index === activeIndex() ? slide.title : ''"
+              [attr.aria-hidden]="index === activeIndex() ? null : 'true'"
+              [attr.fetchpriority]="index === 0 ? 'high' : null"
+              [attr.loading]="index === 0 ? null : 'lazy'"
+              [class.is-active]="index === activeIndex()"
+              decoding="async"
+              class="carousel-image h-100 w-100 object-fit-cover"
+            />
+          }
         </div>
       </div>
 
       <header class="col-12 col-lg-5 text-light hero-copy">
         <span class="hero-kicker badge rounded-pill px-3 py-2 mb-3">Premium flowers</span>
-        <h1 id="home-hero-title" class="display-3 fw-bold hero-title">
-          {{ currentSlide().title }}
-        </h1>
-        <p class="lead lh-lg">{{ currentSlide().description }}</p>
+
+        <div [attr.aria-live]="isAutoRotating() ? 'off' : 'polite'">
+          @for (slide of slides; track slide.image; let index = $index) {
+            @if (index === activeIndex()) {
+              <div class="hero-slide-copy">
+                <h1 id="home-hero-title" class="display-3 fw-bold hero-title">
+                  {{ slide.title }}
+                </h1>
+                <p class="lead lh-lg">{{ slide.description }}</p>
+              </div>
+            }
+          }
+        </div>
 
         <div class="hero-highlight rounded-4 p-3 p-md-4 mb-4">
           <p class="text-uppercase small fw-semibold text-success mb-2">Commercial focus</p>
@@ -78,6 +92,7 @@
                   [attr.aria-current]="index === activeIndex() ? 'true' : null"
                   [attr.aria-label]="'Slide ' + (index + 1)"
                   [class.is-active]="index === activeIndex()"
+                  [class.is-playing]="isAutoRotating()"
                   [title]="slide.title"
                   class="carousel-indicator btn border-0 rounded-pill px-3 py-2"
                   type="button"

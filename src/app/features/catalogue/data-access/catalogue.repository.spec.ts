@@ -1,8 +1,8 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { CatalogueRepository } from '@features/catalogue/data-access/catalogue.repository';
+import { CatalogueDataSource } from '@features/catalogue/data-access/catalogue.data-source';
+import { JsonCatalogueDataSource } from '@features/catalogue/data-access/json-catalogue.data-source';
 import { provideHttpClient } from '@angular/common/http';
-import { TEST_APP_CONFIG } from '@app/testing/test-app-config';
-import { APP_CONFIG } from '@core/config/app-config.token';
 import { TestBed } from '@angular/core/testing';
 
 describe('CatalogueRepository', () => {
@@ -55,7 +55,7 @@ describe('CatalogueRepository', () => {
     TestBed.configureTestingModule({
       providers: [
         CatalogueRepository,
-        { provide: APP_CONFIG, useValue: TEST_APP_CONFIG },
+        { provide: CatalogueDataSource, useClass: JsonCatalogueDataSource },
         provideHttpClient(),
         provideHttpClientTesting(),
       ],

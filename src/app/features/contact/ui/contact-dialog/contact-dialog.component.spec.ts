@@ -21,12 +21,6 @@ describe('ContactDialogComponent', () => {
       providers: [
         { provide: APP_CONFIG, useValue: TEST_APP_CONFIG },
         {
-          provide: ContactSubmissionService,
-          useValue: {
-            submit: submitSpy,
-          },
-        },
-        {
           provide: AnalyticsService,
           useValue: {
             trackEvent: jasmine.createSpy('trackEvent'),
@@ -39,7 +33,20 @@ describe('ContactDialogComponent', () => {
           },
         },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ContactDialogComponent, {
+        set: {
+          providers: [
+            {
+              provide: ContactSubmissionService,
+              useValue: {
+                submit: submitSpy,
+              },
+            },
+          ],
+        },
+      })
+      .compileComponents();
 
     // Creamos el componente y dejamos el formulario/render listo para probar.
     fixture = TestBed.createComponent(ContactDialogComponent);

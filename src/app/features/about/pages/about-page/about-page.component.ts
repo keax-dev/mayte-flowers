@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContactDialogService } from '@features/contact';
 import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
+import { RevealOnScrollDirective } from '@shared/ui/reveal-on-scroll/reveal-on-scroll.directive';
 import { AnalyticsService } from '@core/analytics/analytics.service';
-import { APP_CONFIG } from '@core/config/app-config.token';
+import { BRAND_CONFIG, CONTACT_CONFIG } from '@core/config/app-config.token';
+import { createSocialLinks } from '@core/config/social-links.config';
 import {
   TRUST_HIGHLIGHTS,
   BUYER_CHECKLIST,
@@ -12,7 +14,7 @@ import {
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [SocialLinksComponent],
+  imports: [SocialLinksComponent, RevealOnScrollDirective],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +26,8 @@ export class AboutPageComponent {
   readonly trustHighlights = TRUST_HIGHLIGHTS;
   readonly buyerChecklist = BUYER_CHECKLIST;
   readonly buyerPromises = BUYER_PROMISES;
-  readonly company = inject(APP_CONFIG);
+  readonly company = inject(BRAND_CONFIG);
+  readonly socialLinks = createSocialLinks(inject(CONTACT_CONFIG));
 
   openContact(): void {
     void this.contactDialog.open({
