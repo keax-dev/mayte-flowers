@@ -8,6 +8,7 @@ import { APP_CONFIG } from '@core/config/app-config.token';
   standalone: true,
   imports: [AppIconComponent],
   templateUrl: './social-links.component.html',
+  styleUrl: './social-links.component.css',
   host: { class: 'd-block' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

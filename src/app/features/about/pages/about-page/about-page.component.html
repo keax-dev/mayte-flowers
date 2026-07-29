@@ -1,6 +1,7 @@
 <main class="about-page py-5">
   <section class="container" aria-labelledby="about-title">
     <header
+      [appRevealOnScroll]="0"
       class="d-flex flex-column align-items-center justify-content-center text-center text-light py-5"
     >
       <img
@@ -10,7 +11,7 @@
         decoding="async"
         height="220"
         width="220"
-        class="rounded-circle border border-3 border-white shadow-lg object-fit-cover mb-4"
+        class="about-logo rounded-circle border border-3 border-white shadow-lg object-fit-cover mb-4"
       />
 
       <h1 id="about-title" class="display-4 fw-bold">{{ company.name }}</h1>
@@ -29,7 +30,8 @@
     </header>
 
     <section
-      class="bg-white rounded-5 shadow-lg p-4 p-md-5 mt-4"
+      [appRevealOnScroll]="80"
+      class="motion-surface bg-white rounded-5 shadow-lg p-4 p-md-5 mt-4"
       aria-labelledby="about-trust-title"
     >
       <header class="mb-4">
@@ -44,9 +46,12 @@
       </header>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3">
-        @for (highlight of trustHighlights; track highlight.label) {
+        @for (highlight of trustHighlights; track highlight.label; let index = $index) {
           <div class="col">
-            <article class="h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm">
+            <article
+              [appRevealOnScroll]="index * 60"
+              class="motion-card h-100 bg-body-tertiary border rounded-4 p-4 shadow-sm"
+            >
               <p class="text-body-secondary fw-bold text-uppercase small mb-2">
                 {{ highlight.label }}
               </p>
@@ -60,9 +65,12 @@
       </div>
 
       <div class="row row-cols-1 row-cols-lg-3 g-3 mt-3">
-        @for (promise of buyerPromises; track promise.title) {
+        @for (promise of buyerPromises; track promise.title; let index = $index) {
           <div class="col">
-            <article class="h-100 border rounded-4 p-4 shadow-sm">
+            <article
+              [appRevealOnScroll]="index * 70"
+              class="motion-card h-100 border rounded-4 p-4 shadow-sm"
+            >
               <h3 class="h5 fw-bold">{{ promise.title }}</h3>
               <p class="lh-lg mb-0">{{ promise.description }}</p>
             </article>
@@ -74,9 +82,12 @@
         <h3 id="buyer-checklist-title" class="h4 fw-bold mb-3">What to include in your request</h3>
 
         <div class="row row-cols-1 row-cols-md-2 g-3">
-          @for (item of buyerChecklist; track item.title) {
+          @for (item of buyerChecklist; track item.title; let index = $index) {
             <div class="col">
-              <article class="h-100 bg-body-tertiary border rounded-4 p-4">
+              <article
+                [appRevealOnScroll]="index * 70"
+                class="motion-card h-100 bg-body-tertiary border rounded-4 p-4"
+              >
                 <h4 class="h6 fw-bold">{{ item.title }}</h4>
                 <p class="lh-lg mb-0">{{ item.description }}</p>
               </article>

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { CatalogueCategory } from '@features/catalogue/models/catalogue.models';
 import { AnalyticsService } from '@core/analytics/analytics.service';
+import { RevealOnScrollDirective } from '@shared/ui/reveal-on-scroll/reveal-on-scroll.directive';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-catalogue-category-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, RevealOnScrollDirective],
   templateUrl: './catalogue-category-page.component.html',
   styleUrl: './catalogue-category-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

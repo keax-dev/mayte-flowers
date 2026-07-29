@@ -6,6 +6,7 @@ import { ProductQuotePanelComponent } from '@features/catalogue/ui/product-quote
 import { ContactDialogService } from '@features/contact';
 import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
 import { AppIconComponent } from '@shared/ui/app-icon/app-icon.component';
+import { RevealOnScrollDirective } from '@shared/ui/reveal-on-scroll/reveal-on-scroll.directive';
 import { buildWhatsappUrl } from '@core/config/url.utils';
 import { AnalyticsService } from '@core/analytics/analytics.service';
 import { APP_CONFIG } from '@core/config/app-config.token';
@@ -25,6 +26,7 @@ import {
     ProductQuotePanelComponent,
     SocialLinksComponent,
     AppIconComponent,
+    RevealOnScrollDirective,
   ],
   templateUrl: './catalogue-product-page.component.html',
   styleUrl: './catalogue-product-page.component.css',

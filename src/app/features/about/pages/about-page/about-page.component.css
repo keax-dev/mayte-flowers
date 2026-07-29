@@ -4,3 +4,22 @@
     linear-gradient(90deg, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.4) 75%),
     url('/assets/2.jpg') top / cover no-repeat;
 }
+
+.about-logo {
+  transition:
+    transform 480ms var(--motion-ease-out),
+    box-shadow 480ms ease;
+}
+
+@media (hover: hover) {
+  .about-logo:hover {
+    transform: rotate(-3deg) scale(1.035);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-logo {
+    transition-duration: 0.01ms;
+  }
+}

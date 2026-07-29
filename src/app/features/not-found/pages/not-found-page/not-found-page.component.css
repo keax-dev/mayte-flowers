@@ -8,3 +8,36 @@
   font-size: clamp(4rem, 12vw, 7rem);
   letter-spacing: 0.08em;
 }
+
+.not-found-panel {
+  animation: not-found-enter 540ms var(--motion-ease-out) both;
+}
+
+.not-found-code {
+  animation: not-found-pulse 900ms 360ms var(--motion-ease-out) both;
+}
+
+@keyframes not-found-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes not-found-pulse {
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-panel,
+  .not-found-code {
+    animation: none;
+  }
+}

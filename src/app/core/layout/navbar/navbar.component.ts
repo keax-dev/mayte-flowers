@@ -8,6 +8,7 @@ import { APP_CONFIG } from '@core/config/app-config.token';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, AppIconComponent],
   templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css',
   host: { class: 'd-block' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

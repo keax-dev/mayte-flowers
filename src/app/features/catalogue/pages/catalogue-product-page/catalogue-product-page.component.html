@@ -1,11 +1,12 @@
 <main class="product-page py-4 py-lg-5">
   @if (productData(); as currentProduct) {
     <article
+      [appRevealOnScroll]="0"
       class="container card border-0 rounded-4 shadow-lg overflow-hidden"
       aria-labelledby="product-title"
     >
       <div class="row g-0">
-        <aside class="col-12 col-lg-4 bg-body-tertiary p-3 p-md-4">
+        <aside class="product-media col-12 col-lg-4 bg-body-tertiary p-3 p-md-4">
           <button
             (click)="goBack()"
             class="btn btn-outline-secondary d-inline-flex align-items-center"
@@ -20,7 +21,7 @@
             [alt]="currentProduct.name"
             fetchpriority="high"
             decoding="async"
-            class="img-fluid rounded-3 d-block mx-auto my-4"
+            class="product-image img-fluid rounded-3 d-block mx-auto my-4"
           />
 
           <div class="d-none d-lg-block mt-3" aria-label="Contact links">
@@ -31,7 +32,11 @@
           </div>
         </aside>
 
-        <section class="col-12 col-lg-8 p-4 p-md-5" aria-labelledby="product-title">
+        <section
+          [appRevealOnScroll]="120"
+          class="col-12 col-lg-8 p-4 p-md-5"
+          aria-labelledby="product-title"
+        >
           <h1 id="product-title" class="display-4 fw-bold">
             {{ currentProduct.name }}
           </h1>

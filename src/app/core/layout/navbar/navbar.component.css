@@ -1,0 +1,99 @@
+.app-navbar {
+  z-index: 1030;
+  background: rgba(248, 249, 250, 0.9) !important;
+  border-bottom: 1px solid rgba(16, 141, 68, 0.1);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.navbar-brand,
+.navbar-logo,
+.app-navbar-toggler app-icon {
+  transition:
+    transform var(--motion-medium) var(--motion-ease-out),
+    opacity var(--motion-fast) ease;
+}
+
+.navbar-brand:hover .navbar-logo {
+  transform: rotate(-4deg) scale(1.06);
+}
+
+.navbar-brand:active {
+  transform: scale(0.98);
+}
+
+.nav-link {
+  position: relative;
+  transition:
+    color var(--motion-fast) ease,
+    transform var(--motion-fast) ease;
+}
+
+.nav-link::after {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.15rem;
+  left: 0.75rem;
+  height: 2px;
+  content: '';
+  background: #198754;
+  border-radius: 999px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--motion-medium) var(--motion-ease-out);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.active {
+  color: #146c43;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.app-navbar-toggler[aria-expanded='true'] app-icon {
+  transform: rotate(90deg);
+}
+
+.navbar-contact {
+  box-shadow: 0 0.45rem 1rem rgba(25, 135, 84, 0.18);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    display: block !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition:
+      max-height 360ms var(--motion-ease-out),
+      opacity 220ms ease,
+      transform 360ms var(--motion-ease-out),
+      visibility 0s linear 360ms;
+  }
+
+  .navbar-collapse.show {
+    max-height: 22rem;
+    padding-block: 0.75rem 0.35rem;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand,
+  .navbar-logo,
+  .nav-link,
+  .nav-link::after,
+  .app-navbar-toggler app-icon,
+  .navbar-collapse {
+    transition-duration: 0.01ms !important;
+  }
+}

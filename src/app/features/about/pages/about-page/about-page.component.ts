@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContactDialogService } from '@features/contact';
 import { SocialLinksComponent } from '@shared/ui/social-links/social-links.component';
+import { RevealOnScrollDirective } from '@shared/ui/reveal-on-scroll/reveal-on-scroll.directive';
 import { AnalyticsService } from '@core/analytics/analytics.service';
 import { APP_CONFIG } from '@core/config/app-config.token';
 import {
@@ -12,7 +13,7 @@ import {
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [SocialLinksComponent],
+  imports: [SocialLinksComponent, RevealOnScrollDirective],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

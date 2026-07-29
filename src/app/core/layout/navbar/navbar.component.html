@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top py-2"
+  class="app-navbar navbar navbar-expand-lg bg-body-tertiary shadow sticky-top py-2"
   aria-label="Primary navigation"
 >
   <div class="container-fluid">
@@ -14,7 +14,7 @@
         fetchpriority="high"
         decoding="async"
         height="50"
-        class="rounded-circle border border-3 border-white object-fit-cover"
+        class="navbar-logo rounded-circle border border-3 border-white object-fit-cover"
         width="50"
       />
       <span class="fw-bold fs-5 text-success">{{ company.name }}</span>
@@ -25,7 +25,7 @@
       [attr.aria-expanded]="isMenuOpen()"
       aria-controls="navbarNavigation"
       aria-label="Toggle navigation"
-      class="navbar-toggler"
+      class="app-navbar-toggler navbar-toggler"
       type="button"
     >
       <app-icon [decorative]="true" [name]="isMenuOpen() ? 'close' : 'menu'" [size]="24"></app-icon>
@@ -74,7 +74,9 @@
       </ul>
 
       <div class="d-grid">
-        <button (click)="openContact()" class="btn btn-success px-4" type="button">Contact</button>
+        <button (click)="openContact()" class="navbar-contact btn btn-success px-4" type="button">
+          Contact
+        </button>
       </div>
     </div>
   </div>
