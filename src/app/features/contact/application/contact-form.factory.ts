@@ -4,12 +4,7 @@ import {
   ContactInquiryType,
 } from '@features/contact/models/contact-dialog.models';
 import { Injectable, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 const MESSAGE_MAX_LENGTH = 2000;
 const EMAIL_MAX_LENGTH = 254;
@@ -45,10 +40,7 @@ export class ContactFormFactory {
       ],
       companyName: ['', Validators.maxLength(TEXT_MAX_LENGTH)],
       country: [data?.country ?? '', Validators.maxLength(TEXT_MAX_LENGTH)],
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.maxLength(EMAIL_MAX_LENGTH)],
-      ],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(EMAIL_MAX_LENGTH)]],
       flowerType: [data?.flowerType ?? '', Validators.maxLength(TEXT_MAX_LENGTH)],
       fullName: ['', [Validators.required, Validators.maxLength(TEXT_MAX_LENGTH)]],
       inquiryType: this.formBuilder.control<ContactInquiryType>(data?.inquiryType ?? 'general'),

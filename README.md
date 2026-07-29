@@ -165,6 +165,7 @@ Scripts disponibles:
 ```bash
 npm install
 npm start
+npm run validate
 npm run build
 npm test
 npm run test:ci
@@ -177,6 +178,10 @@ npm run typecheck
 npm run e2e
 npm run e2e:ci
 ```
+
+`npm run validate` ejecuta en secuencia la auditoria de dependencias de produccion, formato,
+lint y limites arquitectonicos, typecheck, pruebas unitarias con cobertura, build,
+verificacion del prerender y pruebas end-to-end.
 
 ## Flujo De Ramas Y CI/CD
 

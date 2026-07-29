@@ -165,6 +165,7 @@ Available scripts:
 ```bash
 npm install
 npm start
+npm run validate
 npm run build
 npm test
 npm run test:ci
@@ -177,6 +178,10 @@ npm run typecheck
 npm run e2e
 npm run e2e:ci
 ```
+
+`npm run validate` sequentially runs the production dependency audit, formatting check,
+lint and architecture boundaries, typecheck, unit tests with coverage, production build,
+prerender verification, and end-to-end tests.
 
 ## Branching Strategy and CI/CD
 
