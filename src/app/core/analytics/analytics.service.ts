@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, startWith } from 'rxjs/operators';
 import { buildAbsoluteUrl } from '@core/config/url.utils';
-import { APP_CONFIG } from '@core/config/app-config.token';
+import { ANALYTICS_CONFIG } from '@core/config/app-config.token';
 
 declare global {
   interface Window {
@@ -18,7 +18,7 @@ export class AnalyticsService {
   private readonly destroyRef = inject(DestroyRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly document = inject(DOCUMENT);
-  private readonly config = inject(APP_CONFIG);
+  private readonly config = inject(ANALYTICS_CONFIG);
   private readonly router = inject(Router);
 
   isInitialized = false;

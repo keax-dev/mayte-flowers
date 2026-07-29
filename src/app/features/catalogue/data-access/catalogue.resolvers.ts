@@ -1,20 +1,29 @@
 import { RedirectCommand, ResolveFn, Router } from '@angular/router';
-import { CatalogueRepository } from '@features/catalogue/data-access/catalogue.repository';
+import { CatalogueReader } from '@features/catalogue/application/catalogue-reader';
+import { CatalogueMetadataService } from '@features/catalogue/application/catalogue-metadata.service';
 import { inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {
-  CatalogueCategoryCard,
+  CataloguePageData,
   CatalogueCategory,
   CatalogueProduct,
 } from '@features/catalogue/models/catalogue.models';
 
-export const catalogueCardsResolver: ResolveFn<readonly CatalogueCategoryCard[]> = () =>
-  inject(CatalogueRepository).getCategoryCards$();
+export const cataloguePageResolver: ResolveFn<CataloguePageData> = () => {
+  const catalogue = inject(CatalogueReader);
+
+  return catalogue.getCategoryCards$().pipe(
+    map((cards) => ({
+      cards,
+      loadError: catalogue.hasLoadError(),
+    })),
+  );
+};
 
 export const catalogueCategoryResolver: ResolveFn<CatalogueCategory | RedirectCommand> = (
   route,
 ) => {
-  const repository = inject(CatalogueRepository);
+  const repository = inject(CatalogueReader);
   const router = inject(Router);
 
   return repository
@@ -23,7 +32,7 @@ export const catalogueCategoryResolver: ResolveFn<CatalogueCategory | RedirectCo
 };
 
 export const catalogueProductResolver: ResolveFn<CatalogueProduct | RedirectCommand> = (route) => {
-  const repository = inject(CatalogueRepository);
+  const repository = inject(CatalogueReader);
   const router = inject(Router);
 
   return repository
@@ -32,19 +41,19 @@ export const catalogueProductResolver: ResolveFn<CatalogueProduct | RedirectComm
 };
 
 export const catalogueCategoryTitleResolver: ResolveFn<string> = (route) =>
-  inject(CatalogueRepository).getCategoryTitle$(route.paramMap.get('category') ?? '');
+  inject(CatalogueMetadataService).getCategoryTitle$(route.paramMap.get('category') ?? '');
 
 export const catalogueProductTitleResolver: ResolveFn<string> = (route) =>
-  inject(CatalogueRepository).getProductTitle$(
+  inject(CatalogueMetadataService).getProductTitle$(
     route.paramMap.get('category') ?? '',
     route.paramMap.get('product') ?? '',
   );
 
 export const catalogueCategoryDescriptionResolver: ResolveFn<string> = (route) =>
-  inject(CatalogueRepository).getCategoryDescription$(route.paramMap.get('category') ?? '');
+  inject(CatalogueMetadataService).getCategoryDescription$(route.paramMap.get('category') ?? '');
 
 export const catalogueProductDescriptionResolver: ResolveFn<string> = (route) =>
-  inject(CatalogueRepository).getProductDescription$(
+  inject(CatalogueMetadataService).getProductDescription$(
     route.paramMap.get('category') ?? '',
     route.paramMap.get('product') ?? '',
   );

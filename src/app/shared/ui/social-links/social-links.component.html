@@ -4,7 +4,7 @@
   class="nav justify-content-center gap-2 p-0"
   aria-label="Social media and contact links"
 >
-  @for (link of links; track link.label) {
+  @for (link of links(); track link.label) {
     <li class="nav-item">
       <a
         (click)="trackClick(link.label)"

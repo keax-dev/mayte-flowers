@@ -43,3 +43,8 @@ export interface CatalogueCategoryCard {
   summary?: string;
   slug: string;
 }
+
+export interface CataloguePageData {
+  cards: readonly CatalogueCategoryCard[];
+  loadError: boolean;
+}

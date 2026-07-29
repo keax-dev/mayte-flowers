@@ -1,13 +1,9 @@
 import { AppConfig } from '@core/config/app-config.model';
+import { SocialLink } from '@shared/ui/social-links/social-link.model';
 
-export interface SocialLinkConfig {
-  readonly label: string;
-  readonly href: string;
-  readonly icon: 'instagram' | 'location' | 'phone' | 'whatsapp';
-  readonly openInNewTab?: boolean;
-}
+type SocialLinksConfig = Pick<AppConfig, 'mapUrl' | 'phoneHref' | 'whatsappUrl'>;
 
-export function createSocialLinks(config: AppConfig): readonly SocialLinkConfig[] {
+export function createSocialLinks(config: SocialLinksConfig): readonly SocialLink[] {
   return [
     {
       label: 'Instagram',

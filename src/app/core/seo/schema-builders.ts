@@ -1,10 +1,10 @@
 import { SeoCategory, SeoProduct, StructuredData } from '@core/seo/seo.models';
 import { createSocialLinks } from '@core/config/social-links.config';
 import { buildAbsoluteUrl } from '@core/config/url.utils';
-import { AppConfig } from '@core/config/app-config.model';
+import { SeoConfig } from '@core/config/app-config.model';
 
 export function buildCollectionSchema(
-  config: AppConfig,
+  config: SeoConfig,
   category: SeoCategory,
   description: string,
   pageUrl: string,
@@ -31,7 +31,7 @@ export function buildCollectionSchema(
   };
 }
 
-export function buildOrganizationSchema(config: AppConfig): StructuredData {
+export function buildOrganizationSchema(config: SeoConfig): StructuredData {
   return {
     '@type': 'Organization',
     name: config.name,
@@ -57,7 +57,7 @@ export function buildOrganizationSchema(config: AppConfig): StructuredData {
 }
 
 export function buildProductSchema(
-  config: AppConfig,
+  config: SeoConfig,
   product: SeoProduct,
   category: SeoCategory | undefined,
   description: string,
@@ -125,7 +125,7 @@ export function buildWebPageSchema(
   };
 }
 
-export function buildWebsiteSchema(config: AppConfig): StructuredData {
+export function buildWebsiteSchema(config: SeoConfig): StructuredData {
   return {
     '@type': 'WebSite',
     name: config.name,

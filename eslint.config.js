@@ -44,4 +44,36 @@ module.exports = defineConfig([
     ],
     rules: {},
   },
+  {
+    files: ['src/app/shared/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@core/*', '@features/*', '@app/core/*', '@app/features/*'],
+              message: 'Shared code must not depend on core or feature code.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/app/core/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@features/*', '@app/features/*'],
+              message: 'Core code must not depend on feature code.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);

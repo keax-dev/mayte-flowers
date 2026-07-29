@@ -62,6 +62,8 @@ This project was intentionally oriented to showcase practical frontend skills th
 - `features` owns business domains such as `home`, `about`, `catalogue`, and `contact`.
 - `shared` contains reusable presentational UI pieces.
 - The contact feature exposes a small public API through `features/contact/index.ts`, which keeps consumers decoupled from internal folders.
+- Features separate application contracts, infrastructure adapters, and presentation components.
+- An automated check prevents inverted layer dependencies, deep cross-feature imports, and cycles.
 
 ### Routing and Loading Strategy
 
@@ -93,8 +95,8 @@ This project was intentionally oriented to showcase practical frontend skills th
 
 ### Data and State Handling
 
-- typed configuration through an app-level config token
-- catalogue data loaded from JSON through a repository layer
+- typed configuration through focused branding, contact, analytics, and SEO contracts
+- catalogue data loaded through a replaceable data source, pure mappers, and a repository layer
 - explicit load error state instead of silently failing into empty UI
 - Signals used where local UI state is a good fit
 
@@ -126,12 +128,15 @@ src/app
 |   |-- about
 |   |   `-- data
 |   |-- catalogue
+|   |   |-- application
 |   |   |-- data-access
 |   |   |-- models
 |   |   |-- pages
 |   |   |-- routes
 |   |   `-- ui
 |   |-- contact
+|   |   |-- application
+|   |   |-- data-access
 |   |   |-- models
 |   |   |-- services
 |   |   `-- ui
@@ -149,6 +154,7 @@ The project includes:
 - End-to-end Playwright coverage for bootstrap, critical navigation, and contact dialog submission
 - Minimum coverage thresholds for statements, branches, functions, and lines
 - `typecheck` script for Angular and template type validation
+- `architecture:check` script for layer boundaries, cross-feature public APIs, and dependency cycles
 - Production build verification
 - Explicit CI verification of prerendered output through `prerendered-routes.json` and key HTML routes
 
@@ -163,6 +169,7 @@ npm run build
 npm test
 npm run test:ci
 npm run lint
+npm run architecture:check
 npm run lint:fix
 npm run format
 npm run format:check
